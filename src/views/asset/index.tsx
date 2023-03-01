@@ -7,7 +7,7 @@ export const AssetView = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div>All the data about the asset</div>
+      <div>{JSON.stringify(asset)}</div>
 
       <div></div>
     </div>

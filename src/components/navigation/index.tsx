@@ -1,6 +1,6 @@
-import { useGetAsset } from "@/api/asset/useGetAsset";
-import { useGetCompany } from "@/api/company/useGetCompany";
-import { useGetUnit } from "@/api/unit/useGetUnit";
+import { useGetAsset } from "@/api/asset/use-get-asset";
+import { useGetCompany } from "@/api/company/use-get-company";
+import { useGetUnit } from "@/api/unit/use-get-unit";
 import { Routes } from "@/router/routes";
 import { Breadcrumb } from "antd";
 import { Link, useParams } from "react-router-dom";
