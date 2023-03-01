@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 interface Props extends BaseTableProps {
   assets: Asset[];
+  onSelect: (asset: Asset) => void;
 }
 
 type DataTableAsset = Asset & {
@@ -21,84 +22,89 @@ type DataTableAsset = Asset & {
   numberOfAssignedUsers: number;
 };
 
-const columns: ColumnsType<DataTableAsset> = [
-  {
-    title: "Id",
-    dataIndex: "id",
-    key: "id",
-  },
-  {
-    title: "Image",
-    dataIndex: "image",
-    key: "image",
-    render: (image, asset) => (
-      <Image src={image} width={100} alt={asset.name} />
-    ),
-  },
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (name, asset) => (
-      <Link to={Routes.asset(asset.companyId, asset.unitId, asset.id)}>
-        {name}
-      </Link>
-    ),
-  },
-  {
-    title: "Health Score",
-    dataIndex: "healthscore",
-    key: "healthscore",
-  },
-  {
-    title: "Model",
-    dataIndex: "model",
-    key: "model",
-  },
-  {
-    title: "Last Uptime At",
-    dataIndex: "lastUptimeAt",
-    key: "lastUptimeAt",
-    render: (uptime) => dateUtils.formatDistance(uptime),
-  },
-  {
-    title: "Uptime",
-    dataIndex: "totalUptime",
-    key: "totalUptime",
-    // TODO convert to Days
-  },
-  {
-    title: "RPM",
-    dataIndex: "rpm",
-    key: "rpm",
-    render: (rpm) => rpm ?? "Unknown",
-  },
-  {
-    title: "Power",
-    dataIndex: "power",
-    key: "power",
-    render: (power) => power ?? "Unknown",
-  },
-  {
-    title: "Max Temp",
-    dataIndex: "maxTemp",
-    key: "maxTemp",
-  },
-  {
-    title: "Assigned users",
-    dataIndex: "numberOfAssignedUsers",
-    key: "numberOfAssignedUsers",
-  },
-  {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    // TODO convert status to color
-    render: (status) => <Tag color={"green"}>{getAssetStatusName(status)}</Tag>,
-  },
-];
+export const AssetsTable = ({ assets, onSelect, ...props }: Props) => {
+  const columns: ColumnsType<DataTableAsset> = [
+    {
+      title: "Id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (image, asset) => (
+        <Image src={image} width={100} alt={asset.name} />
+      ),
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (name, asset) => (
+        <Link
+          onClick={() => onSelect(asset)}
+          to={Routes.asset(asset.companyId, asset.unitId, asset.id)}
+        >
+          {name}
+        </Link>
+      ),
+    },
+    {
+      title: "Health Score",
+      dataIndex: "healthscore",
+      key: "healthscore",
+    },
+    {
+      title: "Model",
+      dataIndex: "model",
+      key: "model",
+    },
+    {
+      title: "Last Uptime At",
+      dataIndex: "lastUptimeAt",
+      key: "lastUptimeAt",
+      render: (uptime) => dateUtils.formatDistance(uptime),
+    },
+    {
+      title: "Uptime",
+      dataIndex: "totalUptime",
+      key: "totalUptime",
+      // TODO convert to Days
+    },
+    {
+      title: "RPM",
+      dataIndex: "rpm",
+      key: "rpm",
+      render: (rpm) => rpm ?? "Unknown",
+    },
+    {
+      title: "Power",
+      dataIndex: "power",
+      key: "power",
+      render: (power) => power ?? "Unknown",
+    },
+    {
+      title: "Max Temp",
+      dataIndex: "maxTemp",
+      key: "maxTemp",
+    },
+    {
+      title: "Assigned users",
+      dataIndex: "numberOfAssignedUsers",
+      key: "numberOfAssignedUsers",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      // TODO convert status to color
+      render: (status) => (
+        <Tag color={"green"}>{getAssetStatusName(status)}</Tag>
+      ),
+    },
+  ];
 
-export const AssetsTable = ({ assets, ...props }: Props) => {
   const formattedAssets: DataTableAsset[] = useMemo(
     () =>
       assets.map((asset) => ({
