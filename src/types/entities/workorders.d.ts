@@ -1,4 +1,4 @@
-import { WorkOrderStatus } from "../../constants/work-order-status";
+import { WorkOrderStatus } from "@/constants/work-order-status";
 
 type Checklist = {
   completed: boolean;
@@ -6,7 +6,7 @@ type Checklist = {
 };
 
 export type WorkOrder = {
-  assetId: 5;
+  assetId: number;
   assignedUserIds: number[];
   checklist: Checklist[];
   description: string;
