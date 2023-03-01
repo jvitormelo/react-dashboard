@@ -10,29 +10,20 @@ export const AssetInfo = ({ asset }: Props) => {
 
   const baseInfo = [
     {
-      label: "ID",
-      value: asset.id,
-    },
-    {
-      label: "Name",
-      value: asset.name,
-    },
-    {
       label: "Model",
       value: asset.model,
     },
     {
-      label: "Health score",
-      value: asset.healthscore,
-    },
-    {
-      label: "Status",
-      value: asset.status,
+      label: "Sensors",
+      value: asset.sensors.join(", "),
     },
   ];
 
   return (
     <Card>
+      <h1>
+        {asset.id} - {asset.name}
+      </h1>
       <Image src={asset.image} alt={asset.name}></Image>
 
       {baseInfo.map((info, index) => (

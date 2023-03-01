@@ -1,5 +1,6 @@
 import { Card } from "antd";
 import { AssetInfo } from "./components/asset-data";
+import { AssetMetricCard } from "./components/asset-metric-card";
 import { AssetAssignedUsers } from "./components/assigned-users";
 import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
@@ -19,6 +20,7 @@ export const AssetView = () => {
           <span>Status</span>
           <h4>{asset?.status}</h4>
         </Card>
+        <AssetMetricCard metrics={asset?.metrics}></AssetMetricCard>
       </section>
 
       <div
