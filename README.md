@@ -11,4 +11,6 @@ Pages:
 
 /companies/:id/units/:id
 
+/companies/:id/units/:id/assets
+
 /companies/:id/units/:id/workorders

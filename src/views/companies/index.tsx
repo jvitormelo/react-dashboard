@@ -19,6 +19,7 @@ export const CompaniesView = () => {
   };
 
   const editCompany = (company: Company) => {
+    // TODO: Implement edit company
     console.log("Edit company: " + company.name);
   };
 
