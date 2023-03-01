@@ -17,8 +17,6 @@ export const CompanyTable = ({
   isLoading,
   selectCompany,
 }: Props) => {
-  console.log("companies", companies);
-
   const columns: ColumnsType<Company> = [
     {
       title: "Id",
@@ -46,7 +44,12 @@ export const CompanyTable = ({
         <Space size="middle">
           <a>Edit</a>
           <a>Delete</a>
-          <a>Open</a>
+          <Link
+            onClick={() => selectCompany(record)}
+            to={`/companies/${record.id}`}
+          >
+            Open
+          </Link>
         </Space>
       ),
     },
