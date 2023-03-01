@@ -1,10 +1,12 @@
 import { BaseTableProps, DataTable } from "@/components/data-table";
 import { getAssetStatusName } from "@/constants/asset-status";
+import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
 import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 interface Props extends BaseTableProps {
   assets: Asset[];
@@ -37,6 +39,11 @@ const columns: ColumnsType<DataTableAsset> = [
     title: "Name",
     dataIndex: "name",
     key: "name",
+    render: (name, asset) => (
+      <Link to={Routes.asset(asset.companyId, asset.unitId, asset.id)}>
+        {name}
+      </Link>
+    ),
   },
   {
     title: "Health Score",
