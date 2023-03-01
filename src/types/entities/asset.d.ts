@@ -10,6 +10,8 @@ type Metrics = {
 
 type Specifications = {
   maxTemp: number;
+  power?: number;
+  rpm?: number;
 };
 
 export type Asset = {
