@@ -33,13 +33,12 @@ export const CompanyTable = ({
       dataIndex: "name",
       key: "name",
       render: (text, company) => (
-        <div></div>
-        // <Link
-        //   onClick={() => selectCompany(company)}
-        //   to={Routes.company(company.id)}
-        // >
-        //   {text}
-        // </Link>
+        <Link
+          onClick={() => selectCompany(company)}
+          to={Routes.company(company.id)}
+        >
+          {text}
+        </Link>
       ),
     },
 
