@@ -29,6 +29,12 @@ export const CompanyView = () => {
       >
         <AssetsInfo assets={assets} loading={isAssetsLoading} />
         <AssetsStatusPieChart title={title} assets={assets} />
+
+        <div>
+          <h2>Number of users: 10</h2>
+
+          <h2>Unfinisheds workorders: 30</h2>
+        </div>
       </section>
 
       <div style={{ display: "flex", gap: "1rem" }}>

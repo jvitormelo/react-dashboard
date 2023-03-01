@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/data-table";
+import { BaseTableProps, DataTable } from "@/components/data-table";
 import { Unit } from "@/types/entities/unit";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -51,9 +51,8 @@ const columns: ColumnsType<Unit> = [
   },
 ];
 
-interface Props {
+interface Props extends BaseTableProps {
   units?: Unit[];
-  loading: boolean;
 }
 
 export const UnitTable = ({ units, loading }: Props) => {

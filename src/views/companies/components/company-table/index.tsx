@@ -1,15 +1,12 @@
-import { DataTable } from "@/components/data-table";
+import { BaseTableProps, DataTable } from "@/components/data-table";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { Button, Popconfirm, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { ComponentProps } from "react";
 import { Link } from "react-router-dom";
 
-type TableProps = ComponentProps<typeof DataTable>;
-interface Props {
+interface Props extends BaseTableProps {
   companies?: Company[];
-  isLoading: TableProps["loading"];
   selectCompany: (company: Company) => void;
   deleteCompany: (company: Company) => void;
   editCompany: (company: Company) => void;
@@ -17,7 +14,7 @@ interface Props {
 
 export const CompanyTable = ({
   companies,
-  isLoading,
+  loading,
   selectCompany,
   deleteCompany,
   editCompany,
@@ -69,7 +66,7 @@ export const CompanyTable = ({
   return (
     <DataTable<Company>
       dataSource={companies}
-      loading={isLoading}
+      loading={loading}
       columns={columns}
     />
   );

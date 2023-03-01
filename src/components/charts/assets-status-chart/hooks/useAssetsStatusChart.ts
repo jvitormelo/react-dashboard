@@ -1,7 +1,7 @@
 import {
   assetsStatusColorMapper,
-  assetsStatusNameMapper,
   AssetStatus,
+  getAssetStatusName,
 } from "@/constants/asset-status";
 import { Asset } from "@/types/entities/asset";
 
@@ -34,7 +34,7 @@ export const useAssetsStatusChart: Hook = ({ assets }) => {
     if (assetIndex === -1) {
       formattedAssets.push({
         status,
-        name: assetsStatusNameMapper[status],
+        name: getAssetStatusName(status),
         y: 1,
         color: assetsStatusColorMapper[status],
       });

@@ -31,7 +31,7 @@ export const CompaniesView = () => {
         deleteCompany={deleteCompany}
         editCompany={editCompany}
         companies={companies}
-        isLoading={isLoading}
+        loading={isLoading}
       />
     </div>
   );
