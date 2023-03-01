@@ -1,7 +1,6 @@
 import { Asset } from "@/types/entities/asset";
-import Highcharts from "highcharts";
-import { HighchartsReact } from "highcharts-react-official";
 import { memo } from "react";
+import { BaseChart, ChartOptions } from "../base-chart";
 import { useAssetsStatusChart } from "./hooks/useAssetsStatusChart";
 
 interface Props {
@@ -9,10 +8,10 @@ interface Props {
   title: string;
 }
 
-const AssetStatusChartComponent = ({ assets, title }: Props) => {
+export const AssetsStatusPieChart = memo(({ assets, title }: Props) => {
   const { formattedAssets } = useAssetsStatusChart({ assets: assets ?? [] });
 
-  const options: Highcharts.Options = {
+  const options: ChartOptions = {
     chart: {
       type: "pie",
     },
@@ -36,11 +35,5 @@ const AssetStatusChartComponent = ({ assets, title }: Props) => {
     ],
   };
 
-  return (
-    <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
-  );
-};
-
-export const AssetStatusChart = memo(AssetStatusChartComponent);
+  return <BaseChart options={options} />;
+});
