@@ -18,6 +18,26 @@ const columns: ColumnsType<Unit> = [
       <Link to={`/companies/1/units/${unit.id}`}>{text}</Link>
     ),
   },
+  {
+    title: "Number of assets",
+    dataIndex: "numberOfAssets",
+    key: "numberOfAssets",
+  },
+  {
+    title: "Average health score",
+    dataIndex: "averageHealthScore",
+    key: "averageHealthScore",
+  },
+  {
+    title: "Average uptime",
+    dataIndex: "averageUptime",
+    key: "averageUptime",
+  },
+  {
+    title: "Number of Users",
+    dataIndex: "numberOfUsers",
+    key: "numberOfUsers",
+  },
 
   {
     title: "Action",
