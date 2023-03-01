@@ -1,5 +1,5 @@
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
-import { Card, Collapse, Divider, List } from "antd";
+import { Card, Collapse, Divider, List, Tag } from "antd";
 
 interface Props {
   workOrders: WorkOrdersWithUsers[];
@@ -8,48 +8,45 @@ interface Props {
 export const WorkOrderInfo = ({ workOrders }: Props) => {
   return (
     <Card>
-      <List>
-        {/* TODO create component of this */}
-        {workOrders.map((workOrder) => (
-          <List.Item key={workOrder.id}>
-            <Collapse>
-              <Collapse.Panel
-                header={
-                  <div>
-                    {workOrder.priority.toUpperCase()} Priority -{" "}
-                    {workOrder.status} - {workOrder.title}
-                  </div>
-                }
-                key="1"
-              >
-                <p style={{ marginBlock: 0 }}>{workOrder.description}</p>
+      <section>Total: {workOrders.length}</section>
 
-                <Divider />
-                <div>
-                  <h4 style={{ marginBottom: 0 }}>Checklist</h4>
-                  <List>
-                    {workOrder.checklist.map((checklistItem, index) => (
-                      <List.Item key={index}>
-                        <span>
-                          {checklistItem.task}{" "}
-                          {checklistItem.completed ? "✔" : "❌"}
-                        </span>
-                      </List.Item>
-                    ))}
-                  </List>
-                </div>
+      {/* TODO create component of this */}
+      {workOrders.map((workOrder) => (
+        <Collapse key={workOrder.id}>
+          <Collapse.Panel
+            header={
+              <div>
+                <span style={{ marginRight: "1rem" }}>{workOrder.title}</span>
+                <Tag color={"yellow"}>{workOrder.priority.toUpperCase()}</Tag>
+                <Tag>{workOrder.status}</Tag>
+              </div>
+            }
+            key="1"
+          >
+            <p style={{ marginBlock: 0 }}>{workOrder.description}</p>
 
-                <div>
-                  <h4 style={{ marginBottom: 0 }}> Assigned to</h4>
-                  <div>
-                    {workOrder.users.map((user) => user.name).join(", ")}
-                  </div>
-                </div>
-              </Collapse.Panel>
-            </Collapse>
-          </List.Item>
-        ))}
-      </List>
+            <Divider />
+            <div>
+              <h4 style={{ marginBottom: 0 }}>Checklist</h4>
+              <List>
+                {workOrder.checklist.map((checklistItem, index) => (
+                  <List.Item key={index}>
+                    <span>
+                      {checklistItem.task}{" "}
+                      {checklistItem.completed ? "✔" : "❌"}
+                    </span>
+                  </List.Item>
+                ))}
+              </List>
+            </div>
+
+            <div>
+              <h4 style={{ marginBottom: 0 }}> Assigned to</h4>
+              <div>{workOrder.users.map((user) => user.name).join(", ")}</div>
+            </div>
+          </Collapse.Panel>
+        </Collapse>
+      ))}
     </Card>
   );
 };

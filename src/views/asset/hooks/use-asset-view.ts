@@ -15,6 +15,10 @@ export const useAssetView = () => {
   const { data: users, isLoading: isUsersLoadings } =
     useGetUsersByCompany(companyId);
 
+  const assetUsers = users?.filter((user) =>
+    asset?.assignedUserIds.includes(user.id)
+  );
+
   const workOrdersWithUsers: WorkOrdersWithUsers[] =
     workOrders?.map((workOrder) => ({
       ...workOrder,
@@ -28,5 +32,6 @@ export const useAssetView = () => {
     workOrdersWithUsers,
     isAssetLoading,
     isWorkOrdersLoading: isWorkOrdersLoading || isUsersLoadings,
+    assetUsers: assetUsers || [],
   };
 };
