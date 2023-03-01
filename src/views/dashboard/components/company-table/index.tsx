@@ -1,14 +1,18 @@
 import { DataTable } from "@/components/data-table";
 import { Company } from "@/types/entities/company";
+import { ComponentProps } from "react";
 
+type TableProps = ComponentProps<typeof DataTable>;
 interface Props {
-  users: Company[];
+  companies?: Company[];
+  isLoading: TableProps["loading"];
 }
 
-export const CompanyTable = ({ users }: Props) => {
+export const CompanyTable = ({ companies, isLoading }: Props) => {
   return (
     <DataTable
-      dataSource={users}
+      dataSource={companies}
+      loading={isLoading}
       columns={[
         {
           title: "Id",
