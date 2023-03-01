@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { BaseLayout } from "./layouts/base-layout";
 import { CompaniesView } from "./views/companies";
+import { CompanyView } from "./views/company";
 
 // TODO - Need to read about dynamic imports (next do it automatically)
 export const router = createBrowserRouter([
@@ -17,8 +18,14 @@ export const router = createBrowserRouter([
         element: <CompaniesView />,
       },
       {
-        path: "companies/:id",
-        element: <CompaniesView />,
+        path: "companies/:companyId",
+        element: <CompanyView />,
+        children: [
+          {
+            path: "users/:userId",
+            element: <div>Users</div>,
+          },
+        ],
       },
     ],
   },
