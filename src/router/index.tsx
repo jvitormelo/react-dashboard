@@ -26,6 +26,9 @@ export const router = createBrowserRouter([
         path: "companies/:companyId/units/:unitId",
         element: <UnitView />,
       },
+      {
+        path: "companies/:companyId/units/:unitId/assets/:assetId",
+      },
     ],
   },
 ]);

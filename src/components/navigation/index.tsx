@@ -1,3 +1,4 @@
+import { Routes } from "@/router/routes";
 import { useCompanyStore } from "@/store/company";
 import { Breadcrumb } from "antd";
 import { Link, useParams } from "react-router-dom";
@@ -8,7 +9,7 @@ type Item = {
 };
 
 export const Navigation = () => {
-  const { companyId } = useParams();
+  const { companyId, assetId } = useParams();
 
   const { company } = useCompanyStore();
 
@@ -19,7 +20,11 @@ export const Navigation = () => {
     },
     companyId && {
       name: company.name,
-      href: `/companies/${companyId}`,
+      href: Routes.company(companyId),
+    },
+    assetId && {
+      name: "Asset",
+      href: `/companies/${companyId}/units/${assetId}`,
     },
   ].filter(Boolean) as Item[];
 
