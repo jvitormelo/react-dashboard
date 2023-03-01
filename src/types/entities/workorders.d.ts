@@ -15,3 +15,7 @@ export type WorkOrder = {
   status: WorkOrderStatus;
   title: string;
 };
+
+export type WorkOrdersWithUsers = WorkOrder & {
+  users: User[];
+};
