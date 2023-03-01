@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/data-table";
 import { Company } from "@/types/entities/company";
-import { Space } from "antd";
+import { Button, Popconfirm, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { ComponentProps } from "react";
 import { Link } from "react-router-dom";
@@ -10,12 +10,16 @@ interface Props {
   companies?: Company[];
   isLoading: TableProps["loading"];
   selectCompany: (company: Company) => void;
+  deleteCompany: (company: Company) => void;
+  editCompany: (company: Company) => void;
 }
 
 export const CompanyTable = ({
   companies,
   isLoading,
   selectCompany,
+  deleteCompany,
+  editCompany,
 }: Props) => {
   const columns: ColumnsType<Company> = [
     {
@@ -42,14 +46,20 @@ export const CompanyTable = ({
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a>Edit</a>
-          <a>Delete</a>
-          <Link
-            onClick={() => selectCompany(record)}
-            to={`/companies/${record.id}`}
+          <Button onClick={() => editCompany(record)}>Edit</Button>
+
+          <Popconfirm
+            placement="bottomLeft"
+            title={"Delete Company?"}
+            description={`
+              Are you sure you want to delete ${record.name}?
+            `}
+            onConfirm={() => deleteCompany(record)}
+            okText="Yes"
+            cancelText="No"
           >
-            Open
-          </Link>
+            <Button>Delete</Button>
+          </Popconfirm>
         </Space>
       ),
     },
