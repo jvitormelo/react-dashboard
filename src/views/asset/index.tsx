@@ -2,7 +2,7 @@ import { AssetInfo } from "./components/asset-data";
 import { useAssetView } from "./hooks/use-asset-view";
 
 export const AssetView = () => {
-  const { asset, isAssetLoading, workOrdersWithUsers } = useAssetView();
+  const { asset, isAssetLoading } = useAssetView();
 
   if (isAssetLoading) return <div>Loading...</div>;
 

@@ -1,9 +1,10 @@
 import { useGetAsset } from "@/api/asset/use-get-asset";
 import { useGetCompany } from "@/api/company/use-get-company";
 import { useGetUnit } from "@/api/unit/use-get-unit";
+import { useParamsId } from "@/hooks/use-params-id";
 import { Routes } from "@/router/routes";
 import { Breadcrumb } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type Item = {
   name: string;
@@ -11,11 +12,11 @@ type Item = {
 };
 
 export const Navigation = () => {
-  const { companyId, assetId, unitId } = useParams();
+  const { companyId, assetId, unitId } = useParamsId();
 
-  const { data: company } = useGetCompany(Number(companyId));
-  const { data: asset } = useGetAsset(Number(assetId));
-  const { data: unit } = useGetUnit(Number(unitId));
+  const { data: company } = useGetCompany(companyId);
+  const { data: asset } = useGetAsset(assetId);
+  const { data: unit } = useGetUnit(unitId);
 
   const items = [
     {

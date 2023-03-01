@@ -3,20 +3,18 @@ import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { AssetsInfo } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
+import { useParamsId } from "@/hooks/use-params-id";
 import { Unit } from "@/types/entities/unit";
-import { useParams } from "react-router-dom";
 import { UnitTable } from "./components/unit-table";
 
 export const CompanyView = () => {
-  const { companyId } = useParams();
+  const { companyId } = useParamsId();
 
-  const { data: units, isLoading: isUnitsLoading } = useGetUnitsByCompany(
-    Number(companyId)
-  );
+  const { data: units, isLoading: isUnitsLoading } =
+    useGetUnitsByCompany(companyId);
 
-  const { data: assets, isLoading: isAssetsLoading } = useGetAssetsByCompany(
-    Number(companyId)
-  );
+  const { data: assets, isLoading: isAssetsLoading } =
+    useGetAssetsByCompany(companyId);
 
   const title = `Unit teste: Assets Status`;
 
