@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { getAllAssets } from "./useGetAssets";
 
 export const useGetAssetsByCompany = (companyId: number) => {
-  const response = useQuery(["assets-by-company", companyId], getAllAssets, {
+  // The correct would be create one key per query, but its the same
+  const response = useQuery(["assets"], getAllAssets, {
     enabled: !!companyId,
   });
 

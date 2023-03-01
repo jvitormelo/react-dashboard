@@ -1,5 +1,5 @@
 import { useGetAllCompanies } from "@/api/company/useGetAllCompanies";
-import { useCompanyStore } from "@/store/company";
+import { queryClient } from "@/infra/query-client";
 import { Company } from "@/types/entities/company";
 import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
@@ -7,10 +7,9 @@ import { CompanyTable } from "./components/company-table";
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
-  const { setCompany } = useCompanyStore();
-
   const selectCompany = (company: Company) => {
-    setCompany(company);
+    // TODO create a function for this
+    queryClient.setQueryData(["company", company.id], company);
   };
 
   const deleteCompany = (company: Company) => {
