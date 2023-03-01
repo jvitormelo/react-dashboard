@@ -1,7 +1,10 @@
 import { useGetAllCompanies } from "@/api/company/useGetAllCompanies";
+import { Button } from "antd";
 
 export const DashboardView = () => {
-  const { data } = useGetAllCompanies();
-
-  return <div>{JSON.stringify(data)}</div>;
+  return (
+    <div>
+      <Button>Teste</Button>
+    </div>
+  );
 };
