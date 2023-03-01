@@ -1,3 +1,4 @@
+import { UnitView } from "@/views/unit";
 import { createBrowserRouter } from "react-router-dom";
 import { BaseLayout } from "../layouts/base-layout";
 import { CompaniesView } from "../views/companies";
@@ -23,7 +24,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "companies/:companyId/units/:unitId",
-        element: <div>Unit</div>,
+        element: <UnitView />,
       },
     ],
   },
