@@ -16,7 +16,7 @@ type Specifications = {
 
 export type Asset = {
   assignedUserIds: number[];
-  companyId: 1;
+  companyId: number;
   healthHistory: HealthHistory[];
   healthscore: number;
   id: number;

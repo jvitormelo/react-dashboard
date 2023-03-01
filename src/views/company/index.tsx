@@ -1,3 +1,4 @@
+import { useGetAssetsByUnit } from "@/api/asset/useGetAssetsByUnit";
 import { useGetCompany } from "@/api/company/useGetCompany";
 import { useGetUnitsByCompany } from "@/api/unit/useGetUnitsByCompany";
 import { useGetUsersByCompany } from "@/api/user/useGetUsersByCompany";
@@ -16,9 +17,13 @@ export const CompanyView = () => {
     Number(companyId)
   );
 
+  const { data: assets } = useGetAssetsByUnit(Number(companyId));
+
+  const title = `Unit teste: Assets Status`;
+
   return (
     <div>
-      <AssetStatusChart />
+      <AssetStatusChart title={title} assets={assets} />
       <div>3 cards with Info about the company</div>
       <div style={{ display: "flex", gap: "1rem" }}>
         <div>Maybe some content in left</div>
