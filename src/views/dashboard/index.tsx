@@ -1,10 +1,5 @@
-import { useGetAllCompanies } from "@/api/company/useGetAllCompanies";
-import { Button } from "antd";
+import { DataTable } from "@/components/data-table";
 
 export const DashboardView = () => {
-  return (
-    <div>
-      <Button>Teste</Button>
-    </div>
-  );
+  return <div></div>;
 };
