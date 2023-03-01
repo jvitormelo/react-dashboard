@@ -1,4 +1,5 @@
 import { DataTable } from "@/components/data-table";
+import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { Button, Popconfirm, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
@@ -32,12 +33,13 @@ export const CompanyTable = ({
       dataIndex: "name",
       key: "name",
       render: (text, company) => (
-        <Link
-          onClick={() => selectCompany(company)}
-          to={`/companies/${company.id}`}
-        >
-          {text}
-        </Link>
+        <div></div>
+        // <Link
+        //   onClick={() => selectCompany(company)}
+        //   to={Routes.company(company.id)}
+        // >
+        //   {text}
+        // </Link>
       ),
     },
 
