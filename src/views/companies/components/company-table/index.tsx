@@ -21,17 +21,13 @@ const columns: ColumnsType<Company> = [
     dataIndex: "name",
     key: "name",
   },
-  {
-    title: "Actions",
-    dataIndex: "actions",
-    key: "actions",
-  },
+
   {
     title: "Action",
     key: "action",
     render: (_, record) => (
       <Space size="middle">
-        <a>Invite</a>
+        <a>Edit</a>
         <a>Delete</a>
       </Space>
     ),
