@@ -1,7 +1,7 @@
 import { useGetAllCompanies } from "@/api/company/useGetAllCompanies";
 
 export const DashboardView = () => {
-  useGetAllCompanies();
+  const { data } = useGetAllCompanies();
 
-  return <div>Hello World!</div>;
+  return <div>{JSON.stringify(data)}</div>;
 };
