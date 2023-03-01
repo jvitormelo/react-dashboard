@@ -12,6 +12,6 @@ export const useGetAsset = (assetId: number) => {
   });
 };
 
-export const selectAsset = (asset: Asset) => {
+export const setAssetCache = (asset: Asset) => {
   queryClient.setQueryData(["asset", asset.id], asset);
 };

@@ -1,3 +1,4 @@
+import { AssetView } from "@/views/asset";
 import { UnitView } from "@/views/unit";
 import { createBrowserRouter } from "react-router-dom";
 import { BaseLayout } from "../layouts/base-layout";
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "companies/:companyId/units/:unitId/assets/:assetId",
+        element: <AssetView />,
       },
     ],
   },

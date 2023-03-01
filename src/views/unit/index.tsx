@@ -1,5 +1,5 @@
-import { selectAsset } from "@/api/asset/useGetAsset";
-import { useGetAssetsByUnit } from "@/api/asset/useGetAssetsByUnit";
+import { setAssetCache } from "@/api/asset/use-get-asset";
+import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
 import { AssetsInfo } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { Asset } from "@/types/entities/asset";
@@ -13,7 +13,7 @@ export const UnitView = () => {
   const { data, isLoading } = useGetAssetsByUnit(unitId);
 
   const onAssetSelect = (asset: Asset) => {
-    selectAsset(asset);
+    setAssetCache(asset);
   };
 
   return (

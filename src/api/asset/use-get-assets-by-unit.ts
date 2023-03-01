@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllAssets } from "./useGetAssets";
+import { getAllAssets } from "./get-assets";
 
 export const useGetAssetsByUnit = (unitId: number) => {
   const response = useQuery(["assets"], getAllAssets, {

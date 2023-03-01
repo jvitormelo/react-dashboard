@@ -1,6 +1,6 @@
-import { useGetAssetsByCompany } from "@/api/asset/useGetAssetsByCompany";
-import { selectUnit } from "@/api/unit/useGetUnit";
-import { useGetUnitsByCompany } from "@/api/unit/useGetUnitsByCompany";
+import { useGetAssetsByCompany } from "@/api/asset/use-get-assets-by-company";
+import { setUnitCache } from "@/api/unit/use-get-unit";
+import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { AssetsInfo } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { Unit } from "@/types/entities/unit";
@@ -21,7 +21,7 @@ export const CompanyView = () => {
   const title = `Unit teste: Assets Status`;
 
   const onUnitSelect = (unit: Unit) => {
-    selectUnit(unit);
+    setUnitCache(unit);
   };
 
   return (

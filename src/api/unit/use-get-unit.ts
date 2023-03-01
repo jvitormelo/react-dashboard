@@ -12,6 +12,6 @@ export const useGetUnit = (unitId: number) => {
   });
 };
 
-export const selectUnit = (unit: Unit) => {
+export const setUnitCache = (unit: Unit) => {
   queryClient.setQueryData(["unit", unit.id], unit);
 };

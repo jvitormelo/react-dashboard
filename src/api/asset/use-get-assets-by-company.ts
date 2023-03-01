@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllAssets } from "./useGetAssets";
+import { getAllAssets } from "./get-assets";
 
 export const useGetAssetsByCompany = (companyId: number) => {
   // The correct would be create one key per query, but its the same

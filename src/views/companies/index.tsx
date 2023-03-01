@@ -1,5 +1,5 @@
-import { useGetAllCompanies } from "@/api/company/useGetAllCompanies";
-import { queryClient } from "@/infra/query-client";
+import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
+import { setCompanyCache } from "@/api/company/use-get-company";
 import { Company } from "@/types/entities/company";
 import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
@@ -8,8 +8,7 @@ export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
   const selectCompany = (company: Company) => {
-    // TODO create a function for this
-    queryClient.setQueryData(["company", company.id], company);
+    setCompanyCache(company);
   };
 
   const deleteCompany = (company: Company) => {
