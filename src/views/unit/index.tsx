@@ -1,4 +1,6 @@
 import { useGetAssetsByUnit } from "@/api/asset/useGetAssetsByUnit";
+import { AssetsInfo } from "@/components/cards/assets-info";
+import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { useParams } from "react-router-dom";
 import { AssetsTable } from "./components/assets-table";
 
@@ -10,6 +12,10 @@ export const UnitView = () => {
 
   return (
     <div>
+      <section style={{ display: "flex", marginBottom: "1rem" }}>
+        <AssetsInfo assets={data} />
+        <AssetsStatusPieChart assets={data} title="Test" />
+      </section>
       <AssetsTable assets={data ?? []} loading={isLoading}></AssetsTable>
     </div>
   );

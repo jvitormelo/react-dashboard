@@ -1,14 +1,25 @@
 import { BaseTableProps, DataTable } from "@/components/data-table";
 import { getAssetStatusName } from "@/constants/asset-status";
 import { Asset } from "@/types/entities/asset";
+import { dateUtils } from "@/utils/date";
 import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { useMemo } from "react";
 
 interface Props extends BaseTableProps {
   assets: Asset[];
 }
 
-const columns: ColumnsType<Asset> = [
+type DataTableAsset = Asset & {
+  totalUptime: number;
+  lastUptimeAt: Date;
+  rpm: number | null;
+  power: number | null;
+  maxTemp: number | null;
+  numberOfAssignedUsers: number;
+};
+
+const columns: ColumnsType<DataTableAsset> = [
   {
     title: "Id",
     dataIndex: "id",
@@ -38,6 +49,40 @@ const columns: ColumnsType<Asset> = [
     key: "model",
   },
   {
+    title: "Last Uptime At",
+    dataIndex: "lastUptimeAt",
+    key: "lastUptimeAt",
+    render: (uptime) => dateUtils.formatDistance(uptime),
+  },
+  {
+    title: "Uptime",
+    dataIndex: "totalUptime",
+    key: "totalUptime",
+    // TODO convert to Days
+  },
+  {
+    title: "RPM",
+    dataIndex: "rpm",
+    key: "rpm",
+    render: (rpm) => rpm ?? "Unknown",
+  },
+  {
+    title: "Power",
+    dataIndex: "power",
+    key: "power",
+    render: (power) => power ?? "Unknown",
+  },
+  {
+    title: "Max Temp",
+    dataIndex: "maxTemp",
+    key: "maxTemp",
+  },
+  {
+    title: "Assigned users",
+    dataIndex: "numberOfAssignedUsers",
+    key: "numberOfAssignedUsers",
+  },
+  {
     title: "Status",
     dataIndex: "status",
     key: "status",
@@ -47,5 +92,25 @@ const columns: ColumnsType<Asset> = [
 ];
 
 export const AssetsTable = ({ assets, ...props }: Props) => {
-  return <DataTable<Asset> dataSource={assets} columns={columns} {...props} />;
+  const formattedAssets: DataTableAsset[] = useMemo(
+    () =>
+      assets.map((asset) => ({
+        ...asset,
+        maxTemp: asset.specifications?.maxTemp ?? null,
+        power: asset.specifications?.power ?? null,
+        rpm: asset.specifications?.rpm ?? null,
+        totalUptime: asset.metrics?.totalUptime ?? 0,
+        lastUptimeAt: new Date(asset.metrics?.lastUptimeAt),
+        numberOfAssignedUsers: asset.assignedUserIds.length,
+      })),
+    [assets]
+  );
+
+  return (
+    <DataTable<DataTableAsset>
+      dataSource={formattedAssets}
+      columns={columns}
+      {...props}
+    />
+  );
 };
