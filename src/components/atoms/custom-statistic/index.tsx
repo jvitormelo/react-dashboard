@@ -6,6 +6,7 @@ interface Props {
   suffix?: string;
   title?: string;
   value: number | string;
+  valueStyle?: React.CSSProperties;
 }
 
 export const CustomStatistic = (props: Props) => {

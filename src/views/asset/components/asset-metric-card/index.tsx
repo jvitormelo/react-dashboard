@@ -29,5 +29,11 @@ export const AssetMetricCard = ({ metrics }: Props) => {
     },
   ];
 
-  return <StatisticsCard statistics={data} />;
+  return (
+    <StatisticsCard
+      colProps={{ span: 8 }}
+      rowProps={{ gutter: 12 }}
+      statistics={data}
+    />
+  );
 };

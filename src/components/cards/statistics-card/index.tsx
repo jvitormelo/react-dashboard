@@ -5,18 +5,20 @@ import { ComponentProps, memo } from "react";
 type CustomStatisticProps = ComponentProps<typeof CustomStatistic>;
 
 interface Props {
-  rowProps?: ComponentProps<typeof Col>;
+  rowProps?: ComponentProps<typeof Row>;
   colProps?: ComponentProps<typeof Col>;
-  statistics: CustomStatisticProps[];
+  statistics: CustomStatisticProps[] | CustomStatisticProps;
 }
 
 export const StatisticsCard = memo(
   ({ statistics, colProps, rowProps }: Props) => {
+    const items = Array.isArray(statistics) ? statistics : [statistics];
+
     return (
       <Card>
         <Row {...rowProps}>
-          {statistics.map((statistic, index) => (
-            <Col span={8} {...colProps} key={index}>
+          {items.map((statistic, index) => (
+            <Col {...colProps} key={index}>
               <CustomStatistic {...statistic} />
             </Col>
           ))}

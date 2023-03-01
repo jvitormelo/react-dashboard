@@ -1,6 +1,5 @@
-import { Card } from "antd";
 import { AssetInfo } from "./components/asset-data";
-import { AssetMetricCard } from "./components/asset-metric-card";
+import { AssetHeader } from "./components/asset-header";
 import { AssetAssignedUsers } from "./components/assigned-users";
 import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
@@ -10,27 +9,19 @@ export const AssetView = () => {
 
   return (
     <div>
-      <section style={{ marginBottom: "1rem", display: "flex" }}>
-        <Card>
-          <span>HealtScore</span>
-          <h4>{asset?.healthscore}</h4>
-        </Card>
-
-        <Card>
-          <span>Status</span>
-          <h4>{asset?.status}</h4>
-        </Card>
-        <AssetMetricCard metrics={asset?.metrics}></AssetMetricCard>
-      </section>
+      <AssetHeader asset={asset} />
 
       <div
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem" }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "1rem",
+          marginTop: "1rem",
+        }}
       >
-        <div>
-          <AssetInfo asset={asset} />
-        </div>
+        <AssetInfo asset={asset} />
 
-        <div>
+        <div style={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
           <WorkOrderInfo workOrders={workOrdersWithUsers} />
 
           <AssetAssignedUsers users={assetUsers} />
