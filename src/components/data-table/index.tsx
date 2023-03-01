@@ -1,14 +1,16 @@
 import { Table } from "antd";
-import { ComponentProps } from "react";
+import { ColumnsType } from "antd/es/table";
 
-type AntTable = ComponentProps<typeof Table>;
-
-interface Props {
-  columns: AntTable["columns"];
-  dataSource: AntTable["dataSource"];
+interface Props<T> {
+  columns: ColumnsType<T>;
+  dataSource?: T[];
   loading?: boolean;
 }
 
-export const DataTable = ({ columns, dataSource, loading }: Props) => {
+export const DataTable = <T extends object>({
+  columns,
+  dataSource,
+  loading,
+}: Props<T>) => {
   return <Table loading={loading} dataSource={dataSource} columns={columns} />;
 };
