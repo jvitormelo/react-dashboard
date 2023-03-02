@@ -24,7 +24,7 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
       name: namesUtils.getAssetStatusName(value.status),
       y: 1,
     }),
-    (value) => value.y + 1
+    (value) => (value.y += 1)
   );
 
   const options: ChartOptions = {
@@ -45,6 +45,7 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
     },
     series: [
       {
+        name: "Status",
         type: "pie",
         data: data,
       },

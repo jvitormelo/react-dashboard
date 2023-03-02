@@ -3,13 +3,15 @@ export enum AssetStatus {
   InDowntime = "inDowntime",
   InAlert = "inAlert",
   UnplannedStop = "unplannedStop",
+  PlannedStop = "plannedStop",
 }
 
 export const assetsStatusNameMapper = {
   [AssetStatus.InOperation]: "In operation",
   [AssetStatus.InDowntime]: "In downtime",
   [AssetStatus.InAlert]: "In alert",
-  [AssetStatus.UnplannedStop]: "Unplanned stop ",
+  [AssetStatus.UnplannedStop]: "Unplanned stop",
+  [AssetStatus.PlannedStop]: "Planned stop",
 };
 
 export const assetsStatusColorMapper = {
@@ -18,4 +20,5 @@ export const assetsStatusColorMapper = {
   [AssetStatus.InDowntime]: "#FF5733",
   [AssetStatus.InAlert]: "#FFD600",
   [AssetStatus.UnplannedStop]: "#D50000",
+  [AssetStatus.PlannedStop]: "#FFFF00",
 };
