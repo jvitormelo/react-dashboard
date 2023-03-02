@@ -1,25 +1,30 @@
-import { useModal } from "@/hooks/use-modal";
-import { Company } from "@/types/entities/company";
-import { useRef } from "react";
+import { BaseModal } from "@/components/modals/base-modal";
+import { useState } from "react";
 import { CompanyForm } from "../components/forms/company-form";
+import { CompanyFormSchema } from "../components/forms/schema";
 
 export const useCreateCompanyModal = () => {
-  const { openModal, closeModal } = useModal();
-  const modalId = useRef<string>();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const onSubmit = (values: Company) => {
+  const onSubmit = (values: CompanyFormSchema) => {
     console.log(values);
-    closeModal(modalId.current);
   };
 
+  const modal = (
+    <BaseModal
+      open={isOpen}
+      setIsOpen={setIsOpen}
+      title="Create company"
+      body={<CompanyForm onSubmit={onSubmit} />}
+    />
+  );
+
   const openCreateModal = () => {
-    modalId.current = openModal({
-      title: "Create company",
-      body: <CompanyForm onSubmit={onSubmit} />,
-    });
+    setIsOpen(true);
   };
 
   return {
+    modal,
     openCreateModal,
   };
 };

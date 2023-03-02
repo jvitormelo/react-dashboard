@@ -1,41 +1,51 @@
+import { ControlledTextField } from "@/components/controlled/controlled-text-field";
+import { useFormResolver } from "@/hooks/use-form-resolver";
 import { useTheme } from "@/hooks/use-theme";
-import { Company } from "@/types/entities/company";
-import { Button, Form, Input } from "antd";
+import { Button } from "antd";
+import { companyFormSchema, CompanyFormSchema } from "./schema";
 
 interface Props {
-  defaultValues?: Company;
-  onSubmit: (values: Company) => void;
+  defaultValues?: CompanyFormSchema;
+  onSubmit: (values: CompanyFormSchema) => void;
+  loading?: boolean;
 }
 
-export const CompanyForm = ({ onSubmit }: Props) => {
+export const CompanyForm = ({ onSubmit, defaultValues, loading }: Props) => {
   const { theme } = useTheme();
 
+  const { handleSubmit, control } = useFormResolver<CompanyFormSchema>(
+    companyFormSchema,
+    {
+      defaultValues,
+    }
+  );
+
+  const submit = handleSubmit(onSubmit);
+
   return (
-    <Form
+    <form
       style={{
         display: "flex",
         flexDirection: "column",
         gap: theme.marginMD,
       }}
-      onFinish={(values) => {
-        onSubmit(values as Company);
-        console.log(values);
-      }}
+      onSubmit={submit}
     >
-      <Form.Item
-        required
-        rules={[{ required: true }]}
-        label="Company name"
+      <ControlledTextField<CompanyFormSchema>
+        label="Name"
         name="name"
-      >
-        <Input />
-      </Form.Item>
+        control={control}
+      />
 
-      <Form.Item style={{ marginLeft: "auto" }}>
-        <Button type="primary" size="large" htmlType="submit">
-          Create
-        </Button>
-      </Form.Item>
-    </Form>
+      <Button
+        loading={loading}
+        style={{ marginLeft: "auto" }}
+        type="primary"
+        size="large"
+        htmlType="submit"
+      >
+        Create
+      </Button>
+    </form>
   );
 };

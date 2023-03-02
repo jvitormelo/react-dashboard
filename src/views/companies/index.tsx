@@ -8,7 +8,7 @@ import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
-  const { openCreateModal } = useCreateCompanyModal();
+  const { openCreateModal, modal } = useCreateCompanyModal();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);
@@ -21,21 +21,24 @@ export const CompaniesView = () => {
   };
 
   const editCompany = (company: Company) => {
-    // TODO: Implement edit company
-
     console.log("Edit company: " + company.name);
   };
 
+  console.log("render companies");
+
   return (
-    <div style={{ minWidth: "100%" }}>
-      <Button onClick={openCreateModal}>New company</Button>
-      <CompanyTable
-        selectCompany={selectCompany}
-        deleteCompany={deleteCompany}
-        editCompany={editCompany}
-        companies={companies}
-        loading={isLoading}
-      />
-    </div>
+    <>
+      <div style={{ minWidth: "100%" }}>
+        <Button onClick={openCreateModal}>New company</Button>
+        <CompanyTable
+          selectCompany={selectCompany}
+          deleteCompany={deleteCompany}
+          editCompany={editCompany}
+          companies={companies}
+          loading={isLoading}
+        />
+      </div>
+      {modal}
+    </>
   );
 };

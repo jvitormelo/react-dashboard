@@ -4,7 +4,7 @@ import { ConfigProvider } from "antd";
 import { queryClient } from "./infra/query-client";
 import { router } from "./router";
 import { theme } from "./styles/theme";
-import { ModalController } from "./components/modal-controller";
+import { ModalController } from "./components/modals/modal-controller";
 
 function App() {
   return (

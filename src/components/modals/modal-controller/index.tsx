@@ -1,6 +1,7 @@
 import { useModalStore } from "@/store/modal-store";
 import { Modal } from "antd";
 
+// It not worked like i was expected, remove it later
 export const ModalController = () => {
   const {
     modals,
