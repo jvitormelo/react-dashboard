@@ -14,7 +14,7 @@ export const CompaniesView = () => {
 
   // Need to find a way to avoid re-rendering the whole page when the modal opens
   const { openCreateModal, createdModal } = useCreateCompanyModal();
-  const { modal: updateModal, openUpdateModal } = useUpdateCompanyModal();
+  const { openUpdateModal, updateModal } = useUpdateCompanyModal();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);

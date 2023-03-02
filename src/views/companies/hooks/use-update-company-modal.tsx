@@ -18,11 +18,9 @@ export const useUpdateCompanyModal = () => {
     setIsOpen(true);
   };
 
-  if (!company) return { openUpdateModal, modal: null };
-
   const onSubmit = async (values: CompanyFormSchema) => {
     try {
-      await update({ id: company.id, ...values });
+      await update({ id: company?.id || 0, ...values });
       toast.success(`Company ${values.name} updated!`);
       setIsOpen(false);
     } catch (err) {
@@ -30,7 +28,7 @@ export const useUpdateCompanyModal = () => {
     }
   };
 
-  const modal = (
+  const modal = company && (
     <BaseModal
       open={isOpen}
       setIsOpen={setIsOpen}

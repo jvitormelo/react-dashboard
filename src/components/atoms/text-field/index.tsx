@@ -1,5 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
-import { Input } from "antd";
+import { Input, InputRef } from "antd";
+import { forwardRef } from "react";
 import { FieldError } from "react-hook-form";
 
 interface Props extends React.ComponentProps<typeof Input> {
@@ -7,21 +8,23 @@ interface Props extends React.ComponentProps<typeof Input> {
   error?: FieldError;
 }
 
-export const TextField = ({ label, error, ...inputProps }: Props) => {
-  const { theme } = useTheme();
-  return (
-    <div>
-      <label htmlFor={inputProps.name}>{label}</label>
-      <Input {...inputProps} />
-      {error && (
-        <span
-          style={{
-            color: theme.colorError,
-          }}
-        >
-          {error.message}
-        </span>
-      )}
-    </div>
-  );
-};
+export const TextField = forwardRef<InputRef, Props>(
+  ({ label, error, ...inputProps }, ref) => {
+    const { theme } = useTheme();
+    return (
+      <div>
+        <label htmlFor={inputProps.name}>{label}</label>
+        <Input ref={ref} {...inputProps} />
+        {error && (
+          <span
+            style={{
+              color: theme.colorError,
+            }}
+          >
+            {error.message}
+          </span>
+        )}
+      </div>
+    );
+  }
+);
