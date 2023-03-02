@@ -3,11 +3,12 @@ import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { AssetsInfo } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
-import { UnitBarChart } from "@/components/charts/unit-bar-chart";
+import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
 import { Unit } from "@/types/entities/unit";
 import { UnitTable } from "./components/unit-table";
+import { useGetCompanyResources } from "./hooks/use-get-company-resources";
 
 export const CompanyView = () => {
   const { companyId } = useParamsId();
@@ -19,6 +20,8 @@ export const CompanyView = () => {
 
   const { data: assets, isLoading: isAssetsLoading } =
     useGetAssetsByCompany(companyId);
+
+  const { chartData } = useGetCompanyResources(companyId);
 
   const title = `Unit teste: Assets Status`;
 
@@ -38,7 +41,7 @@ export const CompanyView = () => {
       >
         <AssetsInfo assets={assets} loading={isAssetsLoading} />
         <AssetsStatusPieChart title={title} assets={assets} />
-        <UnitBarChart />
+        <ResourcesBarChart {...chartData} />
       </section>
 
       <UnitTable

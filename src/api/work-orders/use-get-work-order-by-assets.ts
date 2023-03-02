@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { getWorkOrders } from "./get-work-orders";
 
-export const useGetWorkOrdersByAsset = (assetId: number) => {
+export const useGetWorkOrdersByAssets = (assetsId: number[]) => {
   const response = useQuery(["workorders"], getWorkOrders, {
-    enabled: !!assetId,
+    enabled: !!assetsId.length,
   });
 
-  const data = response.data?.filter(
-    (workOrder) => workOrder.assetId === assetId
+  const data = response.data?.filter((workOrder) =>
+    assetsId.includes(workOrder.assetId)
   );
+
   return {
     ...response,
     data,
