@@ -1,5 +1,5 @@
 import { Asset } from "@/types/entities/asset";
-import { calculateAverage } from "@/utils/calculate-average";
+import { numberUtils } from "@/utils";
 import { Skeleton } from "antd";
 import { memo } from "react";
 
@@ -20,7 +20,7 @@ export const AssetsInfo = memo(({ assets, loading }: Props) => {
 
   const totalAssets = assets.length;
 
-  const averageHealthScore = calculateAverage(
+  const averageHealthScore = numberUtils.calculateAverage(
     assets.map((asset) => asset.healthscore)
   );
 
