@@ -42,13 +42,11 @@ export const Navigation = () => {
 
   return (
     <Breadcrumb>
-      {items.map((item: Item) => {
-        return (
-          <Breadcrumb.Item key={item.href}>
-            <Link to={item.href}>{item.name}</Link>
-          </Breadcrumb.Item>
-        );
-      })}
+      {items.map((item: Item) => (
+        <Breadcrumb.Item key={item.href}>
+          <Link to={item.href}>{item.name}</Link>
+        </Breadcrumb.Item>
+      ))}
     </Breadcrumb>
   );
 };

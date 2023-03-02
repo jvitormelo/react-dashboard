@@ -1,8 +1,9 @@
 import { BaseTableProps, DataTable } from "@/components/data-table";
-import { getAssetStatusName } from "@/constants/asset-status";
+
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
+import { namesUtils } from "@/utils/names";
 import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useMemo } from "react";
@@ -100,7 +101,7 @@ export const AssetsTable = ({ assets, onSelect, ...props }: Props) => {
       key: "status",
       // TODO convert status to color
       render: (status) => (
-        <Tag color={"green"}>{getAssetStatusName(status)}</Tag>
+        <Tag color={"green"}>{namesUtils.getAssetStatusName(status)}</Tag>
       ),
     },
   ];

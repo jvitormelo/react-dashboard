@@ -1,10 +1,7 @@
-import {
-  assetsStatusColorMapper,
-  AssetStatus,
-  getAssetStatusName,
-} from "@/constants/asset-status";
+import { assetsStatusColorMapper, AssetStatus } from "@/constants/asset-status";
 import { Asset } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
+import { namesUtils } from "@/utils/names";
 
 interface Props {
   assets: Asset[];
@@ -28,7 +25,7 @@ export const useAssetsStatusChart: Hook = ({ assets }) => {
     (formattedAsset, asset) => formattedAsset.status === asset.status,
     (asset) => ({
       status: asset.status,
-      name: getAssetStatusName(asset.status),
+      name: namesUtils.getAssetStatusName(asset.status),
       y: 1,
       color: assetsStatusColorMapper[asset.status],
     }),
