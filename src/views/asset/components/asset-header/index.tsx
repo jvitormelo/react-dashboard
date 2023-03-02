@@ -1,7 +1,9 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { AssetHealthHistoryChart } from "@/components/charts/asset-health-history-chart";
 import { Asset } from "@/types/entities/asset";
-import { AssetMetricCard } from "../asset-metric-card";
+import { colorsUtils } from "@/utils/colors";
+import { namesUtils } from "@/utils/names";
+import { AssetMetricCard } from "./components/asset-metric-card";
 
 interface Props {
   asset: Asset | undefined;
@@ -31,12 +33,20 @@ export const AssetHeader = ({ asset }: Props) => {
             value: asset.healthscore,
             precision: 2,
             suffix: "%",
+            valueStyle: {
+              color: colorsUtils.getAssetHealthColor(asset.healthscore),
+              fontWeight: "bold",
+            },
           }}
         />
         <StatisticsCard
           statistics={{
             title: "Status",
-            value: asset.status,
+            valueStyle: {
+              color: colorsUtils.getAssetHealthColor(asset.status),
+              fontWeight: "bold",
+            },
+            value: namesUtils.getAssetStatusName(asset.status),
           }}
         />
       </div>

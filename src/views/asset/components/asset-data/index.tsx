@@ -31,6 +31,10 @@ export const AssetInfo = ({ asset }: Props) => {
           {info.label}: {info.value}
         </div>
       ))}
+
+      <div>Max Temp: {asset.specifications.maxTemp}</div>
+      <div>Power: {asset.specifications.power ?? "Unknown"}</div>
+      <div>RPM: {asset.specifications.rpm ?? "Unknown"}</div>
     </Card>
   );
 };

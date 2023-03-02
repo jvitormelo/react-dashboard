@@ -15,7 +15,7 @@ export const assetsStatusNameMapper = {
 export const assetsStatusColorMapper = {
   // TODO temporary hardcoded colors
   [AssetStatus.InOperation]: "#00C853",
-  [AssetStatus.InDowntime]: "#FFD600",
-  [AssetStatus.InAlert]: "#FF6D00",
+  [AssetStatus.InDowntime]: "#FF5733",
+  [AssetStatus.InAlert]: "#FFD600",
   [AssetStatus.UnplannedStop]: "#D50000",
 };
