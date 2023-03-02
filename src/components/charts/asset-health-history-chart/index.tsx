@@ -53,9 +53,5 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
     ],
   };
 
-  return (
-    <Card>
-      <BaseChart options={options} />
-    </Card>
-  );
+  return <BaseChart options={options} />;
 });

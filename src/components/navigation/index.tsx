@@ -21,7 +21,7 @@ export const Navigation = () => {
   const { theme } = useTheme();
 
   const items = [
-    {
+    companyId && {
       name: "Companies",
       href: "/companies",
     },
