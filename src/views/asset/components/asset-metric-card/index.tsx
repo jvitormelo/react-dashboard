@@ -31,8 +31,8 @@ export const AssetMetricCard = ({ metrics }: Props) => {
 
   return (
     <StatisticsCard
-      colProps={{ span: 8 }}
-      rowProps={{ gutter: 12 }}
+      colProps={{ span: 24 }}
+      rowProps={{ style: { gap: "1rem", width: "fit-content" } }}
       statistics={data}
     />
   );

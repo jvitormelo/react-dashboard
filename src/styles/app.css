@@ -1,10 +1,12 @@
 #root {
   width: 100%;
   min-height: 100%;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 /* Temporary */

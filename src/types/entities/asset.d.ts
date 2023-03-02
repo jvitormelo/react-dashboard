@@ -1,6 +1,6 @@
 import { AssetStatus } from "../../constants/asset-status";
 
-type HealthHistory = { status: AssetStatus; timestamp: string };
+export type HealthHistory = { status: AssetStatus; timestamp: string };
 
 type Metrics = {
   lastUptimeAt: string;

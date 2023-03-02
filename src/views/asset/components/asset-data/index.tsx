@@ -24,7 +24,7 @@ export const AssetInfo = ({ asset }: Props) => {
       <h1>
         {asset.id} - {asset.name}
       </h1>
-      <Image src={asset.image} alt={asset.name}></Image>
+      <Image height={500} src={asset.image} alt={asset.name}></Image>
 
       {baseInfo.map((info, index) => (
         <div key={index}>
