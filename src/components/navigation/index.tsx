@@ -2,6 +2,7 @@ import { useGetAsset } from "@/api/asset/use-get-asset";
 import { useGetCompany } from "@/api/company/use-get-company";
 import { useGetUnit } from "@/api/unit/use-get-unit";
 import { useParamsId } from "@/hooks/use-params-id";
+import { useTheme } from "@/hooks/use-theme";
 import { Routes } from "@/router/routes";
 import { Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
@@ -17,6 +18,7 @@ export const Navigation = () => {
   const { data: company } = useGetCompany(companyId);
   const { data: asset } = useGetAsset(assetId);
   const { data: unit } = useGetUnit(unitId);
+  const { theme } = useTheme();
 
   const items = [
     {
@@ -41,7 +43,12 @@ export const Navigation = () => {
   ].filter(Boolean) as Item[];
 
   return (
-    <Breadcrumb>
+    <Breadcrumb
+      style={{
+        marginBottom: theme.marginLG,
+        fontSize: theme.fontSizeLG,
+      }}
+    >
       {items.map((item: Item) => (
         <Breadcrumb.Item key={item.href}>
           <Link to={item.href}>{item.name}</Link>

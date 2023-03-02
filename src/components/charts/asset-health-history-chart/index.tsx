@@ -2,6 +2,7 @@ import { HealthHistory } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
 import { colorsUtils } from "@/utils/colors";
 import { namesUtils } from "@/utils/names";
+import { Card } from "antd";
 import { memo } from "react";
 import { BaseChart, ChartOptions } from "../base-chart";
 import { BaseChartItem } from "../base-chart/types";
@@ -52,5 +53,9 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
     ],
   };
 
-  return <BaseChart options={options} />;
+  return (
+    <Card>
+      <BaseChart options={options} />
+    </Card>
+  );
 });

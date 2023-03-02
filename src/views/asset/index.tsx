@@ -1,6 +1,7 @@
-import { AssetInfo } from "./components/asset-data";
 import { AssetHeader } from "./components/asset-header";
+import { AssetInfo } from "./components/asset-info";
 import { AssetAssignedUsers } from "./components/assigned-users";
+import { AssetHealthTimeline } from "./components/health-timeline";
 import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
 
@@ -27,6 +28,7 @@ export const AssetView = () => {
           <AssetAssignedUsers users={assetUsers} />
         </div>
       </div>
+      <AssetHealthTimeline healthHistory={asset?.healthHistory ?? []} />
     </div>
   );
 };
