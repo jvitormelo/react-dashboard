@@ -20,10 +20,6 @@ export const UnitView = () => {
       <section style={{ display: "flex", marginBottom: "1rem" }}>
         <AssetsInfo assets={data} />
         <AssetsStatusPieChart assets={data} title="Recent Assets Status" />
-        <div>
-          <div>Total Users: 10 see all</div>
-          <div>Work Orders</div>
-        </div>
       </section>
       <AssetsTable
         assets={data ?? []}
