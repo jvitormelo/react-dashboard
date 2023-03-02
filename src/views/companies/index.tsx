@@ -8,6 +8,7 @@ import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
+  // not optional
   const { openCreateModal, modal } = useCreateCompanyModal();
 
   const selectCompany = (company: Company) => {
@@ -23,8 +24,6 @@ export const CompaniesView = () => {
   const editCompany = (company: Company) => {
     console.log("Edit company: " + company.name);
   };
-
-  console.log("render companies");
 
   return (
     <>

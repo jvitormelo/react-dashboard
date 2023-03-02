@@ -12,6 +12,7 @@ export const BaseModal = (props: Props) => {
       {...props}
       onCancel={() => props.setIsOpen(false)}
       footer={props.footer || props.showFooter ? undefined : null}
+      destroyOnClose
     >
       <div
         style={{
