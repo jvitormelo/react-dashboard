@@ -20,6 +20,8 @@ export const useGetCompanyResources = (companyId: number) => {
 
   const chartData: ResourcesBarChartProps = useMemo(() => {
     return {
+      title: "Units Resources",
+      xAxisTitle: "Units",
       entityNames: units.map((unit) => unit.name),
       resources: [
         {

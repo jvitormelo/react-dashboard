@@ -9,26 +9,28 @@ export type ChartResource = {
 export interface ResourcesBarChartProps {
   entityNames: string[];
   resources: ChartResource[];
+  title: string;
+  xAxisTitle?: string;
 }
 
 export const ResourcesBarChart = ({
   entityNames: categories,
   resources,
+  title,
+  xAxisTitle,
 }: ResourcesBarChartProps) => {
-  console.log("resources", resources);
-
   const options: ChartOptions = {
     chart: {
       type: "bar",
     },
     title: {
-      text: "Units",
+      text: title,
       align: "left",
     },
     xAxis: {
       categories,
       title: {
-        text: "Unit",
+        text: xAxisTitle,
       },
     },
     yAxis: {
@@ -55,8 +57,6 @@ export const ResourcesBarChart = ({
       layout: "vertical",
       align: "right",
       verticalAlign: "top",
-      x: -40,
-      y: 80,
       floating: true,
       borderWidth: 1,
       backgroundColor: "#FFFFFF",

@@ -23,8 +23,6 @@ export const CompanyView = () => {
 
   const { chartData } = useGetCompanyResources(companyId);
 
-  const title = `Unit teste: Assets Status`;
-
   const onUnitSelect = (unit: Unit) => {
     setUnitCache(unit);
   };
@@ -40,7 +38,7 @@ export const CompanyView = () => {
         }}
       >
         <AssetsInfo assets={assets} loading={isAssetsLoading} />
-        <AssetsStatusPieChart title={title} assets={assets} />
+        <AssetsStatusPieChart title={"Assets Status"} assets={assets} />
         <ResourcesBarChart {...chartData} />
       </section>
 
