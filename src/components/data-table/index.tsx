@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { Card, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 
 export type BaseTableProps = {
@@ -15,5 +15,9 @@ export const DataTable = <T extends object>({
   dataSource,
   loading,
 }: Props<T>) => {
-  return <Table loading={loading} dataSource={dataSource} columns={columns} />;
+  return (
+    <Card>
+      <Table loading={loading} dataSource={dataSource} columns={columns} />
+    </Card>
+  );
 };

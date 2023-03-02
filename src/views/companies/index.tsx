@@ -1,15 +1,20 @@
 import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { setCompanyCache } from "@/api/company/use-get-company";
+import { useTheme } from "@/hooks/use-theme";
 import { Company } from "@/types/entities/company";
 import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
 import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
+import { useUpdateCompanyModal } from "./hooks/use-update-company-modal";
 
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
-  // not optional
-  const { openCreateModal, modal } = useCreateCompanyModal();
+  const { theme } = useTheme();
+
+  // Need to find a way to avoid re-rendering the whole page when the modal opens
+  const { openCreateModal, createdModal } = useCreateCompanyModal();
+  const { modal: updateModal, openUpdateModal } = useUpdateCompanyModal();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);
@@ -22,13 +27,25 @@ export const CompaniesView = () => {
   };
 
   const editCompany = (company: Company) => {
-    console.log("Edit company: " + company.name);
+    openUpdateModal(company);
   };
 
   return (
     <>
-      <div style={{ minWidth: "100%" }}>
-        <Button onClick={openCreateModal}>New company</Button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.marginMD,
+        }}
+      >
+        <Button
+          style={{ marginLeft: "auto" }}
+          size="large"
+          onClick={openCreateModal}
+        >
+          New company
+        </Button>
         <CompanyTable
           selectCompany={selectCompany}
           deleteCompany={deleteCompany}
@@ -37,7 +54,8 @@ export const CompaniesView = () => {
           loading={isLoading}
         />
       </div>
-      {modal}
+      {createdModal}
+      {updateModal}
     </>
   );
 };

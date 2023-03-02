@@ -13,10 +13,11 @@ export const useCreateCompanyModal = () => {
   const onSubmit = async (values: CompanyFormSchema) => {
     try {
       await create(values);
+      // Should the message be here or separated?
       toast.success(`Company ${values.name} created!`);
       setIsOpen(false);
     } catch (err) {
-      toast.error("Error!");
+      toast.error("Failed to create company!");
     }
   };
 
@@ -34,7 +35,7 @@ export const useCreateCompanyModal = () => {
   };
 
   return {
-    modal,
+    createdModal: modal,
     openCreateModal,
   };
 };

@@ -8,9 +8,15 @@ interface Props {
   defaultValues?: CompanyFormSchema;
   onSubmit: (values: CompanyFormSchema) => void;
   loading?: boolean;
+  buttonLabel?: string;
 }
 
-export const CompanyForm = ({ onSubmit, defaultValues, loading }: Props) => {
+export const CompanyForm = ({
+  onSubmit,
+  defaultValues,
+  loading,
+  buttonLabel,
+}: Props) => {
   const { theme } = useTheme();
 
   const { handleSubmit, control } = useFormResolver<CompanyFormSchema>(
@@ -44,7 +50,7 @@ export const CompanyForm = ({ onSubmit, defaultValues, loading }: Props) => {
         size="large"
         htmlType="submit"
       >
-        Create
+        {buttonLabel ?? "Submit"}
       </Button>
     </form>
   );
