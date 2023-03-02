@@ -1,11 +1,15 @@
 import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { setCompanyCache } from "@/api/company/use-get-company";
+import { useModal } from "@/hooks/use-modal";
+
 import { Company } from "@/types/entities/company";
-import { Button } from "antd";
+import { Button, Form } from "antd";
 import { CompanyTable } from "./components/company-table";
 
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
+
+  const { openModal } = useModal();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);
@@ -13,11 +17,16 @@ export const CompaniesView = () => {
 
   const deleteCompany = (company: Company) => {
     // TODO: Implement delete company
+
     alert("Delete company: " + company.name);
   };
 
   const editCompany = (company: Company) => {
+    openModal({
+      body: <Form>Test</Form>,
+    });
     // TODO: Implement edit company
+
     console.log("Edit company: " + company.name);
   };
 
