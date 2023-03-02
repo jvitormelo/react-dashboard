@@ -1,15 +1,14 @@
 import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { setCompanyCache } from "@/api/company/use-get-company";
-import { useModal } from "@/hooks/use-modal";
-
 import { Company } from "@/types/entities/company";
-import { Button, Form } from "antd";
+import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
+import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
-  const { openModal } = useModal();
+  const { openCreateModal } = useCreateCompanyModal();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);
@@ -22,9 +21,6 @@ export const CompaniesView = () => {
   };
 
   const editCompany = (company: Company) => {
-    openModal({
-      body: <Form>Test</Form>,
-    });
     // TODO: Implement edit company
 
     console.log("Edit company: " + company.name);
@@ -32,7 +28,7 @@ export const CompaniesView = () => {
 
   return (
     <div style={{ minWidth: "100%" }}>
-      <Button>New company</Button>
+      <Button onClick={openCreateModal}>New company</Button>
       <CompanyTable
         selectCompany={selectCompany}
         deleteCompany={deleteCompany}

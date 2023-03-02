@@ -22,9 +22,10 @@ export const ModalController = () => {
             removeModal(modal.id);
           }}
           zIndex={(modal.zIndex ?? 1000) + index}
+          footer={modal.footer || null}
           destroyOnClose
         >
-          {modal.body}
+          <div style={{ marginTop: 32 }}>{modal.body}</div>
         </Modal>
       ))}
     </>
