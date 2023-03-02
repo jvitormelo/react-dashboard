@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 const createCompany = async (company: CompanyFormSchema): Promise<Company> =>
   httpClient.post("/companies", company);
 
-export const useCreateCompany = () => {
+export const useCreateCompanyMutation = () => {
   return useMutation(createCompany, {
     onSuccess(data) {
       queryClient.setQueryData<Company[]>(["companies"], (oldData) => [

@@ -1,4 +1,4 @@
-import { useCreateCompany } from "@/api/company/use-create-company";
+import { useCreateCompanyMutation } from "@/api/company/use-create-company";
 import { BaseModal } from "@/components/modals/base-modal";
 import { toast } from "@/infra/toast";
 import { useState } from "react";
@@ -8,7 +8,7 @@ import { CompanyFormSchema } from "../components/forms/schema";
 export const useCreateCompanyModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { mutateAsync: create, isLoading } = useCreateCompany();
+  const { mutateAsync: create, isLoading } = useCreateCompanyMutation();
 
   const onSubmit = async (values: CompanyFormSchema) => {
     try {

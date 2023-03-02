@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 interface Props extends BaseTableProps {
   companies?: Company[];
   selectCompany: (company: Company) => void;
-  deleteCompany: (company: Company) => void;
+  deleteCompany: (company: Company) => Promise<void>;
   editCompany: (company: Company) => void;
 }
 
@@ -38,7 +38,6 @@ export const CompanyTable = ({
         </Link>
       ),
     },
-
     {
       title: "Action",
       key: "action",
@@ -52,11 +51,13 @@ export const CompanyTable = ({
             description={`
               Are you sure you want to delete ${record.name}?
             `}
-            onConfirm={() => deleteCompany(record)}
+            onConfirm={async () => deleteCompany(record)}
             okText="Yes"
             cancelText="No"
           >
-            <Button>Delete</Button>
+            <Button type="default" color="red">
+              Delete
+            </Button>
           </Popconfirm>
         </Space>
       ),

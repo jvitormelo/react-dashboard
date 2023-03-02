@@ -1,4 +1,4 @@
-import { useUpdateCompany } from "@/api/company/use-update-company";
+import { useUpdateCompanyMutation } from "@/api/company/use-update-company";
 import { BaseModal } from "@/components/modals/base-modal";
 import { toast } from "@/infra/toast";
 import { Company } from "@/types/entities/company";
@@ -11,7 +11,7 @@ export const useUpdateCompanyModal = () => {
 
   const [company, setCompany] = useState<Company | null>(null);
 
-  const { mutateAsync: update, isLoading } = useUpdateCompany();
+  const { mutateAsync: update, isLoading } = useUpdateCompanyMutation();
 
   const openUpdateModal = (company: Company) => {
     setCompany(company);

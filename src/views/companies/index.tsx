@@ -5,6 +5,7 @@ import { Company } from "@/types/entities/company";
 import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
 import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
+import { useDeleteCompany } from "./hooks/use-delete-company";
 import { useUpdateCompanyModal } from "./hooks/use-update-company-modal";
 
 export const CompaniesView = () => {
@@ -15,15 +16,14 @@ export const CompaniesView = () => {
   // Need to find a way to avoid re-rendering the whole page when the modal opens
   const { openCreateModal, createdModal } = useCreateCompanyModal();
   const { openUpdateModal, updateModal } = useUpdateCompanyModal();
+  const { deleteCompany } = useDeleteCompany();
 
   const selectCompany = (company: Company) => {
     setCompanyCache(company);
   };
 
-  const deleteCompany = (company: Company) => {
-    // TODO: Implement delete company
-
-    alert("Delete company: " + company.name);
+  const deleteCompanyHandler = async (company: Company) => {
+    deleteCompany(company);
   };
 
   const editCompany = (company: Company) => {
@@ -40,6 +40,7 @@ export const CompaniesView = () => {
         }}
       >
         <Button
+          type="primary"
           style={{ marginLeft: "auto" }}
           size="large"
           onClick={openCreateModal}
@@ -48,7 +49,7 @@ export const CompaniesView = () => {
         </Button>
         <CompanyTable
           selectCompany={selectCompany}
-          deleteCompany={deleteCompany}
+          deleteCompany={deleteCompanyHandler}
           editCompany={editCompany}
           companies={companies}
           loading={isLoading}

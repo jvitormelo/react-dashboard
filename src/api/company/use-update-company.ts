@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 const updateCompany = (company: Company): Promise<Company> =>
   httpClient.put(`/companies/${company.id}`, company);
 
-export const useUpdateCompany = () => {
+export const useUpdateCompanyMutation = () => {
   return useMutation(updateCompany, {
     onSuccess(data) {
       queryClient.setQueryData<Company[]>(["companies"], (oldData) => {
