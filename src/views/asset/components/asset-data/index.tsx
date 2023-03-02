@@ -1,5 +1,5 @@
 import { Asset } from "@/types/entities/asset";
-import { Card, Image } from "antd";
+import { Card, Image, Typography } from "antd";
 
 interface Props {
   asset?: Asset;
@@ -21,9 +21,10 @@ export const AssetInfo = ({ asset }: Props) => {
 
   return (
     <Card>
-      <h1>
-        {asset.id} - {asset.name}
-      </h1>
+      <Typography.Title>
+        #{asset.id} {asset.name}
+      </Typography.Title>
+
       <Image height={500} src={asset.image} alt={asset.name}></Image>
 
       {baseInfo.map((info, index) => (
