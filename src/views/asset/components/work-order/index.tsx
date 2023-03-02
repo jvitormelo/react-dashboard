@@ -1,14 +1,18 @@
+import { useTheme } from "@/hooks/use-theme";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
-import { Card, Collapse, Divider, List, Tag } from "antd";
+import { Card, Collapse, Divider, List, Tag, Typography } from "antd";
 
 interface Props {
   workOrders: WorkOrdersWithUsers[];
 }
 
 export const WorkOrderInfo = ({ workOrders }: Props) => {
+  const { theme } = useTheme();
   return (
     <Card>
-      <section>Total: {workOrders.length}</section>
+      <Typography.Title level={3} style={{ marginBottom: theme.marginMD }}>
+        Workorders
+      </Typography.Title>
 
       {/* TODO create component of this */}
       {workOrders.map((workOrder) => (

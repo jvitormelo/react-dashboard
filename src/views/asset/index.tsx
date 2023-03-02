@@ -1,3 +1,4 @@
+import { useTheme } from "@/hooks/use-theme";
 import { AssetHeader } from "./components/asset-header";
 import { AssetInfo } from "./components/asset-info";
 import { AssetAssignedUsers } from "./components/assigned-users";
@@ -8,6 +9,8 @@ import { useAssetView } from "./hooks/use-asset-view";
 export const AssetView = () => {
   const { asset, workOrdersWithUsers, assetUsers } = useAssetView();
 
+  const { theme } = useTheme();
+
   return (
     <div>
       <AssetHeader asset={asset} />
@@ -16,19 +19,34 @@ export const AssetView = () => {
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
-          gap: "1rem",
-          marginTop: "1rem",
+          gap: theme.marginMD,
+          marginTop: theme.marginMD,
         }}
       >
         <AssetInfo asset={asset} />
 
-        <div style={{ display: "flex", gap: "1rem", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: theme.marginMD,
+            flexDirection: "column",
+          }}
+        >
           <WorkOrderInfo workOrders={workOrdersWithUsers} />
 
-          <AssetAssignedUsers users={assetUsers} />
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: theme.marginMD,
+            }}
+          >
+            <AssetAssignedUsers users={assetUsers} />
+
+            <AssetHealthTimeline healthHistory={asset?.healthHistory ?? []} />
+          </div>
         </div>
       </div>
-      <AssetHealthTimeline healthHistory={asset?.healthHistory ?? []} />
     </div>
   );
 };

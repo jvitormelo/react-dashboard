@@ -1,5 +1,6 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { AssetHealthHistoryChart } from "@/components/charts/asset-health-history-chart";
+import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { colorsUtils } from "@/utils/colors";
 import { namesUtils } from "@/utils/names";
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const AssetHeader = ({ asset }: Props) => {
+  const { theme } = useTheme();
+
   if (!asset) return null;
 
   return (
@@ -17,13 +20,13 @@ export const AssetHeader = ({ asset }: Props) => {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        gap: "1rem",
+        gap: theme.marginMD,
       }}
     >
       <div
         style={{
           display: "grid",
-          gap: "1rem",
+          gap: theme.marginMD,
           height: "100%",
         }}
       >
