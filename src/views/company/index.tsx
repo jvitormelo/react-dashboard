@@ -41,16 +41,11 @@ export const CompanyView = () => {
         </div>
       </section>
 
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <div>Maybe some content in left</div>
-        <div style={{ flex: 1 }}>
-          <UnitTable
-            onSelect={onUnitSelect}
-            units={units}
-            loading={isUnitsLoading}
-          />
-        </div>
-      </div>
+      <UnitTable
+        onSelect={onUnitSelect}
+        units={units}
+        loading={isUnitsLoading}
+      />
     </div>
   );
 };
