@@ -1,4 +1,4 @@
-import { BaseTableProps, DataTable } from "@/components/data-table";
+import { BaseTableProps, DataTable } from "@/components/tables/data-table";
 import { Unit } from "@/types/entities/unit";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";

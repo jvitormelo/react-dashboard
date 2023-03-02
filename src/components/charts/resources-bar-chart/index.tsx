@@ -44,7 +44,7 @@ export const ResourcesBarChart = ({
       },
     },
     tooltip: {
-      valueSuffix: " units",
+      valueSuffix: "",
     },
     plotOptions: {
       bar: {

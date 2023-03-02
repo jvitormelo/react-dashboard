@@ -1,4 +1,4 @@
-import { BaseTableProps, DataTable } from "@/components/data-table";
+import { BaseTableProps, DataTable } from "@/components/tables/data-table";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { Button, Popconfirm, Space } from "antd";
