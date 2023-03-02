@@ -19,12 +19,3 @@ export const assetsStatusColorMapper = {
   [AssetStatus.InAlert]: "#FF6D00",
   [AssetStatus.UnplannedStop]: "#D50000",
 };
-
-// TODO - move to another place
-export const getAssetStatusName = (status: AssetStatus | string) => {
-  if (status in assetsStatusNameMapper) {
-    return assetsStatusNameMapper[status as AssetStatus];
-  }
-
-  return status;
-};

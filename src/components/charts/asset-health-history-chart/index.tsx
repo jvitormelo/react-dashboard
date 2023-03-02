@@ -1,11 +1,32 @@
 import { HealthHistory } from "@/types/entities/asset";
+import { chartUtils } from "@/utils/charts";
+import { colorsUtils } from "@/utils/colors";
+import { getAssetStatusName } from "@/utils/names";
 import { memo } from "react";
 import { BaseChart, ChartOptions } from "../base-chart";
+import { BaseChartItem } from "../base-chart/types";
 
 interface Props {
   healthHistory: HealthHistory[];
 }
+
+type FormattedItem = {
+  status: HealthHistory["status"];
+} & BaseChartItem;
+
 export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
+  const data = chartUtils.groupData<HealthHistory, FormattedItem>(
+    healthHistory ?? [],
+    (value, item) => value.status === item.status,
+    (value) => ({
+      status: value.status,
+      color: colorsUtils.getAssetHealthColor(value.status),
+      name: getAssetStatusName(value.status),
+      y: 1,
+    }),
+    (value) => value.y + 1
+  );
+
   const options: ChartOptions = {
     chart: {
       type: "pie",
@@ -25,7 +46,7 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
     series: [
       {
         type: "pie",
-        data: [{}],
+        data: data,
       },
     ],
   };

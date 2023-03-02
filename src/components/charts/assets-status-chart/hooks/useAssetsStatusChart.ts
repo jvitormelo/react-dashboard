@@ -4,44 +4,38 @@ import {
   getAssetStatusName,
 } from "@/constants/asset-status";
 import { Asset } from "@/types/entities/asset";
+import { chartUtils } from "@/utils/charts";
 
 interface Props {
   assets: Asset[];
 }
 
 type Hook = (props: Props) => {
-  formattedAssets: FormattedAssets;
+  formattedAssets: FormattedAsset[];
 };
 
-type FormattedAssets = {
+type FormattedAsset = {
   status: AssetStatus;
   name: string;
   y: number;
   color: string;
-}[];
+};
 
 // TODO - create tests
 export const useAssetsStatusChart: Hook = ({ assets }) => {
-  const formattedAssets: FormattedAssets = [];
-
-  assets.forEach((asset) => {
-    const { status } = asset;
-
-    const assetIndex = formattedAssets.findIndex(
-      (formattedAsset) => formattedAsset.status === status
-    );
-
-    if (assetIndex === -1) {
-      formattedAssets.push({
-        status,
-        name: getAssetStatusName(status),
-        y: 1,
-        color: assetsStatusColorMapper[status],
-      });
-    } else {
-      formattedAssets[assetIndex].y += 1;
+  const formattedAssets = chartUtils.groupData<Asset, FormattedAsset>(
+    assets,
+    (formattedAsset, asset) => formattedAsset.status === asset.status,
+    (asset) => ({
+      status: asset.status,
+      name: getAssetStatusName(asset.status),
+      y: 1,
+      color: assetsStatusColorMapper[asset.status],
+    }),
+    (formattedAsset) => {
+      formattedAsset.y += 1;
     }
-  });
+  );
 
   return {
     formattedAssets,

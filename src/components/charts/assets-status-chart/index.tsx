@@ -9,7 +9,9 @@ interface Props {
 }
 
 export const AssetsStatusPieChart = memo(({ assets, title }: Props) => {
-  const { formattedAssets } = useAssetsStatusChart({ assets: assets ?? [] });
+  const { formattedAssets } = useAssetsStatusChart({
+    assets: assets ?? [],
+  });
 
   const options: ChartOptions = {
     chart: {
