@@ -1,9 +1,9 @@
 export enum AssetStatus {
   InOperation = "inOperation",
-  InDowntime = "inDowntime",
   InAlert = "inAlert",
   UnplannedStop = "unplannedStop",
   PlannedStop = "plannedStop",
+  InDowntime = "inDowntime",
 }
 
 export const assetsStatusNameMapper = {
@@ -15,10 +15,11 @@ export const assetsStatusNameMapper = {
 };
 
 export const assetsStatusColorMapper = {
-  // TODO temporary hardcoded colors
-  [AssetStatus.InOperation]: "#00C853",
-  [AssetStatus.InDowntime]: "#FF5733",
-  [AssetStatus.InAlert]: "#FFD600",
-  [AssetStatus.UnplannedStop]: "#D50000",
-  [AssetStatus.PlannedStop]: "#FFFF00",
+  [AssetStatus.InOperation]: "#51C979",
+  [AssetStatus.InAlert]: "#D33F49",
+  [AssetStatus.UnplannedStop]: "#F9D46B",
+  [AssetStatus.PlannedStop]: "#29B6AF",
+  [AssetStatus.InDowntime]: "#BBBBBB",
 };
+
+export const assetStatusArray = Object.values(AssetStatus);

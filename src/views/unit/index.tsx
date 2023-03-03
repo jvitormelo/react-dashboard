@@ -1,16 +1,17 @@
 import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
 import { useGetUsersByUnit } from "@/api/user/use-get-users-by-unit";
-import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
 import { useParamsId } from "@/hooks/use-params-id";
 import { Tabs } from "antd";
 import { AssetsTable } from "../../components/tables/assets-table";
+import { UnitHeader } from "./components/header";
 
 export const UnitView = () => {
   const { unitId } = useParamsId();
 
-  const { data, isLoading } = useGetAssetsByUnit(unitId);
+  const { data: assets = [], isLoading: isAssetsLoading } =
+    useGetAssetsByUnit(unitId);
 
   const { data: users, isLoading: isUsersLoading } = useGetUsersByUnit(unitId);
 
@@ -19,9 +20,13 @@ export const UnitView = () => {
   const tabsItems = [
     {
       key: "1",
-      label: `Assets (${data?.length ?? 0})`,
+      label: `Assets (${assets?.length ?? 0})`,
       children: (
-        <AssetsTable assets={data} loading={isLoading} {...tableProps} />
+        <AssetsTable
+          assets={assets}
+          loading={isAssetsLoading}
+          {...tableProps}
+        />
       ),
     },
     {
@@ -32,11 +37,10 @@ export const UnitView = () => {
   ];
 
   return (
-    <div>
-      <section style={{ display: "flex", marginBottom: "1rem" }}>
-        <AssetsStatusPieChart assets={data} title="Recent Assets Status" />
-      </section>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <UnitHeader assets={assets} loading={isAssetsLoading} />
 
+      {/* TODO - Add Cards for each status */}
       <Tabs type="card" items={tabsItems} />
     </div>
   );
