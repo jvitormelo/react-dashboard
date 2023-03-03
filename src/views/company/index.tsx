@@ -8,6 +8,7 @@ import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
 import { Unit } from "@/types/entities/unit";
+import { Tabs } from "antd";
 import { UnitTable } from "./components/unit-table";
 import { useGetCompanyResources } from "./hooks/use-get-company-resources";
 
@@ -31,6 +32,31 @@ export const CompanyView = () => {
     setUnitCache(unit);
   };
 
+  const tabsItems = [
+    {
+      key: "1",
+      label: `Units (${units?.length})`,
+      children: (
+        <UnitTable
+          onSelect={onUnitSelect}
+          units={units}
+          loading={isUnitsLoading}
+        />
+      ),
+    },
+
+    {
+      key: "2",
+      label: "Users",
+      children: <div>users</div>,
+    },
+    {
+      key: "3",
+      label: `Assets (${assets?.length})`,
+      children: <div>assets</div>,
+    },
+  ];
+
   return (
     <div>
       <section
@@ -50,11 +76,7 @@ export const CompanyView = () => {
         <ResourcesBarChart {...chartData} />
       </section>
 
-      <UnitTable
-        onSelect={onUnitSelect}
-        units={units}
-        loading={isUnitsLoading}
-      />
+      <Tabs type="card" defaultActiveKey="1" items={tabsItems} />
     </div>
   );
 };

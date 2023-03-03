@@ -2,6 +2,7 @@ import { BaseTableProps, DataTable } from "@/components/tables/data-table";
 import { Unit } from "@/types/entities/unit";
 import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 interface Props extends BaseTableProps {
@@ -9,7 +10,7 @@ interface Props extends BaseTableProps {
   onSelect: (unit: Unit) => void;
 }
 
-export const UnitTable = ({ units, loading, onSelect }: Props) => {
+export const UnitTable = memo(({ units, loading, onSelect }: Props) => {
   const columns: ColumnsType<Unit> = [
     {
       title: "Id",
@@ -65,4 +66,4 @@ export const UnitTable = ({ units, loading, onSelect }: Props) => {
   return (
     <DataTable<Unit> dataSource={units} columns={columns} loading={loading} />
   );
-};
+});
