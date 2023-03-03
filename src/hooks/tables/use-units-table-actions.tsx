@@ -1,4 +1,5 @@
 import { useDeleteUnitMutation } from "@/api/unit/use-delete-unit-mutation";
+import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useUpdateUnitMutation } from "@/api/unit/use-update-unit-mutation";
 import { toast } from "@/infra/toast";
 import { Unit } from "@/types/entities/unit";
@@ -37,8 +38,13 @@ export const useUnitsTableActions = () => {
     });
   };
 
+  const onUnitSelect = (unit: Unit) => {
+    setUnitCache(unit);
+  };
+
   return {
     onDelete: deleteUnit,
     onEdit: editUnit,
+    onSelect: onUnitSelect,
   };
 };
