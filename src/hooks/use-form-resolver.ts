@@ -4,7 +4,7 @@ import { ZodType } from "zod";
 
 export const useFormResolver = <T extends object>(
   schema: ZodType,
-  options: UseFormProps<T>
+  options?: UseFormProps<T>
 ) => {
   return useForm<T>({
     resolver: zodResolver(schema),
