@@ -41,6 +41,7 @@ export const CompaniesView = () => {
           headerProps={{
             buttonLabel: "New company",
             onButtonClick: openCreateModal,
+            title: "Companies",
           }}
           selectCompany={selectCompany}
           deleteCompany={deleteCompanyHandler}

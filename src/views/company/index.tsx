@@ -53,18 +53,7 @@ export const CompanyView = () => {
     {
       key: "2",
       label: `Users (${users?.length ?? 0})`,
-      children: (
-        <UsersTable
-          onDelete={async () => {
-            console.log("delete");
-          }}
-          onEdit={() => {
-            console.log("delete");
-          }}
-          users={users}
-          loading={isUsersLoading}
-        />
-      ),
+      children: <UsersTable users={users} loading={isUsersLoading} />,
     },
     {
       key: "3",

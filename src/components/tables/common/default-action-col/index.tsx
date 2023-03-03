@@ -12,19 +12,30 @@ export const defaultActionCol = <T extends object>(
 
   const getDeleteTitle = params.deleteOptions?.title || (() => `Delete?`);
 
+  if (!params.onDelete && !params.onEdit) return {};
+
   return {
     title: "Actions",
     key: "action",
     render: (_: undefined, record: T) => (
       <Space size="middle">
-        <EditIcon onClick={() => params.onEdit(record)} />
-        <DeleteIconPop
-          onConfirm={async () => {
-            await params.onDelete(record);
-          }}
-          title={getDeleteTitle(record)}
-          description={getDeleteDescription(record)}
-        />
+        {params.onEdit && (
+          <EditIcon
+            onClick={() => {
+              params.onEdit?.(record);
+            }}
+          />
+        )}
+
+        {params.onDelete && (
+          <DeleteIconPop
+            onConfirm={async () => {
+              await params.onDelete?.(record);
+            }}
+            title={getDeleteTitle(record)}
+            description={getDeleteDescription(record)}
+          />
+        )}
       </Space>
     ),
   };
