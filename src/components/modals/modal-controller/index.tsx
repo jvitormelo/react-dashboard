@@ -3,32 +3,25 @@ import { Modal } from "antd";
 
 // It not worked like i was expected, remove it later
 export const ModalController = () => {
-  const {
-    modals,
-    actions: { removeModal },
-  } = useModalStore();
+  const { modal, closeModal } = useModalStore();
 
   return (
     <>
-      {modals.map((modal, index) => (
-        <Modal
-          key={modal.id}
-          {...modal}
-          onCancel={(e) => {
-            if (modal.onCancel) modal.onCancel(e);
-            removeModal(modal.id);
-          }}
-          afterClose={() => {
-            if (modal.afterClose) modal.afterClose();
-            removeModal(modal.id);
-          }}
-          zIndex={(modal.zIndex ?? 1000) + index}
-          footer={modal.footer || null}
-          destroyOnClose
-        >
-          <div style={{ marginTop: 32 }}>{modal.body}</div>
-        </Modal>
-      ))}
+      <Modal
+        {...modal}
+        onCancel={(e) => {
+          if (modal.onCancel) modal.onCancel(e);
+          closeModal();
+        }}
+        afterClose={() => {
+          if (modal.afterClose) modal.afterClose();
+          closeModal();
+        }}
+        footer={modal.footer || null}
+        destroyOnClose
+      >
+        <div style={{ marginTop: 32 }}>{modal.body}</div>
+      </Modal>
     </>
   );
 };
