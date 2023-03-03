@@ -15,7 +15,7 @@ export const assetsStatusNameMapper = {
 };
 
 export const assetsStatusColorMapper = {
-  [AssetStatus.InOperation]: "#51C979",
+  [AssetStatus.InOperation]: "#52c41a",
   [AssetStatus.InAlert]: "#D33F49",
   [AssetStatus.UnplannedStop]: "#F9D46B",
   [AssetStatus.PlannedStop]: "#29B6AF",

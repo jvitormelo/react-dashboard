@@ -1,3 +1,4 @@
+import { StatusTag } from "@/components/atoms/status-tag";
 import { defaultActionCol } from "@/components/tables/common/base-table-actions";
 import { Unit } from "@/types/entities/unit";
 import { dateUtils } from "@/utils";
@@ -57,6 +58,7 @@ export const UnitsTable = memo(
         title: "Average health score",
         dataIndex: "averageHealthScore",
         key: "averageHealthScore",
+        render: (text) => <StatusTag status={text} text={`${text}%`} />,
       },
       {
         title: "Average uptime",

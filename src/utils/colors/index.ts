@@ -1,20 +1,19 @@
 import { assetsStatusColorMapper, AssetStatus } from "@/constants/asset-status";
 
+// REFACTOR THIS TO USE FROM THE THEME
 const numberToAssetStatus = (value: number) => {
-  if (value < 50) {
-    return AssetStatus.UnplannedStop;
+  if (value > 70) {
+    return assetsStatusColorMapper.inOperation;
   }
-
-  if (value < 75) {
-    return AssetStatus.InAlert;
+  if (value > 50) {
+    return assetsStatusColorMapper.unplannedStop;
   }
-
-  return AssetStatus.InOperation;
+  return assetsStatusColorMapper.inAlert;
 };
 
 const getAssetHealthColor = (value: AssetStatus | number) => {
   if (typeof value === "number") {
-    return assetsStatusColorMapper[numberToAssetStatus(value)];
+    return numberToAssetStatus(value);
   }
 
   return assetsStatusColorMapper[value];

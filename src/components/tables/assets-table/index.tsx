@@ -1,8 +1,9 @@
+import { StatusTag } from "@/components/atoms/status-tag";
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
 import { namesUtils } from "@/utils/names";
-import { Image, Tag } from "antd";
+import { Image } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -51,6 +52,9 @@ export const AssetsTable = memo(
         title: "Health Score",
         dataIndex: "healthscore",
         key: "healthscore",
+        render: (healthscore) => (
+          <StatusTag status={healthscore} text={`${healthscore}%`} />
+        ),
       },
       {
         title: "Status",
@@ -58,7 +62,10 @@ export const AssetsTable = memo(
         key: "status",
         // TODO convert status to color
         render: (status) => (
-          <Tag color={"green"}>{namesUtils.getAssetStatusName(status)}</Tag>
+          <StatusTag
+            status={status}
+            text={namesUtils.getAssetStatusName(status)}
+          />
         ),
       },
       {
