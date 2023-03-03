@@ -37,19 +37,22 @@ export const useFeedbackColors = () => {
     },
   };
 
+  const numberToColor = (value: number) => {
+    if (value > breakPoints.success) {
+      return colorsMap.success;
+    }
+    if (value > breakPoints.warning) {
+      return colorsMap.warning;
+    }
+
+    return colorsMap.error;
+  };
+
   const healthScoreToColor = (
     value: number,
     returnType: ReturnType = "hex"
   ) => {
-    let color = colorsMap.default;
-
-    if (value > breakPoints.success) {
-      color = colorsMap.success;
-    } else if (value > breakPoints.warning) {
-      color = colorsMap.warning;
-    } else {
-      color = colorsMap.error;
-    }
+    const color = numberToColor(value);
 
     return color[returnType];
   };
