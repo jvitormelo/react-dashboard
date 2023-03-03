@@ -6,21 +6,30 @@ import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 
-export type UnitTable = {
+export type IUnitTable = {
   numberOfAssets: number;
   averageHealthScore: number;
   averageUptime: number;
   numberOfUsers: number;
 } & Unit;
 
-interface Props extends BaseTableProps, DefaultActionColProps<UnitTable> {
-  units?: UnitTable[];
+interface Props extends BaseTableProps, DefaultActionColProps<IUnitTable> {
+  units?: IUnitTable[];
   onSelect: (unit: Unit) => void;
+  companyId: number;
 }
 
 export const UnitTable = memo(
-  ({ units, loading, onSelect, onDelete, onEdit }: Props) => {
-    const columns: ColumnsType<UnitTable> = [
+  ({
+    units,
+    loading,
+    onSelect,
+    onDelete,
+    onEdit,
+    companyId,
+    ...rest
+  }: Props) => {
+    const columns: ColumnsType<IUnitTable> = [
       {
         title: "Id",
         dataIndex: "id",
@@ -33,7 +42,7 @@ export const UnitTable = memo(
         render: (text, unit) => (
           <Link
             onClick={() => onSelect(unit)}
-            to={`/companies/1/units/${unit.id}`}
+            to={`/companies/${companyId}/units/${unit.id}`}
           >
             {text}
           </Link>
@@ -60,17 +69,18 @@ export const UnitTable = memo(
         key: "numberOfUsers",
       },
 
-      defaultActionCol<UnitTable>({
+      defaultActionCol<IUnitTable>({
         onDelete,
         onEdit,
       }),
     ];
 
     return (
-      <DataTable<UnitTable>
+      <DataTable<IUnitTable>
         dataSource={units}
         columns={columns}
         loading={loading}
+        {...rest}
       />
     );
   }

@@ -34,7 +34,7 @@ export const CompanyView = () => {
 
   const assetTableProps = useAssetsTable();
 
-  const unitsTableProps = useUnitsTableActions();
+  const unitsTableProps = useUnitsTableActions(companyId);
 
   const tabsItems = [
     {
@@ -44,6 +44,7 @@ export const CompanyView = () => {
         <UnitTable
           units={unitsTable}
           loading={isUnitsLoading}
+          companyId={companyId}
           {...unitsTableProps}
         />
       ),
