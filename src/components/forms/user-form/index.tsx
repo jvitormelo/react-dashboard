@@ -9,14 +9,23 @@ interface Props {
 }
 
 export const UserForm = ({ onSubmitHandler, defaultValues }: Props) => {
-  const { control, handleSubmit } = useFormResolver<UserSchema>(userSchema, {
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useFormResolver<UserSchema>(userSchema, {
     defaultValues,
   });
 
   const onSubmit = handleSubmit(onSubmitHandler);
 
   return (
-    <BaseModalForm onSubmit={onSubmit}>
+    <BaseModalForm
+      onSubmit={onSubmit}
+      buttonProps={{
+        loading: isSubmitting,
+      }}
+    >
       <ControlledTextField<UserSchema>
         control={control}
         name="name"
