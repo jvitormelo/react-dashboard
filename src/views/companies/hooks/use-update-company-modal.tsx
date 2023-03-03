@@ -3,8 +3,8 @@ import { BaseModal } from "@/components/modals/base-modal";
 import { toast } from "@/infra/toast";
 import { Company } from "@/types/entities/company";
 import { useState } from "react";
-import { CompanyForm } from "../components/forms/company-form";
-import { CompanyFormSchema } from "../components/forms/schema";
+import { CompanyForm } from "../components/form";
+import { CompanyFormSchema } from "../components/form/schema";
 
 export const useUpdateCompanyModal = () => {
   const [isOpen, setIsOpen] = useState(false);

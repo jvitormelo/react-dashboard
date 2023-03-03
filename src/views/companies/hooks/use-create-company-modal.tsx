@@ -1,41 +1,33 @@
 import { useCreateCompanyMutation } from "@/api/company/use-create-company";
-import { BaseModal } from "@/components/modals/base-modal";
+import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/infra/toast";
-import { useState } from "react";
-import { CompanyForm } from "../components/forms/company-form";
-import { CompanyFormSchema } from "../components/forms/schema";
+import { CompanyForm } from "../components/form";
+import { CompanyFormSchema } from "../components/form/schema";
 
 export const useCreateCompanyModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { closeModal, openModal } = useModal();
 
-  const { mutateAsync: create, isLoading } = useCreateCompanyMutation();
+  const { mutateAsync: create } = useCreateCompanyMutation();
 
   const onSubmit = async (values: CompanyFormSchema) => {
     try {
       await create(values);
       // Should the message be here or separated?
       toast.success(`Company ${values.name} created!`);
-      setIsOpen(false);
+      closeModal();
     } catch (err) {
       toast.error("Failed to create company!");
     }
   };
 
-  const modal = (
-    <BaseModal
-      open={isOpen}
-      setIsOpen={setIsOpen}
-      title="Create company"
-      body={<CompanyForm onSubmit={onSubmit} loading={isLoading} />}
-    />
-  );
-
   const openCreateModal = () => {
-    setIsOpen(true);
+    openModal({
+      title: "Create Company",
+      body: <CompanyForm onSubmit={onSubmit} />,
+    });
   };
 
   return {
-    createdModal: modal,
     openCreateModal,
   };
 };

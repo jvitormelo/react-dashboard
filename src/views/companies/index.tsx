@@ -13,9 +13,8 @@ export const CompaniesView = () => {
 
   const { theme } = useTheme();
 
-  // Need to find a way to avoid re-rendering the whole page when the modal opens
-  const { openCreateModal, createdModal } = useCreateCompanyModal();
-  const { openUpdateModal, updateModal } = useUpdateCompanyModal();
+  const { openCreateModal } = useCreateCompanyModal();
+  const { openUpdateModal } = useUpdateCompanyModal();
   const { deleteCompany } = useDeleteCompany();
 
   const selectCompany = (company: Company) => {
@@ -23,7 +22,7 @@ export const CompaniesView = () => {
   };
 
   const deleteCompanyHandler = async (company: Company) => {
-    deleteCompany(company);
+    await deleteCompany(company);
   };
 
   const editCompany = (company: Company) => {
@@ -55,8 +54,6 @@ export const CompaniesView = () => {
           loading={isLoading}
         />
       </div>
-      {createdModal}
-      {updateModal}
     </>
   );
 };
