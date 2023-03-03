@@ -1,26 +1,16 @@
-import { useGetCompany } from "@/api/company/use-get-company";
-import { CompanyInfoCard } from "@/components/cards/assets-info";
-import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
-import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { AssetsTable } from "@/components/tables/assets-table";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
 import { useUnitsTableActions } from "@/hooks/tables/use-units-table-actions";
 import { useUserTableAction } from "@/hooks/tables/use-user-table-action";
 import { useParamsId } from "@/hooks/use-params-id";
-import { useTheme } from "@/hooks/use-theme";
 import { Tabs } from "antd";
-import { UnitTable } from "./components/unit-table";
-import { useGetCompanyResources } from "./hooks/use-get-company-resources";
+import { UnitsTable } from "../../components/tables/units-table";
+import { CompanyViewHeader } from "./components/header";
 import { useGetUnitsTableData } from "./hooks/use-get-units-table-data";
 
 export const CompanyView = () => {
   const { companyId } = useParamsId();
-
-  const { theme } = useTheme();
-
-  const { data: company, isLoading: isCompanyLoading } =
-    useGetCompany(companyId);
 
   const {
     unitsTable,
@@ -30,8 +20,6 @@ export const CompanyView = () => {
     isUnitsLoading,
     isUsersLoading,
   } = useGetUnitsTableData(companyId);
-
-  const { chartData } = useGetCompanyResources(companyId);
 
   const assetTableProps = useAssetsTable();
 
@@ -44,7 +32,7 @@ export const CompanyView = () => {
       key: "1",
       label: `Units (${unitsTable?.length ?? 0})`,
       children: (
-        <UnitTable
+        <UnitsTable
           units={unitsTable}
           loading={isUnitsLoading}
           companyId={companyId}
@@ -79,22 +67,11 @@ export const CompanyView = () => {
 
   return (
     <div>
-      <section
-        style={{
-          display: "grid",
-          gap: theme.marginMD,
-          gridTemplateColumns: "1fr 1fr 1fr",
-          marginBottom: theme.marginMD,
-        }}
-      >
-        <CompanyInfoCard
-          company={company}
-          assets={assets}
-          loading={isAssetsLoading || isCompanyLoading}
-        />
-        <AssetsStatusPieChart title={"Assets Status"} assets={assets} />
-        <ResourcesBarChart {...chartData} />
-      </section>
+      <CompanyViewHeader
+        companyId={companyId}
+        assets={assets}
+        isAssetsLoading={isAssetsLoading}
+      />
 
       <Tabs type="card" defaultActiveKey="1" items={tabsItems} />
     </div>

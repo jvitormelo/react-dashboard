@@ -19,7 +19,7 @@ interface Props extends BaseTableProps, DefaultActionColProps<IUnitTable> {
   companyId: number;
 }
 
-export const UnitTable = memo(
+export const UnitsTable = memo(
   ({
     units,
     loading,

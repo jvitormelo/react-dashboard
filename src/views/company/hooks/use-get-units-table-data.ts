@@ -1,7 +1,7 @@
 import { useGetAssetsByCompany } from "@/api/asset/use-get-assets-by-company";
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
-import { IUnitTable } from "../components/unit-table";
+import { IUnitTable } from "../../../components/tables/units-table";
 import { numberUtils } from "@/utils";
 import { Asset } from "@/types/entities/asset";
 import { User } from "@/types/entities/user";
