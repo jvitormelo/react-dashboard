@@ -1,35 +1,26 @@
 import { AssetStatus } from "@/constants/asset-status";
-import { Tag, TagProps } from "antd";
+import { useFeedbackColors } from "@/hooks/use-colors";
+import { Tag } from "antd";
 
 interface Props {
   status: AssetStatus | number;
   text?: string;
 }
 
-const convertToTagColor = (status: AssetStatus | number): TagProps["color"] => {
-  // TODO SEPARATE THIS LOGIC
-  if (typeof status === "number") {
-    if (status > 70) return "success";
-    if (status > 50) return "warning";
-    return "error";
-  }
-  const tagColorMap: Record<AssetStatus, TagProps["color"]> = {
-    [AssetStatus.InOperation]: "success",
-    [AssetStatus.InAlert]: "error",
-    [AssetStatus.UnplannedStop]: "warning",
-    [AssetStatus.InDowntime]: "default",
-    [AssetStatus.PlannedStop]: "blue",
-  };
-
-  return tagColorMap[status];
-};
-
 export const StatusTag = ({ status, text }: Props) => {
+  const { healthScoreToColor, assetStatusToColor } = useFeedbackColors();
   const styles: React.CSSProperties =
     typeof status === "number" ? { fontWeight: "bold" } : {};
 
+  const color = (() => {
+    if (typeof status === "number") {
+      return healthScoreToColor(status, "name");
+    }
+    return assetStatusToColor(status, "name");
+  })();
+
   return (
-    <Tag style={styles} color={convertToTagColor(status)}>
+    <Tag style={styles} color={color}>
       {text}
     </Tag>
   );

@@ -1,6 +1,6 @@
+import { useFeedbackColors } from "@/hooks/use-colors";
 import { HealthHistory } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
-import { colorsUtils } from "@/utils/colors";
 import { namesUtils } from "@/utils/names";
 import { memo } from "react";
 import { BaseChart, ChartOptions } from "../base-chart";
@@ -15,12 +15,14 @@ type FormattedItem = {
 } & BaseChartItem;
 
 export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
+  const { assetStatusToColor } = useFeedbackColors();
+
   const data = chartUtils.groupData<HealthHistory, FormattedItem>(
     healthHistory ?? [],
     (value, item) => value.status === item.status,
     (value) => ({
       status: value.status,
-      color: colorsUtils.getAssetHealthColor(value.status),
+      color: assetStatusToColor(value.status, "hex"),
       name: namesUtils.getAssetStatusName(value.status),
       y: 1,
     }),

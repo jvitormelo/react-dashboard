@@ -1,9 +1,9 @@
 import { SkeletonCard } from "@/components/cards/skeleton-card";
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { AssetHealthHistoryChart } from "@/components/charts/asset-health-history-chart";
+import { useFeedbackColors } from "@/hooks/use-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { colorsUtils } from "@/utils/colors";
 import { namesUtils } from "@/utils/names";
 import { AssetMetricCard } from "./components/asset-metric-card";
 
@@ -13,6 +13,7 @@ interface Props {
 
 export const AssetHeader = ({ asset }: Props) => {
   const { theme } = useTheme();
+  const { assetStatusToColor, healthScoreToColor } = useFeedbackColors();
 
   const headerStyle = {
     display: "grid",
@@ -45,7 +46,7 @@ export const AssetHeader = ({ asset }: Props) => {
             precision: 2,
             suffix: "%",
             valueStyle: {
-              color: colorsUtils.getAssetHealthColor(asset.healthscore),
+              color: healthScoreToColor(asset.healthscore),
               fontWeight: "bold",
             },
           }}
@@ -54,7 +55,7 @@ export const AssetHeader = ({ asset }: Props) => {
           statistics={{
             title: "Status",
             valueStyle: {
-              color: colorsUtils.getAssetHealthColor(asset.status),
+              color: assetStatusToColor(asset.status),
               fontWeight: "bold",
             },
             value: namesUtils.getAssetStatusName(asset.status),

@@ -1,8 +1,9 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
+import { useFeedbackColors } from "@/hooks/use-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { Company } from "@/types/entities/company";
-import { colorsUtils, numberUtils } from "@/utils";
+import { numberUtils } from "@/utils";
 import { Card, Skeleton } from "antd";
 import { memo } from "react";
 
@@ -14,6 +15,8 @@ interface Props {
 
 export const CompanyInfoCard = memo(({ assets, loading, company }: Props) => {
   const { theme } = useTheme();
+
+  const { healthScoreToColor } = useFeedbackColors();
 
   if (loading || !assets || !company) {
     return (
@@ -71,7 +74,7 @@ export const CompanyInfoCard = memo(({ assets, loading, company }: Props) => {
             value: averageHealthScore,
             valueStyle: {
               fontWeight: "bold",
-              color: colorsUtils.getAssetHealthColor(averageHealthScore),
+              color: healthScoreToColor(averageHealthScore),
             },
           },
         ]}

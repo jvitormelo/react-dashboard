@@ -1,5 +1,5 @@
 import { AssetStatus } from "@/constants/asset-status";
-import { colorsUtils } from "@/utils";
+import { useFeedbackColors } from "@/hooks/use-colors";
 
 import {
   CheckCircleOutlined,
@@ -23,12 +23,15 @@ const iconsMapper = {
 export const StatusIcon = ({ status, style }: Props) => {
   const Icon = iconsMapper[status];
 
+  const { assetStatusToColor } = useFeedbackColors();
+
   return (
     <Icon
+      color="cyan"
       style={{
         fontSize: 36,
         ...style,
-        color: colorsUtils.getAssetHealthColor(status),
+        color: assetStatusToColor(status, "hex"),
       }}
     />
   );
