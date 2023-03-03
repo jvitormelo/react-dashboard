@@ -6,6 +6,7 @@ import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { AssetsTable } from "@/components/tables/assets-table";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
+import { useUnitsTableActions } from "@/hooks/tables/use-units-table-actions";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
 import { Unit } from "@/types/entities/unit";
@@ -39,6 +40,8 @@ export const CompanyView = () => {
 
   const assetTableProps = useAssetsTable();
 
+  const unitsTableProps = useUnitsTableActions();
+
   const tabsItems = [
     {
       key: "1",
@@ -48,6 +51,7 @@ export const CompanyView = () => {
           onSelect={onUnitSelect}
           units={unitsTable}
           loading={isUnitsLoading}
+          {...unitsTableProps}
         />
       ),
     },

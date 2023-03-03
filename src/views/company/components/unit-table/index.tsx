@@ -1,5 +1,6 @@
 import { BaseTableProps, DataTable } from "@/components/tables/data-table";
 import { defaultActionCol } from "@/components/tables/default-action-col";
+import { DefaultActionColProps } from "@/components/tables/default-action-col/types";
 import { Unit } from "@/types/entities/unit";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
@@ -12,67 +13,65 @@ export type UnitTable = {
   numberOfUsers: number;
 } & Unit;
 
-interface Props extends BaseTableProps {
+interface Props extends BaseTableProps, DefaultActionColProps<UnitTable> {
   units?: UnitTable[];
   onSelect: (unit: Unit) => void;
 }
 
-export const UnitTable = memo(({ units, loading, onSelect }: Props) => {
-  const columns: ColumnsType<UnitTable> = [
-    {
-      title: "Id",
-      dataIndex: "id",
-      key: "id",
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text, unit) => (
-        <Link
-          onClick={() => onSelect(unit)}
-          to={`/companies/1/units/${unit.id}`}
-        >
-          {text}
-        </Link>
-      ),
-    },
-    {
-      title: "Number of assets",
-      dataIndex: "numberOfAssets",
-      key: "numberOfAssets",
-    },
-    {
-      title: "Average health score",
-      dataIndex: "averageHealthScore",
-      key: "averageHealthScore",
-    },
-    {
-      title: "Average uptime",
-      dataIndex: "averageUptime",
-      key: "averageUptime",
-    },
-    {
-      title: "Number of Users",
-      dataIndex: "numberOfUsers",
-      key: "numberOfUsers",
-    },
-
-    defaultActionCol<UnitTable>({
-      onDelete: async () => {
-        console.log("delete");
+export const UnitTable = memo(
+  ({ units, loading, onSelect, onDelete, onEdit }: Props) => {
+    const columns: ColumnsType<UnitTable> = [
+      {
+        title: "Id",
+        dataIndex: "id",
+        key: "id",
       },
-      onEdit: () => {
-        console.log("edit");
+      {
+        title: "Name",
+        dataIndex: "name",
+        key: "name",
+        render: (text, unit) => (
+          <Link
+            onClick={() => onSelect(unit)}
+            to={`/companies/1/units/${unit.id}`}
+          >
+            {text}
+          </Link>
+        ),
       },
-    }),
-  ];
+      {
+        title: "Number of assets",
+        dataIndex: "numberOfAssets",
+        key: "numberOfAssets",
+      },
+      {
+        title: "Average health score",
+        dataIndex: "averageHealthScore",
+        key: "averageHealthScore",
+      },
+      {
+        title: "Average uptime",
+        dataIndex: "averageUptime",
+        key: "averageUptime",
+      },
+      {
+        title: "Number of Users",
+        dataIndex: "numberOfUsers",
+        key: "numberOfUsers",
+      },
 
-  return (
-    <DataTable<UnitTable>
-      dataSource={units}
-      columns={columns}
-      loading={loading}
-    />
-  );
-});
+      defaultActionCol<UnitTable>({
+        onDelete,
+        onEdit,
+      }),
+    ];
+
+    return (
+      <DataTable<UnitTable>
+        dataSource={units}
+        columns={columns}
+        loading={loading}
+      />
+    );
+  }
+);
