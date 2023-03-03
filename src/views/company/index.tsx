@@ -2,10 +2,12 @@ import { useGetAssetsByCompany } from "@/api/asset/use-get-assets-by-company";
 import { useGetCompany } from "@/api/company/use-get-company";
 import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
+import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { AssetsTable } from "@/components/tables/assets-table";
+import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
@@ -27,6 +29,9 @@ export const CompanyView = () => {
 
   const { data: assets, isLoading: isAssetsLoading } =
     useGetAssetsByCompany(companyId);
+
+  const { data: users, isLoading: isUsersLoading } =
+    useGetUsersByCompany(companyId);
 
   const { chartData } = useGetCompanyResources(companyId);
 
@@ -51,8 +56,8 @@ export const CompanyView = () => {
 
     {
       key: "2",
-      label: "Users",
-      children: <div>users</div>,
+      label: `Users (${users?.length ?? 0})`,
+      children: <UsersTable users={users} loading={isUsersLoading} />,
     },
     {
       key: "3",
