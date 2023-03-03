@@ -2,7 +2,6 @@ import { ControlledTextField } from "@/components/controlled/controlled-text-fie
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { useTheme } from "@/hooks/use-theme";
 import { Button } from "antd";
-import { useState } from "react";
 import { companyFormSchema, CompanyFormSchema } from "./schema";
 
 interface Props {
@@ -18,23 +17,15 @@ export const CompanyForm = ({
 }: Props) => {
   const { theme } = useTheme();
 
-  const [loading, setIsLoading] = useState(false);
-
-  const { handleSubmit, control } = useFormResolver<CompanyFormSchema>(
-    companyFormSchema,
-    {
-      defaultValues,
-    }
-  );
-
-  const submit = handleSubmit(async (data) => {
-    try {
-      setIsLoading(true);
-      await onSubmit(data);
-    } finally {
-      setIsLoading(false);
-    }
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = useFormResolver<CompanyFormSchema>(companyFormSchema, {
+    defaultValues,
   });
+
+  const submit = handleSubmit(onSubmit);
 
   return (
     <form
@@ -52,7 +43,7 @@ export const CompanyForm = ({
       />
 
       <Button
-        loading={loading}
+        loading={isSubmitting}
         style={{ marginLeft: "auto" }}
         type="primary"
         size="large"
