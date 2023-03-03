@@ -8,7 +8,6 @@ export const useGetUsersByUnit = (unitId: number) => {
 
   const data = response.data?.filter((user) => user.unitId === unitId);
 
-  console.log(unitId);
   return {
     ...response,
     data,
