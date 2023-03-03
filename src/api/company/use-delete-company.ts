@@ -17,7 +17,9 @@ export const useDeleteCompanyMutation = () => {
         }
       );
 
-      queryClient.invalidateQueries(["companies"]);
+      queryClient.setQueryData(["company", id], null);
+
+      // should cascade?
     },
   });
 };

@@ -1,3 +1,4 @@
+import { SkeletonCard } from "@/components/cards/skeleton-card";
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { AssetHealthHistoryChart } from "@/components/charts/asset-health-history-chart";
 import { useTheme } from "@/hooks/use-theme";
@@ -13,16 +14,23 @@ interface Props {
 export const AssetHeader = ({ asset }: Props) => {
   const { theme } = useTheme();
 
-  if (!asset) return null;
+  const headerStyle = {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: theme.marginMD,
+  };
+
+  if (!asset)
+    return (
+      <header style={{ ...headerStyle, minHeight: 300 }}>
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </header>
+    );
 
   return (
-    <header
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: theme.marginMD,
-      }}
-    >
+    <header style={headerStyle}>
       <div
         style={{
           display: "grid",
@@ -55,7 +63,7 @@ export const AssetHeader = ({ asset }: Props) => {
       </div>
       <AssetHealthHistoryChart healthHistory={asset.healthHistory} />
 
-      <AssetMetricCard metrics={asset?.metrics}></AssetMetricCard>
+      <AssetMetricCard metrics={asset.metrics}></AssetMetricCard>
     </header>
   );
 };

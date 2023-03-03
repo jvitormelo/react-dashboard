@@ -3,24 +3,20 @@ import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
 
 type Props = {
-  metrics?: Asset["metrics"];
+  metrics: Asset["metrics"];
 };
 
 export const AssetMetricCard = ({ metrics }: Props) => {
-  if (!metrics) return null;
-
   const { lastUptimeAt, totalCollectsUptime, totalUptime } = metrics;
 
   const data = [
     {
       title: "Total uptime",
-      value: totalUptime,
-      suffix: "hours",
-      precision: 2,
+      value: dateUtils.formatHoursDistance(totalUptime),
     },
     {
       title: "Total Collects Uptime",
-      value: totalCollectsUptime,
+      value: dateUtils.formatHoursDistance(totalCollectsUptime),
       suffix: "hours",
     },
     {
