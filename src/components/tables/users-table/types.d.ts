@@ -1,5 +1,7 @@
 import { BaseTableProps } from "../data-table";
+import { DefaultActionColProps } from "../default-action-col/types";
 
-export interface UsersTableProps extends BaseTableProps {
-  users: User[] | undefined;
-}
+export type UsersTableProps = BaseTableProps &
+  DefaultActionColProps<User> & {
+    users: User[] | undefined;
+  };

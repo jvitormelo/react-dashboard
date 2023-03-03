@@ -54,6 +54,15 @@ export const AssetsTable = memo(
         key: "healthscore",
       },
       {
+        title: "Status",
+        dataIndex: "status",
+        key: "status",
+        // TODO convert status to color
+        render: (status) => (
+          <Tag color={"green"}>{namesUtils.getAssetStatusName(status)}</Tag>
+        ),
+      },
+      {
         title: "Model",
         dataIndex: "model",
         key: "model",
@@ -91,15 +100,6 @@ export const AssetsTable = memo(
         title: "Assigned users",
         dataIndex: "numberOfAssignedUsers",
         key: "numberOfAssignedUsers",
-      },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        // TODO convert status to color
-        render: (status) => (
-          <Tag color={"green"}>{namesUtils.getAssetStatusName(status)}</Tag>
-        ),
       },
     ];
 

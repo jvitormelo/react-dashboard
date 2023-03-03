@@ -1,7 +1,7 @@
 import { BaseTableProps, DataTable } from "@/components/tables/data-table";
+import { defaultActionCol } from "@/components/tables/default-action-col";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
-import { Button, Popconfirm, Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
 
@@ -38,30 +38,10 @@ export const CompanyTable = ({
         </Link>
       ),
     },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <Button onClick={() => editCompany(record)}>Edit</Button>
-
-          <Popconfirm
-            placement="bottomLeft"
-            title={"Delete Company?"}
-            description={`
-              Are you sure you want to delete ${record.name}?
-            `}
-            onConfirm={async () => deleteCompany(record)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button type="default" color="red">
-              Delete
-            </Button>
-          </Popconfirm>
-        </Space>
-      ),
-    },
+    defaultActionCol({
+      onDelete: deleteCompany,
+      onEdit: editCompany,
+    }),
   ];
 
   return (
