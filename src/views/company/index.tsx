@@ -5,6 +5,8 @@ import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
+import { AssetsTable } from "@/components/tables/assets-table";
+import { useAssetsTable } from "@/hooks/tables/use-assets-table";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
 import { Unit } from "@/types/entities/unit";
@@ -32,10 +34,12 @@ export const CompanyView = () => {
     setUnitCache(unit);
   };
 
+  const assetTableProps = useAssetsTable();
+
   const tabsItems = [
     {
       key: "1",
-      label: `Units (${units?.length})`,
+      label: `Units (${units?.length ?? 0})`,
       children: (
         <UnitTable
           onSelect={onUnitSelect}
@@ -52,8 +56,14 @@ export const CompanyView = () => {
     },
     {
       key: "3",
-      label: `Assets (${assets?.length})`,
-      children: <div>assets</div>,
+      label: `Assets (${assets?.length ?? 0})`,
+      children: (
+        <AssetsTable
+          loading={isAssetsLoading}
+          assets={assets}
+          {...assetTableProps}
+        />
+      ),
     },
   ];
 
