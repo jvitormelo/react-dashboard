@@ -1,6 +1,6 @@
 import { setAssetCache } from "@/api/asset/use-get-asset";
 import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
-import { AssetsInfo } from "@/components/cards/assets-info";
+import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { useParamsId } from "@/hooks/use-params-id";
 import { Asset } from "@/types/entities/asset";
@@ -18,7 +18,7 @@ export const UnitView = () => {
   return (
     <div>
       <section style={{ display: "flex", marginBottom: "1rem" }}>
-        <AssetsInfo assets={data} />
+        <CompanyInfoCard assets={data} />
         <AssetsStatusPieChart assets={data} title="Recent Assets Status" />
       </section>
       <AssetsTable

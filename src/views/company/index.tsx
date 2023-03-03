@@ -1,7 +1,8 @@
 import { useGetAssetsByCompany } from "@/api/asset/use-get-assets-by-company";
+import { useGetCompany } from "@/api/company/use-get-company";
 import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
-import { AssetsInfo } from "@/components/cards/assets-info";
+import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { useParamsId } from "@/hooks/use-params-id";
@@ -14,6 +15,9 @@ export const CompanyView = () => {
   const { companyId } = useParamsId();
 
   const { theme } = useTheme();
+
+  const { data: company, isLoading: isCompanyLoading } =
+    useGetCompany(companyId);
 
   const { data: units, isLoading: isUnitsLoading } =
     useGetUnitsByCompany(companyId);
@@ -37,7 +41,11 @@ export const CompanyView = () => {
           marginBottom: theme.marginMD,
         }}
       >
-        <AssetsInfo assets={assets} loading={isAssetsLoading} />
+        <CompanyInfoCard
+          company={company}
+          assets={assets}
+          loading={isAssetsLoading || isCompanyLoading}
+        />
         <AssetsStatusPieChart title={"Assets Status"} assets={assets} />
         <ResourcesBarChart {...chartData} />
       </section>
