@@ -1,17 +1,24 @@
 import { BaseTableProps, DataTable } from "@/components/tables/data-table";
+import { defaultActionCol } from "@/components/tables/default-action-col";
 import { Unit } from "@/types/entities/unit";
-import { Space } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { Link } from "react-router-dom";
 
+export type UnitTable = {
+  numberOfAssets: number;
+  averageHealthScore: number;
+  averageUptime: number;
+  numberOfUsers: number;
+} & Unit;
+
 interface Props extends BaseTableProps {
-  units?: Unit[];
+  units?: UnitTable[];
   onSelect: (unit: Unit) => void;
 }
 
 export const UnitTable = memo(({ units, loading, onSelect }: Props) => {
-  const columns: ColumnsType<Unit> = [
+  const columns: ColumnsType<UnitTable> = [
     {
       title: "Id",
       dataIndex: "id",
@@ -51,19 +58,21 @@ export const UnitTable = memo(({ units, loading, onSelect }: Props) => {
       key: "numberOfUsers",
     },
 
-    {
-      title: "Action",
-      key: "action",
-      render: () => (
-        <Space size="middle">
-          <a>edit</a>
-          <a>delete</a>
-        </Space>
-      ),
-    },
+    defaultActionCol<UnitTable>({
+      onDelete: async () => {
+        console.log("delete");
+      },
+      onEdit: () => {
+        console.log("edit");
+      },
+    }),
   ];
 
   return (
-    <DataTable<Unit> dataSource={units} columns={columns} loading={loading} />
+    <DataTable<UnitTable>
+      dataSource={units}
+      columns={columns}
+      loading={loading}
+    />
   );
 });

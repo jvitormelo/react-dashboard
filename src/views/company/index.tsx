@@ -1,8 +1,5 @@
-import { useGetAssetsByCompany } from "@/api/asset/use-get-assets-by-company";
 import { useGetCompany } from "@/api/company/use-get-company";
 import { setUnitCache } from "@/api/unit/use-get-unit";
-import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
-import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
@@ -15,6 +12,7 @@ import { Unit } from "@/types/entities/unit";
 import { Tabs } from "antd";
 import { UnitTable } from "./components/unit-table";
 import { useGetCompanyResources } from "./hooks/use-get-company-resources";
+import { useGetUnitsTableData } from "./hooks/use-get-units-table-data";
 
 export const CompanyView = () => {
   const { companyId } = useParamsId();
@@ -24,14 +22,14 @@ export const CompanyView = () => {
   const { data: company, isLoading: isCompanyLoading } =
     useGetCompany(companyId);
 
-  const { data: units, isLoading: isUnitsLoading } =
-    useGetUnitsByCompany(companyId);
-
-  const { data: assets, isLoading: isAssetsLoading } =
-    useGetAssetsByCompany(companyId);
-
-  const { data: users, isLoading: isUsersLoading } =
-    useGetUsersByCompany(companyId);
+  const {
+    unitsTable,
+    assets,
+    users,
+    isAssetsLoading,
+    isUnitsLoading,
+    isUsersLoading,
+  } = useGetUnitsTableData(companyId);
 
   const { chartData } = useGetCompanyResources(companyId);
 
@@ -44,11 +42,11 @@ export const CompanyView = () => {
   const tabsItems = [
     {
       key: "1",
-      label: `Units (${units?.length ?? 0})`,
+      label: `Units (${unitsTable?.length ?? 0})`,
       children: (
         <UnitTable
           onSelect={onUnitSelect}
-          units={units}
+          units={unitsTable}
           loading={isUnitsLoading}
         />
       ),
@@ -57,7 +55,18 @@ export const CompanyView = () => {
     {
       key: "2",
       label: `Users (${users?.length ?? 0})`,
-      children: <UsersTable users={users} loading={isUsersLoading} />,
+      children: (
+        <UsersTable
+          onDelete={async () => {
+            console.log("delete");
+          }}
+          onEdit={() => {
+            console.log("delete");
+          }}
+          users={users}
+          loading={isUsersLoading}
+        />
+      ),
     },
     {
       key: "3",
