@@ -1,7 +1,7 @@
-import { Zod } from "@/infra/zod";
+import zod from "@/infra/zod";
 
-export const companyFormSchema = Zod.object({
-  name: Zod.string().min(1).max(100),
+export const companyFormSchema = zod.object({
+  name: zod.string().min(3).max(100),
 });
 
-export type CompanyFormSchema = Zod.infer<typeof companyFormSchema>;
+export type CompanyFormSchema = zod.infer<typeof companyFormSchema>;

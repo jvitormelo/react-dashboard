@@ -1,7 +1,7 @@
-import { Zod } from "@/infra/zod";
+import zod from "@/infra/zod";
 
-export const unitSchema = Zod.object({
-  name: Zod.string().min(1).max(255),
+export const unitSchema = zod.object({
+  name: zod.string().min(1).max(255),
 });
 
-export type UnitSchema = Zod.infer<typeof unitSchema>;
+export type UnitSchema = zod.infer<typeof unitSchema>;
