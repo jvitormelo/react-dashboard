@@ -40,7 +40,6 @@ export const UnitView = () => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <UnitHeader assets={assets} loading={isAssetsLoading} />
 
-      {/* TODO - Add Cards for each status */}
       <Tabs type="card" items={tabsItems} />
     </div>
   );

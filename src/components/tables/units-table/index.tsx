@@ -1,10 +1,10 @@
-import { BaseTableProps, DataTable } from "@/components/tables/data-table";
-import { defaultActionCol } from "@/components/tables/common/default-action-col";
-import { DefaultActionColProps } from "@/components/tables/common/default-action-col/types";
+import { defaultActionCol } from "@/components/tables/common/base-table-actions";
 import { Unit } from "@/types/entities/unit";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import { BaseTableActions } from "../common/base-table-actions/types";
+import { BaseTableProps, DataTable } from "../common/data-table";
 
 export type IUnitTable = {
   numberOfAssets: number;
@@ -13,9 +13,8 @@ export type IUnitTable = {
   numberOfUsers: number;
 } & Unit;
 
-interface Props extends BaseTableProps, DefaultActionColProps<IUnitTable> {
+interface Props extends BaseTableProps, BaseTableActions<IUnitTable> {
   units?: IUnitTable[];
-  onSelect: (unit: Unit) => void;
   companyId: number;
 }
 
@@ -41,7 +40,7 @@ export const UnitsTable = memo(
         key: "name",
         render: (text, unit) => (
           <Link
-            onClick={() => onSelect(unit)}
+            onClick={() => onSelect && onSelect(unit)}
             to={`/companies/${companyId}/units/${unit.id}`}
           >
             {text}

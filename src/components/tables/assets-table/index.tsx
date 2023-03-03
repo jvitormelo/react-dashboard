@@ -1,5 +1,3 @@
-import { DataTable } from "@/components/tables/data-table";
-
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
@@ -8,6 +6,7 @@ import { Image, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { DataTable } from "../common/data-table";
 import { AssetsTableProps } from "./types";
 
 type DataTableAsset = Asset & {
@@ -41,7 +40,7 @@ export const AssetsTable = memo(
         key: "name",
         render: (name, asset) => (
           <Link
-            onClick={() => onSelect(asset)}
+            onClick={() => onSelect && onSelect(asset)}
             to={Routes.asset(asset.companyId, asset.unitId, asset.id)}
           >
             {name}

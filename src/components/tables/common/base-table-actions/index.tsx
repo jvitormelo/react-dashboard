@@ -1,10 +1,10 @@
 import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
 import { EditIcon } from "@/components/icons/edit-icon";
 import { Space } from "antd";
-import { DefaultActionColProps } from "./types";
+import { BaseTableActions } from "./types";
 
 export const defaultActionCol = <T extends object>(
-  params: DefaultActionColProps<T>
+  params: BaseTableActions<T>
 ) => {
   const getDeleteDescription =
     params.deleteOptions?.description ||

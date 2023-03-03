@@ -1,7 +1,9 @@
 import { Asset } from "@/types/entities/asset";
-import { BaseTableProps } from "../data-table";
+import { BaseTableActions } from "../common/base-table-actions/types";
+import { BaseTableProps } from "../common/data-table";
 
-export interface AssetsTableProps extends BaseTableProps {
+export interface AssetsTableProps
+  extends BaseTableProps,
+    BaseTableActions<Asset> {
   assets: Asset[] | undefined;
-  onSelect: (asset: Asset) => void;
 }

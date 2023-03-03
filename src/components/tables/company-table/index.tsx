@@ -1,23 +1,21 @@
-import { BaseTableProps, DataTable } from "@/components/tables/data-table";
-import { defaultActionCol } from "@/components/tables/common/default-action-col";
+import { defaultActionCol } from "@/components/tables/common/base-table-actions";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
+import { BaseTableActions } from "../common/base-table-actions/types";
+import { BaseTableProps, DataTable } from "../common/data-table";
 
-interface Props extends BaseTableProps {
+interface Props extends BaseTableProps, BaseTableActions<Company> {
   companies?: Company[];
-  selectCompany: (company: Company) => void;
-  deleteCompany: (company: Company) => Promise<void>;
-  editCompany: (company: Company) => void;
 }
 
 export const CompanyTable = ({
   companies,
   loading,
-  selectCompany,
-  deleteCompany,
-  editCompany,
+  onSelect,
+  onDelete,
+  onEdit,
   ...baseProps
 }: Props) => {
   const columns: ColumnsType<Company> = [
@@ -32,7 +30,7 @@ export const CompanyTable = ({
       key: "name",
       render: (text, company) => (
         <Link
-          onClick={() => selectCompany(company)}
+          onClick={() => onSelect && onSelect(company)}
           to={Routes.company(company.id)}
         >
           {text}
@@ -40,8 +38,8 @@ export const CompanyTable = ({
       ),
     },
     defaultActionCol({
-      onDelete: deleteCompany,
-      onEdit: editCompany,
+      onDelete,
+      onEdit,
     }),
   ];
 

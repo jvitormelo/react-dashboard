@@ -1,7 +1,7 @@
 import { Card, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { ComponentProps, useMemo } from "react";
-import { BaseTableHeader } from "../common/base-table-header";
+import { BaseTableHeader } from "../base-table-header";
 
 interface BaseItem {
   id: string | number;
