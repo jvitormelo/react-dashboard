@@ -1,8 +1,8 @@
 import { useCreateCompanyMutation } from "@/api/company/use-create-company";
 import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/infra/toast";
-import { CompanyForm } from "../components/form";
-import { CompanyFormSchema } from "../components/form/schema";
+import { CompanyForm } from "../../../components/forms/company-form";
+import { CompanyFormSchema } from "../../../components/forms/company-form/schema";
 
 export const useCreateCompanyModal = () => {
   const { closeModal, openModal } = useModal();

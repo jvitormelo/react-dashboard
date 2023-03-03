@@ -2,17 +2,18 @@ import { ControlledTextField } from "@/components/controlled/controlled-text-fie
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { BaseModalForm } from "../base-modal-form";
 import { BaseModalFormProps } from "../types";
-import { UserSchema, userSchema } from "./schema";
+import { companyFormSchema, CompanyFormSchema } from "./schema";
 
-export const UserForm = ({
+export const CompanyForm = ({
   onSubmitHandler,
   defaultValues,
-}: BaseModalFormProps<UserSchema>) => {
+  buttonLabel,
+}: BaseModalFormProps<CompanyFormSchema>) => {
   const {
-    control,
     handleSubmit,
+    control,
     formState: { isSubmitting },
-  } = useFormResolver<UserSchema>(userSchema, {
+  } = useFormResolver<CompanyFormSchema>(companyFormSchema, {
     defaultValues,
   });
 
@@ -23,18 +24,13 @@ export const UserForm = ({
       onSubmit={onSubmit}
       buttonProps={{
         loading: isSubmitting,
+        label: buttonLabel,
       }}
     >
-      <ControlledTextField<UserSchema>
-        control={control}
-        name="name"
+      <ControlledTextField<CompanyFormSchema>
         label="Name"
-      />
-      <ControlledTextField<UserSchema>
+        name="name"
         control={control}
-        name="email"
-        label="Email"
-        type="email"
       />
     </BaseModalForm>
   );

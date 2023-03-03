@@ -2,8 +2,8 @@ import { useUpdateCompanyMutation } from "@/api/company/use-update-company";
 import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/infra/toast";
 import { Company } from "@/types/entities/company";
-import { CompanyForm } from "../components/form";
-import { CompanyFormSchema } from "../components/form/schema";
+import { CompanyForm } from "../../../components/forms/company-form";
+import { CompanyFormSchema } from "../../../components/forms/company-form/schema";
 
 export const useUpdateCompanyModal = () => {
   const { closeModal, openModal } = useModal();
@@ -22,7 +22,7 @@ export const useUpdateCompanyModal = () => {
 
     openModal({
       title: "Update company",
-      body: <CompanyForm onSubmit={onSubmit} defaultValues={company} />,
+      body: <CompanyForm onSubmitHandler={onSubmit} defaultValues={company} />,
     });
   };
 

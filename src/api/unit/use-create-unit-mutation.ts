@@ -1,7 +1,7 @@
 import { httpClient } from "@/infra/http-client";
 import { queryClient } from "@/infra/query-client";
 import { Unit } from "@/types/entities/unit";
-import { UnitSchema } from "@/views/company/components/form/schema";
+import { UnitSchema } from "@/components/forms/unit-form/schema";
 import { useMutation } from "@tanstack/react-query";
 
 interface CreateUnitMutation extends UnitSchema {

@@ -4,8 +4,8 @@ import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useUpdateUnitMutation } from "@/api/unit/use-update-unit-mutation";
 import { toast } from "@/infra/toast";
 import { Unit } from "@/types/entities/unit";
-import { UnitForm } from "@/views/company/components/form/index";
-import { UnitSchema } from "@/views/company/components/form/schema";
+import { UnitForm } from "@/components/forms/unit-form";
+import { UnitSchema } from "@/components/forms/unit-form/schema";
 import { useModal } from "../use-modal";
 
 export const useUnitsTableActions = (companyId: number) => {
@@ -36,7 +36,7 @@ export const useUnitsTableActions = (companyId: number) => {
 
     openModal({
       title: "Edit Unit",
-      body: <UnitForm onSubmit={submitHandler} defaultValues={unit} />,
+      body: <UnitForm onSubmitHandler={submitHandler} defaultValues={unit} />,
     });
   };
 
@@ -57,7 +57,7 @@ export const useUnitsTableActions = (companyId: number) => {
   const openCreateUnitModal = () => {
     openModal({
       title: "Create Unit",
-      body: <UnitForm onSubmit={createUnit} />,
+      body: <UnitForm onSubmitHandler={createUnit} />,
     });
   };
 

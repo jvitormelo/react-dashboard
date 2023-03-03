@@ -2,7 +2,7 @@ import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { setCompanyCache } from "@/api/company/use-get-company";
 import { useTheme } from "@/hooks/use-theme";
 import { Company } from "@/types/entities/company";
-import { CompanyTable } from "./components/company-table";
+import { CompanyTable } from "../../components/tables/company-table";
 import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 import { useDeleteCompany } from "./hooks/use-delete-company";
 import { useUpdateCompanyModal } from "./hooks/use-update-company-modal";
