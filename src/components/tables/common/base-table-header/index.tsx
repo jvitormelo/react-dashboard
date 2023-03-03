@@ -12,7 +12,13 @@ export const BaseTableHeader = ({
   title,
 }: Props) => {
   return (
-    <header style={{ display: "flex", justifyContent: "space-between" }}>
+    <header
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        marginBottom: 24,
+      }}
+    >
       {title && <Typography.Title level={3}>{title}</Typography.Title>}
 
       <Button

@@ -2,7 +2,7 @@ import { User } from "@/types/entities/user";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { DataTable } from "../data-table";
-import { defaultActionCol } from "../default-action-col";
+import { defaultActionCol } from "../common/default-action-col";
 import { UsersTableProps } from "./types";
 
 export const UsersTable = memo(

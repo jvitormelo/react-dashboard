@@ -1,6 +1,6 @@
 import { BaseTableProps, DataTable } from "@/components/tables/data-table";
-import { defaultActionCol } from "@/components/tables/default-action-col";
-import { DefaultActionColProps } from "@/components/tables/default-action-col/types";
+import { defaultActionCol } from "@/components/tables/common/default-action-col";
+import { DefaultActionColProps } from "@/components/tables/common/default-action-col/types";
 import { Unit } from "@/types/entities/unit";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";

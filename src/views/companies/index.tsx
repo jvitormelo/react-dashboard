@@ -2,7 +2,6 @@ import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { setCompanyCache } from "@/api/company/use-get-company";
 import { useTheme } from "@/hooks/use-theme";
 import { Company } from "@/types/entities/company";
-import { Button } from "antd";
 import { CompanyTable } from "./components/company-table";
 import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 import { useDeleteCompany } from "./hooks/use-delete-company";
@@ -38,15 +37,11 @@ export const CompaniesView = () => {
           gap: theme.marginMD,
         }}
       >
-        <Button
-          type="primary"
-          style={{ marginLeft: "auto" }}
-          size="large"
-          onClick={openCreateModal}
-        >
-          New company
-        </Button>
         <CompanyTable
+          headerProps={{
+            buttonLabel: "New company",
+            onButtonClick: openCreateModal,
+          }}
           selectCompany={selectCompany}
           deleteCompany={deleteCompanyHandler}
           editCompany={editCompany}

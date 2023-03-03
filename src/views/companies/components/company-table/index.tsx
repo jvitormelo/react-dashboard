@@ -1,5 +1,5 @@
 import { BaseTableProps, DataTable } from "@/components/tables/data-table";
-import { defaultActionCol } from "@/components/tables/default-action-col";
+import { defaultActionCol } from "@/components/tables/common/default-action-col";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { ColumnsType } from "antd/es/table";
@@ -18,9 +18,8 @@ export const CompanyTable = ({
   selectCompany,
   deleteCompany,
   editCompany,
+  ...baseProps
 }: Props) => {
-  console.log("companies", companies);
-
   const columns: ColumnsType<Company> = [
     {
       title: "Id",
@@ -51,6 +50,7 @@ export const CompanyTable = ({
       dataSource={companies}
       loading={loading}
       columns={columns}
+      {...baseProps}
     />
   );
 };

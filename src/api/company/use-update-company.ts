@@ -16,6 +16,8 @@ export const useUpdateCompanyMutation = () => {
           ) ?? []
         );
       });
+
+      queryClient.setQueryData<Company>(["company", data.id], data);
     },
   });
 };

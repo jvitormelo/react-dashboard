@@ -1,6 +1,7 @@
 import { Card, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { useMemo } from "react";
+import { ComponentProps, useMemo } from "react";
+import { BaseTableHeader } from "../common/base-table-header";
 
 interface BaseItem {
   id: string | number;
@@ -8,6 +9,8 @@ interface BaseItem {
 
 export type BaseTableProps = {
   loading?: boolean;
+  header?: React.ReactNode;
+  headerProps?: ComponentProps<typeof BaseTableHeader>;
 };
 
 type Props<T> = {
@@ -19,6 +22,8 @@ export const DataTable = <T extends BaseItem>({
   columns,
   dataSource = [],
   loading,
+  headerProps,
+  header = headerProps && <BaseTableHeader {...headerProps} />,
 }: Props<T>) => {
   const items = useMemo(
     () =>
@@ -31,6 +36,7 @@ export const DataTable = <T extends BaseItem>({
 
   return (
     <Card>
+      {header}
       <Table loading={loading} dataSource={items} columns={columns} />
     </Card>
   );

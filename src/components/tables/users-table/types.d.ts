@@ -1,5 +1,5 @@
 import { BaseTableProps } from "../data-table";
-import { DefaultActionColProps } from "../default-action-col/types";
+import { DefaultActionColProps } from "../common/default-action-col/types";
 
 export type UsersTableProps = BaseTableProps &
   DefaultActionColProps<User> & {
