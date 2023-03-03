@@ -68,7 +68,6 @@ export const UnitTable = memo(
         dataIndex: "numberOfUsers",
         key: "numberOfUsers",
       },
-
       defaultActionCol<IUnitTable>({
         onDelete,
         onEdit,

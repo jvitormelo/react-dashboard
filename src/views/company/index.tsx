@@ -6,6 +6,7 @@ import { AssetsTable } from "@/components/tables/assets-table";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
 import { useUnitsTableActions } from "@/hooks/tables/use-units-table-actions";
+import { useUserTableAction } from "@/hooks/tables/use-user-table-action";
 import { useParamsId } from "@/hooks/use-params-id";
 import { useTheme } from "@/hooks/use-theme";
 import { Tabs } from "antd";
@@ -36,6 +37,8 @@ export const CompanyView = () => {
 
   const unitsTableProps = useUnitsTableActions(companyId);
 
+  const usersTableProps = useUserTableAction();
+
   const tabsItems = [
     {
       key: "1",
@@ -53,7 +56,13 @@ export const CompanyView = () => {
     {
       key: "2",
       label: `Users (${users?.length ?? 0})`,
-      children: <UsersTable users={users} loading={isUsersLoading} />,
+      children: (
+        <UsersTable
+          users={users}
+          loading={isUsersLoading}
+          {...usersTableProps}
+        />
+      ),
     },
     {
       key: "3",
