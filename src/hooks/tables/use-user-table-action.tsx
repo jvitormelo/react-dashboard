@@ -6,7 +6,7 @@ import { toast } from "@/infra/toast";
 import { User } from "@/types/entities/user";
 import { useModal } from "../use-modal";
 
-export const useUserTableAction = () => {
+export const useUserTableActions = () => {
   const { closeModal, openModal } = useModal();
   const { mutateAsync: deleteUser } = useDeleteUserMutation();
   const { mutateAsync: updateUser } = useUpdateUserMutation();

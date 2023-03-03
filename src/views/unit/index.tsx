@@ -2,6 +2,7 @@ import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
 import { useGetUsersByUnit } from "@/api/user/use-get-users-by-unit";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table";
+import { useUserTableActions } from "@/hooks/tables/use-user-table-action";
 import { useParamsId } from "@/hooks/use-params-id";
 import { Tabs } from "antd";
 import { AssetsTable } from "../../components/tables/assets-table";
@@ -16,6 +17,8 @@ export const UnitView = () => {
   const { data: users, isLoading: isUsersLoading } = useGetUsersByUnit(unitId);
 
   const tableProps = useAssetsTable();
+
+  const userTableProps = useUserTableActions();
 
   const tabsItems = [
     {
@@ -32,7 +35,13 @@ export const UnitView = () => {
     {
       key: "2",
       label: `Users (${users?.length ?? 0})`,
-      children: <UsersTable users={users} loading={isUsersLoading} />,
+      children: (
+        <UsersTable
+          users={users}
+          loading={isUsersLoading}
+          {...userTableProps}
+        />
+      ),
     },
   ];
 

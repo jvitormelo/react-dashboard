@@ -1,4 +1,5 @@
-import { assetsStatusColorMapper, AssetStatus } from "@/constants/asset-status";
+import { AssetStatus } from "@/constants/asset-status";
+import { useFeedbackColors } from "@/hooks/use-colors";
 import { Asset } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
 import { namesUtils } from "@/utils/names";
@@ -20,6 +21,8 @@ type FormattedAsset = {
 
 // TODO - create tests
 export const useAssetsStatusChart: Hook = ({ assets }) => {
+  const { assetStatusToColor } = useFeedbackColors();
+
   const formattedAssets = chartUtils.groupData<Asset, FormattedAsset>(
     assets,
     (formattedAsset, asset) => formattedAsset.status === asset.status,
@@ -27,7 +30,7 @@ export const useAssetsStatusChart: Hook = ({ assets }) => {
       status: asset.status,
       name: namesUtils.getAssetStatusName(asset.status),
       y: 1,
-      color: assetsStatusColorMapper[asset.status],
+      color: assetStatusToColor(asset.status),
     }),
     (formattedAsset) => {
       formattedAsset.y += 1;

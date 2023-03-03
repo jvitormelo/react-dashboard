@@ -1,3 +1,4 @@
+import { AssetModels } from "@/constants/asset-models";
 import { AssetStatus } from "../../constants/asset-status";
 
 export type HealthHistory = { status: AssetStatus; timestamp: string };
@@ -22,8 +23,7 @@ export type Asset = {
   id: number;
   image: string;
   metrics: Metrics;
-  // maybe enum?
-  model: string;
+  model: AssetModels;
   name: string;
   sensors: string[];
   specifications: Specifications;
