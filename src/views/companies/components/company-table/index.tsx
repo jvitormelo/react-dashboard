@@ -19,6 +19,8 @@ export const CompanyTable = ({
   deleteCompany,
   editCompany,
 }: Props) => {
+  console.log("companies", companies);
+
   const columns: ColumnsType<Company> = [
     {
       title: "Id",

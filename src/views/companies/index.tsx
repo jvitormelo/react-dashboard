@@ -27,7 +27,6 @@ export const CompaniesView = () => {
   };
 
   const editCompany = (company: Company) => {
-    console.log("edit company", company);
     openUpdateModal(company);
   };
 
