@@ -22,6 +22,7 @@ export const ResourcesBarChart = ({
   const options: ChartOptions = {
     chart: {
       type: "bar",
+      height: 300,
     },
     title: {
       text: title,

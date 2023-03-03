@@ -1,10 +1,10 @@
+import { StatisticsCard } from "@/components/cards/statistics-card";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { Company } from "@/types/entities/company";
 import { colorsUtils, numberUtils } from "@/utils";
 import { Card, Skeleton } from "antd";
 import { memo } from "react";
-import { StatisticsCard } from "../statistics-card";
 
 interface Props {
   company: Company | undefined;
@@ -43,12 +43,12 @@ export const CompanyInfoCard = memo(({ assets, loading, company }: Props) => {
         }}
         statistics={[
           {
-            title: "ID",
-            value: company.id,
-          },
-          {
             title: "Company",
             value: company.name,
+          },
+          {
+            title: "ID",
+            value: company.id,
           },
         ]}
       />

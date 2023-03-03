@@ -15,6 +15,7 @@ export const AssetsStatusPieChart = memo(({ assets, title }: Props) => {
 
   const options: ChartOptions = {
     chart: {
+      height: 300,
       type: "pie",
     },
     title: {

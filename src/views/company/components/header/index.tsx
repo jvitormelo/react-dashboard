@@ -1,10 +1,10 @@
 import { useGetCompany } from "@/api/company/use-get-company";
-import { CompanyInfoCard } from "@/components/cards/assets-info";
 import { AssetsStatusPieChart } from "@/components/charts/assets-status-chart";
 import { ResourcesBarChart } from "@/components/charts/resources-bar-chart";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { useGetCompanyResources } from "../../hooks/use-get-company-resources";
+import { useGetCompanyResources } from "@/views/company/hooks/use-get-company-resources";
+import { CompanyInfoCard } from "../company-info-card";
 
 interface Props {
   companyId: number;
@@ -37,8 +37,9 @@ export const CompanyViewHeader = ({
         assets={assets}
         loading={isAssetsLoading || isCompanyLoading}
       />
-      <AssetsStatusPieChart title={"Assets Status"} assets={assets} />
+
       <ResourcesBarChart {...chartData} />
+      <AssetsStatusPieChart title={"Assets Status"} assets={assets} />
     </header>
   );
 };
