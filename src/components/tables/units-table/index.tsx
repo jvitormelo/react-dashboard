@@ -1,5 +1,6 @@
 import { defaultActionCol } from "@/components/tables/common/base-table-actions";
 import { Unit } from "@/types/entities/unit";
+import { dateUtils } from "@/utils";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { Link } from "react-router-dom";
@@ -61,6 +62,7 @@ export const UnitsTable = memo(
         title: "Average uptime",
         dataIndex: "averageUptime",
         key: "averageUptime",
+        render: (text) => dateUtils.formatHoursDistance(text as number),
       },
       {
         title: "Number of Users",

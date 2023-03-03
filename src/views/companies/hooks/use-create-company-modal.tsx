@@ -23,7 +23,7 @@ export const useCreateCompanyModal = () => {
   const openCreateModal = () => {
     openModal({
       title: "Create Company",
-      body: <CompanyForm onSubmit={onSubmit} />,
+      body: <CompanyForm onSubmitHandler={onSubmit} />,
     });
   };
 

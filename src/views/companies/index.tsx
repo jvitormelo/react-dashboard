@@ -43,9 +43,9 @@ export const CompaniesView = () => {
             onButtonClick: openCreateModal,
             title: "Companies",
           }}
-          selectCompany={selectCompany}
-          deleteCompany={deleteCompanyHandler}
-          editCompany={editCompany}
+          onSelect={selectCompany}
+          onDelete={deleteCompanyHandler}
+          onEdit={editCompany}
           companies={companies}
           loading={isLoading}
         />

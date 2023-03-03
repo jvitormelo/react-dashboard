@@ -76,6 +76,7 @@ export const AssetsTable = memo(
         title: "Uptime",
         dataIndex: "totalUptime",
         key: "totalUptime",
+        render: (uptime) => dateUtils.formatHoursDistance(uptime),
         // TODO convert to Days
       },
       {
