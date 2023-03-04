@@ -74,6 +74,7 @@ export const useAssetsTable = () => {
     openModal({
       title: "Create Asset",
       body: <CreateAssetForm />,
+      maskClosable: false,
     });
   };
 
