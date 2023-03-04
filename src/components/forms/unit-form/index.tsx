@@ -27,11 +27,7 @@ export const UnitForm = ({
         label: buttonLabel,
       }}
     >
-      <ControlledTextField<UnitSchema>
-        name="name"
-        control={control}
-        label="Name"
-      />
+      <ControlledTextField name="name" control={control} label="Name" />
     </BaseModalForm>
   );
 };

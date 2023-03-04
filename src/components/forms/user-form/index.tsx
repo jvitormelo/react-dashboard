@@ -25,12 +25,8 @@ export const UserForm = ({
         loading: isSubmitting,
       }}
     >
-      <ControlledTextField<UserSchema>
-        control={control}
-        name="name"
-        label="Name"
-      />
-      <ControlledTextField<UserSchema>
+      <ControlledTextField control={control} name="name" label="Name" />
+      <ControlledTextField
         control={control}
         name="email"
         label="Email"

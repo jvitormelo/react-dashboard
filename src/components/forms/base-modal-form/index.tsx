@@ -1,5 +1,5 @@
 import { useTheme } from "@/hooks/use-theme";
-import { Button } from "antd";
+import { Button, Divider } from "antd";
 import { FormEvent } from "react";
 
 interface Props {
@@ -24,7 +24,7 @@ export const BaseModalForm = ({ children, buttonProps, onSubmit }: Props) => {
       }}
     >
       {children}
-
+      <Divider />
       <Button
         style={{
           display: "flex",
