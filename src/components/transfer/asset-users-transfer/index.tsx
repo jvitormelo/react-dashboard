@@ -1,6 +1,7 @@
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { UserAvatar } from "@/components/atoms/user-avatar";
+import { UserPopOver } from "@/components/atoms/user-pop-over";
 import { BaseModalForm } from "@/components/forms/base-modal-form";
 import {
   ItemsTransfer,
@@ -63,7 +64,12 @@ export const AssetUsersTransfer = ({ asset }: Props) => {
         target={target}
         titles={["Users from company", "Assigned Users"]}
         render={(item) => (
-          <div>
+          <UserPopOver
+            user={{
+              email: item.description,
+              name: item.title,
+            }}
+          >
             <UserAvatar
               style={{
                 marginRight: theme.marginSM,
@@ -71,7 +77,7 @@ export const AssetUsersTransfer = ({ asset }: Props) => {
               email={item.description}
             />
             {item.title}
-          </div>
+          </UserPopOver>
         )}
       />
     </BaseModalForm>

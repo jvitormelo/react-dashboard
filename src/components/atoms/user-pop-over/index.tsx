@@ -7,7 +7,7 @@ import { UserAvatar } from "../user-avatar";
 type Item = PartialBy<UserWithUnit, "unit">;
 
 interface Props {
-  user: Omit<Item, "companyId" | "unitId">;
+  user: Omit<Item, "companyId" | "unitId" | "id">;
   children?: React.ReactNode;
 }
 
@@ -43,12 +43,16 @@ export const UserPopOver = ({ user, children }: Props) => {
 
             <Space direction="vertical">
               <Typography.Text>{name}</Typography.Text>
-              <Typography.Text>{email}</Typography.Text>
+              <a href={`mailto:${email}`}>{email}</a>
             </Space>
           </div>
-          <Divider />
 
-          {unit && <Typography.Text>Unit: {unit.name}</Typography.Text>}
+          {unit && (
+            <>
+              <Divider />
+              <Typography.Text>Unit: {unit.name}</Typography.Text>
+            </>
+          )}
         </div>
       }
     >
