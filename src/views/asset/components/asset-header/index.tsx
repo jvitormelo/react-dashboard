@@ -1,7 +1,7 @@
 import { SkeletonCard } from "@/components/cards/skeleton-card";
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { AssetHealthHistoryChart } from "@/components/charts/asset-health-history-chart";
-import { useFeedbackColors } from "@/hooks/use-colors";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { namesUtils } from "@/utils/names";

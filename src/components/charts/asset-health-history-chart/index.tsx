@@ -1,4 +1,4 @@
-import { useFeedbackColors } from "@/hooks/use-colors";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { HealthHistory } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
 import { namesUtils } from "@/utils/names";

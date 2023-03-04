@@ -1,5 +1,5 @@
 import { AssetStatus } from "@/constants/asset-status";
-import { useFeedbackColors } from "@/hooks/use-colors";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { Asset } from "@/types/entities/asset";
 import { chartUtils } from "@/utils/charts";
 import { namesUtils } from "@/utils/names";

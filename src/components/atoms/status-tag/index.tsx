@@ -1,5 +1,5 @@
 import { AssetStatus } from "@/constants/asset-status";
-import { useFeedbackColors } from "@/hooks/use-colors";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { Tag } from "antd";
 
 interface Props {

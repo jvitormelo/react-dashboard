@@ -1,5 +1,5 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
-import { useFeedbackColors } from "@/hooks/use-colors";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { Company } from "@/types/entities/company";
