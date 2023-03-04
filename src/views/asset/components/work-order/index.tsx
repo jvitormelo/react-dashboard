@@ -2,7 +2,7 @@ import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useCreateWorkOrder } from "@/api/work-orders/use-create-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
-import { CloseIcon } from "@/components/icons/close-icon";
+import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
 import { UserLink } from "@/components/molecules/user-link";
 import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
@@ -109,6 +109,7 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
     <Card
       style={{
         padding: theme.paddingMD,
+
         marginTop: theme.marginMD,
       }}
     >
@@ -122,7 +123,12 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
           Create new Work Order
         </Typography.Title>
 
-        <CloseIcon onClick={closeCreateWorkOrderForm} />
+        <DeleteIconPop
+          title="Are you sure you want to cancel?"
+          description="All changes will be lost."
+          placement="left"
+          onConfirm={closeCreateWorkOrderForm}
+        />
       </section>
       <WorkOrderForm users={users} onSubmitHandler={onSubmitHandler} />
     </Card>
@@ -143,7 +149,8 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
   return (
     <Card
       style={{
-        transition: "all 0.3s ease-in-out",
+        maxHeight: "fit-content",
+        transition: "max-height 0.3s ease-in-out",
       }}
     >
       <section
@@ -173,6 +180,9 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
             overflowY: "scroll",
             padding: theme.paddingMD,
             overflowX: "hidden",
+            gap: theme.marginMD,
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           {workOrders.map((workOrder) => (
@@ -181,13 +191,8 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
         </div>
       )}
 
-      <div
-        style={{
-          display: isCreatingWorkOrder ? "block" : "none",
-        }}
-      >
-        <CreateWorkOrderForAsset asset={asset} />
-      </div>
+      {/* // TODO - add transition  */}
+      {isCreatingWorkOrder && <CreateWorkOrderForAsset asset={asset} />}
     </Card>
   );
 };
