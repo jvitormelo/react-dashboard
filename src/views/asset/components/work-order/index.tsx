@@ -61,7 +61,7 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
                   ))}
                 </List>
               </div>
-
+              <Divider />
               <div>
                 <h4 style={{ marginBottom: 0 }}> Assigned to</h4>
                 <div>{workOrder.users.map((user) => user.name).join(", ")}</div>
