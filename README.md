@@ -1,16 +1,13 @@
 # Front-end Challenge
 
-Pages:
-/companies
+## WIP:
 
-/companies/:id
-
-/companies/:id/users
-
-/companies/:id/units
-
-/companies/:id/units/:id
-
-/companies/:id/units/:id/assets
-
-/companies/:id/units/:id/workorders
+- Add Work Order Priority
+- Edit Work Order
+- Complete Work Order task
+- User page
+- Tree view
+- Add Sort and Filter to all Tables
+- Tablet + Mobile
+- Tests
+- Fix all Todos
