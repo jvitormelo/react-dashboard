@@ -1,3 +1,4 @@
+import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { WorkOrderStatus } from "@/constants/work-order-status";
 import { User } from "./user";
 
@@ -12,7 +13,7 @@ export type WorkOrder = {
   checklist: Checklist[];
   description: string;
   id: number;
-  priority: string;
+  priority: WorkOrderPriority;
   status: WorkOrderStatus;
   title: string;
 };

@@ -1,3 +1,4 @@
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 import { Card, Collapse, Divider, List, Tag, Typography } from "antd";
@@ -6,8 +7,10 @@ interface Props {
   workOrders: WorkOrdersWithUsers[];
 }
 
-export const WorkOrderInfo = ({ workOrders }: Props) => {
+export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
   const { theme } = useTheme();
+
+  const { workOrderStatusToColor } = useFeedbackColors();
   return (
     <Card>
       <Typography.Title level={3} style={{ marginBottom: theme.marginMD }}>
@@ -22,7 +25,9 @@ export const WorkOrderInfo = ({ workOrders }: Props) => {
               <div>
                 <span style={{ marginRight: "1rem" }}>{workOrder.title}</span>
                 <Tag color={"yellow"}>{workOrder.priority.toUpperCase()}</Tag>
-                <Tag>{workOrder.status}</Tag>
+                <Tag color={workOrderStatusToColor(workOrder.status, "name")}>
+                  {workOrder.status}
+                </Tag>
               </div>
             }
             key="1"

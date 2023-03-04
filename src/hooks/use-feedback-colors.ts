@@ -1,4 +1,5 @@
 import { AssetStatus } from "@/constants/asset-status";
+import { WorkOrderStatus } from "@/constants/work-order-status";
 import { TagProps } from "antd/es";
 import { useTheme } from "./use-theme";
 
@@ -72,8 +73,27 @@ export const useFeedbackColors = () => {
     return mapper[value][returnType] as string;
   };
 
+  const workOrderStatusToColor = (
+    status: WorkOrderStatus,
+    returnType: ReturnType = "hex"
+  ) => {
+    const mapper = {
+      [WorkOrderStatus.COMPLETED]: colorsMap.success,
+      [WorkOrderStatus.IN_PROGRESS]: colorsMap.warning,
+    };
+
+    const color = mapper[status];
+
+    if (!color) {
+      return colorsMap.default[returnType];
+    }
+
+    return mapper[status][returnType];
+  };
+
   return {
     healthScoreToColor,
     assetStatusToColor,
+    workOrderStatusToColor,
   };
 };
