@@ -4,7 +4,6 @@ import { Button, Divider, Steps } from "antd";
 import { useCreateAssetFormStore } from "../../../../store/create-asset-form-store";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm } from "../asset-info";
-import { AssetSchema } from "../schema";
 import { SubmitCreateAssetParams } from "./types";
 
 const steps = [
@@ -28,16 +27,10 @@ export const CreateAssetForm = ({ submitForm }: Props) => {
     currentStep,
     showPrevButton,
     prevStep,
-    nextStep,
-    setAssetInfo,
     setImage,
     clear,
+    assetInfoSubmit,
   } = useCreateAssetFormStore();
-
-  const assetInfoSubmit = async (data: AssetSchema) => {
-    setAssetInfo(data);
-    nextStep();
-  };
 
   const assetImageSubmit = async (file: File) => {
     setImage(file);

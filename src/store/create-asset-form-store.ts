@@ -16,6 +16,7 @@ interface State {
   nextStep: () => void;
   prevStep: () => void;
   clear: () => void;
+  assetInfoSubmit: (data: AssetSchema) => Promise<void>;
 }
 
 // <3 zustand && react-query
@@ -39,8 +40,12 @@ export const useCreateAssetFormStore = create<State>((set, get) => ({
       currentStep: state.currentStep - 1,
     }));
   },
-  showPrevButton() {
+  showPrevButton: () => {
     return get().currentStep !== CreateAssetSteps.AssetInfo;
+  },
+  assetInfoSubmit: async (data: AssetSchema) => {
+    set({ assetInfo: data });
+    get().nextStep();
   },
   clear: () => {
     set({
