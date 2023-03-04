@@ -6,10 +6,6 @@ import { useTheme } from "@/hooks/use-theme";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 import { Card, Collapse, Divider, List, Tag, Typography } from "antd";
 
-interface Props {
-  workOrders: WorkOrdersWithUsers[];
-}
-
 const WorkOrderCollapse = ({
   workOrder,
 }: {
@@ -111,27 +107,39 @@ const CreateWorkOrder = () => {
   );
 };
 
+interface Props {
+  workOrders: WorkOrdersWithUsers[];
+}
+
 export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
   const { theme } = useTheme();
 
+  const hasWorkOrders = workOrders.length > 0;
+
   return (
     <Card>
-      <Typography.Title level={3} style={{ marginBottom: theme.marginMD }}>
-        Workorders
+      <Typography.Title
+        level={3}
+        style={{ marginBottom: hasWorkOrders ? theme.marginMD : 0 }}
+      >
+        Work Orders
       </Typography.Title>
 
-      <div
-        style={{
-          maxHeight: "300px",
-          overflowY: "scroll",
-          padding: theme.paddingMD,
-          overflowX: "hidden",
-        }}
-      >
-        {workOrders.map((workOrder) => (
-          <WorkOrderCollapse workOrder={workOrder} key={workOrder.id} />
-        ))}
-      </div>
+      {hasWorkOrders && (
+        <div
+          style={{
+            maxHeight: "300px",
+            overflowY: "scroll",
+            padding: theme.paddingMD,
+            overflowX: "hidden",
+          }}
+        >
+          {workOrders.map((workOrder) => (
+            <WorkOrderCollapse workOrder={workOrder} key={workOrder.id} />
+          ))}
+        </div>
+      )}
+
       <CreateWorkOrder />
     </Card>
   );

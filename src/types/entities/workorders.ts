@@ -1,6 +1,6 @@
 import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { WorkOrderStatus } from "@/constants/work-order-status";
-import { User } from "./user";
+import { UserWithUnit } from "./user";
 
 export type WorkOrderChecklist = {
   completed: boolean;
@@ -19,5 +19,5 @@ export type WorkOrder = {
 };
 
 export type WorkOrdersWithUsers = WorkOrder & {
-  users: User[];
+  users: UserWithUnit[];
 };

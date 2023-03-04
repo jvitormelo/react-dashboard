@@ -8,13 +8,10 @@ import { AssetWithUsers } from "@/types/entities/asset";
 import { UserWithUnit } from "@/types/entities/user";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 import { useNavigate } from "react-router-dom";
-import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 
 export const useAssetView = () => {
   const { assetId, companyId, unitId } = useParamsId();
   const navigate = useNavigate();
-
-  const { data: units = [] } = useGetUnitsByCompany(companyId);
 
   const { data: asset, isLoading: isAssetLoading } = useGetAsset(assetId, {
     onError: () => {
@@ -26,20 +23,12 @@ export const useAssetView = () => {
   const { data: workOrders = [], isLoading: isWorkOrdersLoading } =
     useGetWorkOrdersByAsset(assetId);
 
-  // TODO - add the relation inside the API
   const { data: users = [], isLoading: isUsersLoadings } =
     useGetUsersByCompany(companyId);
 
-  const assetUsers: UserWithUnit[] = users
-    .filter((user) => asset?.assignedUserIds.includes(user.id))
-    .map((user) => ({
-      ...user,
-      unit: units.find((unit) => unit.id === user.unitId) || {
-        id: 0,
-        companyId: 0,
-        name: "",
-      },
-    }));
+  const assetUsers: UserWithUnit[] = users.filter((user) =>
+    asset?.assignedUserIds.includes(user.id)
+  );
 
   const workOrdersWithUsers: WorkOrdersWithUsers[] = workOrders.map(
     (workOrder) => ({
