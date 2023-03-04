@@ -10,7 +10,8 @@ import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
-import { Card, Collapse, Divider, List, Tag, Typography } from "antd";
+import { Button, Card, Collapse, Divider, List, Tag, Typography } from "antd";
+import { useAssetViewStore } from "../../store/asset-view-store";
 
 const WorkOrderCollapse = ({
   workOrder,
@@ -79,6 +80,7 @@ const WorkOrderCollapse = ({
 };
 
 const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
+  const { closeCreateWorkOrderForm } = useAssetViewStore();
   const { data: users = [] } = useGetUsersByCompany(asset.companyId);
 
   const { mutateAsync: createWorkOrder } = useCreateWorkOrder();
@@ -90,12 +92,14 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
       await createWorkOrder({
         checklist: data.checklist,
         description: data.description,
+        // TODO: Add input for priority
         priority: WorkOrderPriority.HIGH,
         title: data.title,
         assetId: asset.id,
         assignedUserIds: data.assignedUserIds ?? [],
       });
       toast.success("Work order created");
+      closeCreateWorkOrderForm();
     } catch (err) {
       toast.error("Failed to create work order");
     }
@@ -118,11 +122,7 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
           Create new Work Order
         </Typography.Title>
 
-        <CloseIcon
-          onClick={() => {
-            return;
-          }}
-        />
+        <CloseIcon onClick={closeCreateWorkOrderForm} />
       </section>
       <WorkOrderForm users={users} onSubmitHandler={onSubmitHandler} />
     </Card>
@@ -135,18 +135,36 @@ interface Props {
 }
 
 export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
+  const { isCreatingWorkOrder, openCreateWorkOrderForm } = useAssetViewStore();
   const { theme } = useTheme();
 
   const hasWorkOrders = workOrders.length > 0;
 
   return (
-    <Card>
-      <Typography.Title
-        level={3}
-        style={{ marginBottom: hasWorkOrders ? theme.marginMD : 0 }}
+    <Card
+      style={{
+        transition: "all 0.3s ease-in-out",
+      }}
+    >
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
       >
-        Work Orders
-      </Typography.Title>
+        <Typography.Title
+          level={3}
+          style={{ marginBottom: hasWorkOrders ? theme.marginMD : 0 }}
+        >
+          Work Orders
+        </Typography.Title>
+
+        {!isCreatingWorkOrder && (
+          <Button onClick={openCreateWorkOrderForm} type="primary">
+            New Work Order
+          </Button>
+        )}
+      </section>
 
       {hasWorkOrders && (
         <div
@@ -163,7 +181,13 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
         </div>
       )}
 
-      <CreateWorkOrderForAsset asset={asset} />
+      <div
+        style={{
+          display: isCreatingWorkOrder ? "block" : "none",
+        }}
+      >
+        <CreateWorkOrderForAsset asset={asset} />
+      </div>
     </Card>
   );
 };

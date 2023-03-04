@@ -1,6 +1,5 @@
 import { CloseIcon } from "@/components/icons/close-icon";
 import { ImageUploader } from "@/components/upload/image-uploader";
-import { useTheme } from "@/hooks/use-theme";
 import { imageUtils } from "@/utils";
 import { Button, Image, Space } from "antd";
 import { useState } from "react";
@@ -16,8 +15,6 @@ export const AssetImageForm = ({
   saveImage,
   buttonLabel,
 }: AssetImageForm) => {
-  const { theme } = useTheme();
-
   const [imageClone, setImageClone] = useState(image);
 
   const [loading, setLoading] = useState(false);
@@ -62,14 +59,8 @@ export const AssetImageForm = ({
             justifyContent: "flex-end",
           }}
         >
-          <Button
-            danger
-            color={theme.colorError}
-            onClick={cancelUpload}
-            size="large"
-          >
-            <CloseIcon />
-          </Button>
+          <CloseIcon onClick={cancelUpload} />
+
           <Button
             loading={loading}
             onClick={() => saveImageHandler(uploadedFIle)}
