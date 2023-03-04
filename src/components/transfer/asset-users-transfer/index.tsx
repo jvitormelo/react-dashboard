@@ -1,11 +1,13 @@
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
+import { UserAvatar } from "@/components/atoms/user-avatar";
 import { BaseModalForm } from "@/components/forms/base-modal-form";
 import {
   ItemsTransfer,
   ItemTransfer,
 } from "@/components/transfer/items-transfer";
 import { useModal } from "@/hooks/use-modal";
+import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
 import { useState } from "react";
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export const AssetUsersTransfer = ({ asset }: Props) => {
+  const { theme } = useTheme();
   const { closeModal } = useModal();
   const { data: users = [] } = useGetUsersByCompany(asset.companyId);
 
@@ -58,7 +61,18 @@ export const AssetUsersTransfer = ({ asset }: Props) => {
         setTarget={setTarget}
         source={source}
         target={target}
-        titles={["Available Users", "Assigned Users"]}
+        titles={["Users from company", "Assigned Users"]}
+        render={(item) => (
+          <div>
+            <UserAvatar
+              style={{
+                marginRight: theme.marginSM,
+              }}
+              email={item.description}
+            />
+            {item.title}
+          </div>
+        )}
       />
     </BaseModalForm>
   );

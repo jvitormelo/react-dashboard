@@ -11,10 +11,17 @@ interface Props {
   source: ItemTransfer[];
   target: string[];
   setTarget: (target: string[]) => void;
+  render: (item: ItemTransfer) => React.ReactElement;
 }
 
 // TODO - FIND a folder for this component
-export const ItemsTransfer = ({ source, target, titles, setTarget }: Props) => {
+export const ItemsTransfer = ({
+  source,
+  target,
+  titles,
+  setTarget,
+  render,
+}: Props) => {
   const handleChange = (newTargetKeys: string[]) => {
     setTarget(newTargetKeys);
   };
@@ -34,11 +41,7 @@ export const ItemsTransfer = ({ source, target, titles, setTarget }: Props) => {
         width: 270,
         height: 300,
       }}
-      render={(item) => (
-        <div>
-          {item.title} - {item.description}
-        </div>
-      )}
+      render={render}
     />
   );
 };

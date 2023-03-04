@@ -96,6 +96,7 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
           />
         </section>
         <WorkOrderForm
+          users={[]}
           onSubmitHandler={async () => {
             return;
           }}

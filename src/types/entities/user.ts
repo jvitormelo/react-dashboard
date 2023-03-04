@@ -1,3 +1,5 @@
+import { Unit } from "./unit";
+
 export interface User {
   companyId: number;
   email: string;
@@ -5,3 +7,7 @@ export interface User {
   name: string;
   unitId: number;
 }
+
+export type UserWithUnit = User & {
+  unit: Unit;
+};
