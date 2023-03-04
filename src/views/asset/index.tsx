@@ -17,7 +17,8 @@ export const AssetView = () => {
 
   const { theme } = useTheme();
 
-  if (isAssetLoading || isWorkOrdersLoading) return <AssetSkeleton />;
+  if (isAssetLoading || isWorkOrdersLoading || !assetWithUser.id)
+    return <AssetSkeleton />;
 
   return (
     <div>
@@ -52,7 +53,7 @@ export const AssetView = () => {
             <AssetAssignedUsers asset={assetWithUser} />
 
             <AssetHealthTimeline
-              healthHistory={assetWithUser?.healthHistory ?? []}
+              healthHistory={assetWithUser.healthHistory ?? []}
             />
           </div>
         </div>
