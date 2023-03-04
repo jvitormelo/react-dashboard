@@ -1,4 +1,5 @@
 import { AssetStatus } from "@/constants/asset-status";
+import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { WorkOrderStatus } from "@/constants/work-order-status";
 import { TagProps } from "antd/es";
 import { useTheme } from "./use-theme";
@@ -91,9 +92,29 @@ export const useFeedbackColors = () => {
     return mapper[status][returnType];
   };
 
+  const workOrderPriorityToColor = (
+    priority: WorkOrderPriority,
+    returnType: ReturnType = "hex"
+  ) => {
+    const map = {
+      [WorkOrderPriority.LOW]: colorsMap.info,
+      [WorkOrderPriority.MEDIUM]: colorsMap.warning,
+      [WorkOrderPriority.HIGH]: colorsMap.error,
+    };
+
+    const color = map[priority];
+
+    if (!color) {
+      return colorsMap.default[returnType];
+    }
+
+    return map[priority][returnType];
+  };
+
   return {
     healthScoreToColor,
     assetStatusToColor,
     workOrderStatusToColor,
+    workOrderPriorityToColor,
   };
 };
