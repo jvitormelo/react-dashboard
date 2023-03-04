@@ -1,14 +1,17 @@
+import { UserPopOver } from "@/components/atoms/user-pop-over";
 import { ControlledSelect } from "@/components/controlled/controlled-select";
 import { ControlledTextArea } from "@/components/controlled/controlled-text-area";
 import { ControlledTextField } from "@/components/controlled/controlled-text-field";
 import { useFormResolver } from "@/hooks/use-form-resolver";
-import { User } from "@/types/entities/user";
+import { UserWithUnit } from "@/types/entities/user";
+import { stringUtils } from "@/utils/string";
+import { useState } from "react";
 import { BaseModalForm } from "../base-modal-form";
 import { WorkOrderSchema, workOrderSchema } from "./schema";
 
 interface Props {
   onSubmitHandler: (data: WorkOrderSchema) => Promise<void>;
-  users: User[];
+  users: UserWithUnit[];
 }
 
 export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
@@ -20,10 +23,29 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
 
   const onSubmit = handleSubmit(onSubmitHandler);
 
-  const options = users.map((user) => ({
-    label: `${user.email} ${user.email}}`,
+  const [searchValue, setSearchValue] = useState("");
+
+  // TODO > Create a component for user Select
+  const filteredUsers = users.filter((user) => {
+    const nameNormalized = stringUtils.normalize(user.name);
+    const emailNormalized = stringUtils.normalize(user.email);
+    const unitNameNormalized = stringUtils.normalize(user.unit?.name);
+
+    return (
+      nameNormalized.includes(searchValue) ||
+      emailNormalized.includes(searchValue) ||
+      unitNameNormalized.includes(searchValue)
+    );
+  });
+
+  const options = filteredUsers.map((user) => ({
+    label: <UserPopOver user={user}>{user.name}</UserPopOver>,
     value: user.id,
   }));
+
+  const onSearch = (value: string) => {
+    setSearchValue(stringUtils.normalize(value));
+  };
 
   return (
     <BaseModalForm
@@ -62,6 +84,8 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
         mode="multiple"
         placeholder="Select users to assign to this work order"
         control={control}
+        onSearch={onSearch}
+        filterOption={false}
         options={options}
       />
     </BaseModalForm>

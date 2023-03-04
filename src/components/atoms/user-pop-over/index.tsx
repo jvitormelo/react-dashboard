@@ -20,6 +20,9 @@ export const UserPopOver = ({ user, children }: Props) => {
   return (
     <Popover
       placement="top"
+      overlayStyle={{
+        zIndex: 9999,
+      }}
       content={
         <div
           style={{
