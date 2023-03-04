@@ -1,9 +1,9 @@
-import { defaultActionCol } from "@/components/tables/common/base-table-actions";
 import { Routes } from "@/router/routes";
 import { Company } from "@/types/entities/company";
 import { ColumnsType } from "antd/es/table";
 import { Link } from "react-router-dom";
-import { BaseTableActions } from "../common/base-table-actions/types";
+import { addBaseTableActions } from "../common/add-base-table-actions";
+import { BaseTableActions } from "../common/add-base-table-actions/types";
 import { BaseTableProps, DataTable } from "../common/data-table";
 
 interface Props extends BaseTableProps, BaseTableActions<Company> {
@@ -37,7 +37,7 @@ export const CompanyTable = ({
         </Link>
       ),
     },
-    defaultActionCol({
+    addBaseTableActions({
       onDelete,
       onEdit,
     }),

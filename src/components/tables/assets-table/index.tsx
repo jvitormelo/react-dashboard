@@ -7,6 +7,7 @@ import { Image } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { addBaseTableActions } from "../common/add-base-table-actions";
 import { DataTable } from "../common/data-table";
 import { AssetsTableProps } from "./types";
 
@@ -20,21 +21,33 @@ type DataTableAsset = Asset & {
 };
 
 export const AssetsTable = memo(
-  ({ assets = [], onSelect, ...props }: AssetsTableProps) => {
+  ({ assets = [], onSelect, onDelete, onEdit, ...props }: AssetsTableProps) => {
     const columns: ColumnsType<DataTableAsset> = [
       {
         title: "Id",
         dataIndex: "id",
         key: "id",
-      },
-      {
-        title: "Image",
-        dataIndex: "image",
-        key: "image",
-        render: (image, asset) => (
-          <Image src={image} width={100} alt={asset.name} />
+        //  TODO - decide how to display the ID and the image
+        render: (id, asset) => (
+          <div
+            style={{
+              display: "flex",
+              alignContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <span
+              style={{
+                marginRight: 8,
+              }}
+            >
+              {id}
+            </span>
+            <Image src={asset.image} width={100} alt={asset.name} />
+          </div>
         ),
       },
+
       {
         title: "Name",
         dataIndex: "name",
@@ -89,18 +102,21 @@ export const AssetsTable = memo(
         title: "RPM",
         dataIndex: "rpm",
         key: "rpm",
+        align: "center",
         render: (rpm) => namesUtils.getSpecificationName(rpm, "rpm"),
       },
       {
         title: "Power",
         dataIndex: "power",
         key: "power",
+        align: "center",
         render: (power) => namesUtils.getSpecificationName(power, "power"),
       },
       {
         title: "Max Temp",
         dataIndex: "maxTemp",
         key: "maxTemp",
+        align: "center",
         render: (maxTemp) =>
           namesUtils.getSpecificationName(maxTemp, "maxTemp"),
       },
@@ -108,7 +124,12 @@ export const AssetsTable = memo(
         title: "Assigned users",
         dataIndex: "numberOfAssignedUsers",
         key: "numberOfAssignedUsers",
+        align: "center",
       },
+      addBaseTableActions({
+        onDelete,
+        onEdit,
+      }),
     ];
 
     const formattedAssets: DataTableAsset[] = useMemo(

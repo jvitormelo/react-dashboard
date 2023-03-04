@@ -9,12 +9,18 @@ import { useFormResolver } from "@/hooks/use-form-resolver";
 import { BaseModalForm } from "../../base-modal-form";
 import { AssetSchema, assetSchema } from "../schema";
 
-export const AssetInfoForm = () => {
+interface Props {
+  defaultValues?: Partial<AssetSchema>;
+}
+
+export const AssetInfoForm = ({ defaultValues }: Props) => {
   const {
     handleSubmit,
     control,
     formState: { isSubmitting },
-  } = useFormResolver<AssetSchema>(assetSchema);
+  } = useFormResolver<AssetSchema>(assetSchema, {
+    defaultValues,
+  });
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);

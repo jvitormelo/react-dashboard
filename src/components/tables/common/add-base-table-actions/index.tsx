@@ -3,7 +3,7 @@ import { EditIcon } from "@/components/icons/edit-icon";
 import { Space } from "antd";
 import { BaseTableActions } from "./types";
 
-export const defaultActionCol = <T extends object>(
+export const addBaseTableActions = <T extends object>(
   params: BaseTableActions<T>
 ) => {
   const getDeleteDescription =

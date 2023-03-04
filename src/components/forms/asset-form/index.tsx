@@ -1,7 +1,12 @@
-import { Image, Tabs } from "antd";
+import { Asset } from "@/types/entities/asset";
+import { Tabs } from "antd";
+import { AssetImageForm } from "./asset-image";
 import { AssetInfoForm } from "./asset-info";
+interface Props {
+  defaultValues?: Partial<Asset>;
+}
 
-export const AssetForm = () => {
+export const AssetForm = ({ defaultValues }: Props) => {
   return (
     <Tabs
       destroyInactiveTabPane
@@ -9,19 +14,12 @@ export const AssetForm = () => {
         {
           label: "Info",
           key: "asset-info",
-          children: <AssetInfoForm />,
+          children: <AssetInfoForm defaultValues={defaultValues} />,
         },
         {
           label: "Image",
           key: "image",
-          children: (
-            <div>
-              <Image
-                height={400}
-                src="https://tractian-img.s3.amazonaws.com/dc8a497655c688ce381d6a3ba4af684d.jpeg"
-              />
-            </div>
-          ),
+          children: <AssetImageForm image={defaultValues?.image} />,
         },
       ]}
     />

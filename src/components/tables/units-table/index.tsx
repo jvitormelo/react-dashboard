@@ -1,11 +1,12 @@
 import { StatusTag } from "@/components/atoms/status-tag";
-import { defaultActionCol } from "@/components/tables/common/base-table-actions";
+
 import { Unit } from "@/types/entities/unit";
 import { dateUtils } from "@/utils";
 import { ColumnsType } from "antd/es/table";
 import { memo } from "react";
 import { Link } from "react-router-dom";
-import { BaseTableActions } from "../common/base-table-actions/types";
+import { addBaseTableActions } from "../common/add-base-table-actions";
+import { BaseTableActions } from "../common/add-base-table-actions/types";
 import { BaseTableProps, DataTable } from "../common/data-table";
 
 export type IUnitTable = {
@@ -71,7 +72,7 @@ export const UnitsTable = memo(
         dataIndex: "numberOfUsers",
         key: "numberOfUsers",
       },
-      defaultActionCol<IUnitTable>({
+      addBaseTableActions<IUnitTable>({
         onDelete,
         onEdit,
       }),
