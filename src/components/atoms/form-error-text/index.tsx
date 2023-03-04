@@ -1,9 +1,11 @@
 import { useTheme } from "@/hooks/use-theme";
 
 interface Props {
-  error?: {
-    message?: string;
-  };
+  error:
+    | {
+        message?: string;
+      }
+    | undefined;
 }
 
 export const FormErrorText = ({ error }: Props) => {
