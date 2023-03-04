@@ -3,7 +3,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useTheme } from "@/hooks/use-theme";
 import { AssetWithUsers } from "@/types/entities/asset";
 import { Card, Typography } from "antd";
-import { AssetUsersTransfer } from "../asset-assigned-users";
+import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
 
 interface Props {
   asset: AssetWithUsers;

@@ -1,5 +1,5 @@
+import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
 import { Asset } from "@/types/entities/asset";
-import { AssetUsersTransfer } from "@/views/asset/components/asset-assigned-users";
 import { Tabs } from "antd";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm, AssetInfoFormProps } from "../asset-info";

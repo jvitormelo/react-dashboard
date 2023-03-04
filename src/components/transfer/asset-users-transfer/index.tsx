@@ -1,7 +1,10 @@
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { BaseModalForm } from "@/components/forms/base-modal-form";
-import { ItemsTransfer, ItemTransfer } from "@/components/items-transfer";
+import {
+  ItemsTransfer,
+  ItemTransfer,
+} from "@/components/transfer/items-transfer";
 import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
@@ -33,7 +36,7 @@ export const AssetUsersTransfer = ({ asset }: Props) => {
         ...asset,
         assignedUserIds: target.map((value) => parseInt(value)),
       });
-      toast.success("Users assigned to asset");
+      toast.success("Assignments updated");
 
       closeModal();
     } catch (e) {
