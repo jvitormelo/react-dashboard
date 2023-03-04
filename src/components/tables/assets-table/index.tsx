@@ -129,6 +129,9 @@ export const AssetsTable = memo(
       addBaseTableActions({
         onDelete,
         onEdit,
+        deleteOptions: {
+          placement: "left",
+        },
       }),
     ];
 

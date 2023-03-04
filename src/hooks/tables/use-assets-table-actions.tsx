@@ -1,3 +1,4 @@
+import { useDeleteAssetMutation } from "@/api/asset/use-delete-asset-mutation";
 import { setAssetCache } from "@/api/asset/use-get-asset";
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
@@ -12,10 +13,10 @@ type Hook = () => Omit<AssetsTableProps, "loading" | "assets">;
 
 export const useAssetsTable: Hook = () => {
   const { openModal } = useModal();
-
   const { mutateAsync: updateAsset } = useUpdateAssetMutation();
-
   const { uploadImage } = useUploadAssetImageMutation();
+  const { mutateAsync: deleteAsset } = useDeleteAssetMutation();
+
   const onSelect = (asset: Asset) => {
     setAssetCache(asset);
   };
@@ -62,8 +63,18 @@ export const useAssetsTable: Hook = () => {
     });
   };
 
+  const onDelete = async (asset: Asset) => {
+    try {
+      await deleteAsset(asset.id);
+      toast.success("Asset deleted successfully");
+    } catch (e) {
+      toast.error("Asset deleted successfully");
+    }
+  };
+
   return {
     onSelect,
     onEdit,
+    onDelete,
   };
 };

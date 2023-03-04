@@ -1,28 +1,32 @@
-import { Button, Popconfirm } from "antd";
-import { DeleteFilled } from "@ant-design/icons";
 import { useTheme } from "@/hooks/use-theme";
-
-interface Props {
-  title: string;
-  description: string;
-  onConfirm: () => Promise<void>;
-}
+import { DeleteFilled } from "@ant-design/icons";
+import { Button, Popconfirm } from "antd";
+import { DeleteIconPopProps } from "./types";
 
 export const DeleteIconPop = ({
   title = "Delete?",
   description,
   onConfirm,
-}: Props) => {
+  placement = "bottomLeft",
+}: DeleteIconPopProps) => {
   const { theme } = useTheme();
 
   return (
     <Popconfirm
-      placement="bottomLeft"
+      placement={placement}
       title={title}
       description={description}
       onConfirm={onConfirm}
       okText="Yes"
       cancelText="No"
+      icon={
+        // TODO - create delete icon
+        <DeleteFilled
+          style={{
+            color: theme.colorError,
+          }}
+        />
+      }
     >
       <Button
         style={{

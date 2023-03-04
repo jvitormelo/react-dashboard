@@ -3,35 +3,35 @@ import { EditIcon } from "@/components/icons/edit-icon";
 import { Space } from "antd";
 import { BaseTableActions } from "./types";
 
-export const addBaseTableActions = <T extends object>(
-  params: BaseTableActions<T>
-) => {
+export const addBaseTableActions = <T extends object>({
+  deleteOptions,
+  onDelete,
+  onEdit,
+}: BaseTableActions<T>) => {
   const getDeleteDescription =
-    params.deleteOptions?.description ||
-    (() => `Are you sure you want to delete?`);
+    deleteOptions?.description || (() => `Are you sure you want to delete?`);
 
-  const getDeleteTitle = params.deleteOptions?.title || (() => `Delete?`);
+  const getDeleteTitle = deleteOptions?.title || (() => `Delete?`);
 
-  if (!params.onDelete && !params.onEdit) return {};
+  if (!onDelete && !onEdit) return {};
 
   return {
     title: "Actions",
     key: "action",
     render: (_: undefined, record: T) => (
       <Space size="middle">
-        {params.onEdit && (
+        {onEdit && (
           <EditIcon
             onClick={() => {
-              params.onEdit?.(record);
+              onEdit?.(record);
             }}
           />
         )}
 
-        {params.onDelete && (
+        {onDelete && (
           <DeleteIconPop
-            onConfirm={async () => {
-              await params.onDelete?.(record);
-            }}
+            placement={deleteOptions?.placement}
+            onConfirm={async () => onDelete?.(record)}
             title={getDeleteTitle(record)}
             description={getDeleteDescription(record)}
           />
