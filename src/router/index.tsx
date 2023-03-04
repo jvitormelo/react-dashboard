@@ -9,7 +9,7 @@ import { CompanyView } from "../views/company";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <CompaniesView />,
   },
   {
     path: "/",
