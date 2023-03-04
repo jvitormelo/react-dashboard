@@ -74,7 +74,7 @@ export const AssetInfoForm = () => {
           name="specifications.rpm"
         />
         <ControlledNumberInput
-          label="kWh"
+          label="Power (kWh)"
           control={control}
           addonAfter={<KwhIcon />}
           name="specifications.power"

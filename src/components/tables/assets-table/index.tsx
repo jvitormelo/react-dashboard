@@ -60,7 +60,6 @@ export const AssetsTable = memo(
         title: "Status",
         dataIndex: "status",
         key: "status",
-        // TODO convert status to color
         render: (status) => (
           <StatusTag
             status={status}
@@ -72,6 +71,7 @@ export const AssetsTable = memo(
         title: "Model",
         dataIndex: "model",
         key: "model",
+        render: (model) => namesUtils.getAssetModelName(model),
       },
       {
         title: "Last Uptime At",
@@ -84,24 +84,25 @@ export const AssetsTable = memo(
         dataIndex: "totalUptime",
         key: "totalUptime",
         render: (uptime) => dateUtils.formatHoursDistance(uptime),
-        // TODO convert to Days
       },
       {
         title: "RPM",
         dataIndex: "rpm",
         key: "rpm",
-        render: (rpm) => rpm ?? "Unknown",
+        render: (rpm) => namesUtils.getSpecificationName(rpm, "rpm"),
       },
       {
         title: "Power",
         dataIndex: "power",
         key: "power",
-        render: (power) => power ?? "Unknown",
+        render: (power) => namesUtils.getSpecificationName(power, "power"),
       },
       {
         title: "Max Temp",
         dataIndex: "maxTemp",
         key: "maxTemp",
+        render: (maxTemp) =>
+          namesUtils.getSpecificationName(maxTemp, "maxTemp"),
       },
       {
         title: "Assigned users",
