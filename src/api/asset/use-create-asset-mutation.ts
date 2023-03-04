@@ -3,6 +3,7 @@ import { httpClient } from "@/infra/http-client";
 import { queryClient } from "@/infra/query-client";
 import { Asset } from "@/types/entities/asset";
 import { useMutation } from "@tanstack/react-query";
+import { setAssetCache } from "./set-asset-cache";
 
 type CreateAsset = Omit<
   Asset,
@@ -40,7 +41,7 @@ export const useCreateAssetMutation = () => {
         return [...(oldData || []), assetWithRandomData];
       });
 
-      queryClient.setQueryData<Asset>(["asset", data.id], assetWithRandomData);
+      setAssetCache(assetWithRandomData);
     },
   });
 };

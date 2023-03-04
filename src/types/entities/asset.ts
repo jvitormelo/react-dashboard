@@ -1,5 +1,6 @@
 import { AssetModels } from "@/constants/asset-models";
 import { AssetStatus } from "../../constants/asset-status";
+import { User } from "./user";
 
 export type HealthHistory = { status: AssetStatus; timestamp: string };
 
@@ -29,4 +30,8 @@ export type Asset = {
   specifications: Specifications;
   status: AssetStatus;
   unitId: number;
+};
+
+export type AssetWithUsers = Asset & {
+  users: User[];
 };

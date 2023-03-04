@@ -1,5 +1,5 @@
+import { setAssetCache } from "@/api/asset/set-asset-cache";
 import { useDeleteAssetMutation } from "@/api/asset/use-delete-asset-mutation";
-import { setAssetCache } from "@/api/asset/use-get-asset";
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
 import { EditAssetForm } from "@/components/forms/asset-form/edit-asset-form";

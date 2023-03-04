@@ -2,6 +2,7 @@ import { useGetAsset } from "@/api/asset/use-get-asset";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useGetWorkOrdersByAsset } from "@/api/work-orders/use-get-work-orders-by-asset";
 import { useParamsId } from "@/hooks/use-params-id";
+import { AssetWithUsers } from "@/types/entities/asset";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 
 export const useAssetView = () => {
@@ -27,11 +28,15 @@ export const useAssetView = () => {
         [],
     })) || [];
 
+  const assetWithUser = {
+    ...asset,
+    users: assetUsers,
+  } as AssetWithUsers;
+
   return {
-    asset,
+    assetWithUser,
     workOrdersWithUsers,
     isAssetLoading,
     isWorkOrdersLoading: isWorkOrdersLoading || isUsersLoadings,
-    assetUsers: assetUsers || [],
   };
 };

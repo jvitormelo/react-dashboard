@@ -1,19 +1,27 @@
 import { useTheme } from "@/hooks/use-theme";
 import { AssetHeader } from "./components/asset-header";
 import { AssetInfo } from "./components/asset-info";
+import { AssetSkeleton } from "./components/asset-skeleton";
 import { AssetAssignedUsers } from "./components/assigned-users";
 import { AssetHealthTimeline } from "./components/health-timeline";
 import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
 
 export const AssetView = () => {
-  const { asset, workOrdersWithUsers, assetUsers } = useAssetView();
+  const {
+    assetWithUser,
+    workOrdersWithUsers = [],
+    isAssetLoading,
+    isWorkOrdersLoading,
+  } = useAssetView();
 
   const { theme } = useTheme();
 
+  if (isAssetLoading || isWorkOrdersLoading) return <AssetSkeleton />;
+
   return (
     <div>
-      <AssetHeader asset={asset} />
+      <AssetHeader asset={assetWithUser} />
 
       <div
         style={{
@@ -23,7 +31,7 @@ export const AssetView = () => {
           marginTop: theme.marginMD,
         }}
       >
-        <AssetInfo asset={asset} />
+        <AssetInfo asset={assetWithUser} />
 
         <div
           style={{
@@ -41,9 +49,11 @@ export const AssetView = () => {
               gap: theme.marginMD,
             }}
           >
-            <AssetAssignedUsers users={assetUsers} />
+            <AssetAssignedUsers asset={assetWithUser} />
 
-            <AssetHealthTimeline healthHistory={asset?.healthHistory ?? []} />
+            <AssetHealthTimeline
+              healthHistory={assetWithUser?.healthHistory ?? []}
+            />
           </div>
         </div>
       </div>

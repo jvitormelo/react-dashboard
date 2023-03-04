@@ -1,19 +1,42 @@
+import { EditIcon } from "@/components/icons/edit-icon";
+import { useModal } from "@/hooks/use-modal";
 import { useTheme } from "@/hooks/use-theme";
-import { User } from "@/types/entities/user";
+import { AssetWithUsers } from "@/types/entities/asset";
 import { Card, Typography } from "antd";
+import { AssetUsersTransfer } from "../asset-assigned-users";
 
 interface Props {
-  users: User[];
+  asset: AssetWithUsers;
 }
 
-export const AssetAssignedUsers = ({ users }: Props) => {
+export const AssetAssignedUsers = ({ asset }: Props) => {
   const { theme } = useTheme();
+
+  const { openModal } = useModal();
+
+  const onEdit = () => {
+    openModal({
+      title: "Edit Assigned Users",
+      body: <AssetUsersTransfer asset={asset} />,
+      width: 600,
+    });
+  };
+
   return (
     <Card>
-      <Typography.Title style={{ marginBottom: theme.marginMD }} level={3}>
-        Assigned Users
-      </Typography.Title>
-      {users.map((user) => (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography.Title style={{ marginBottom: theme.marginMD }} level={3}>
+          Assigned Users
+        </Typography.Title>
+
+        <EditIcon onClick={onEdit} />
+      </div>
+      {asset.users.map((user) => (
         <div key={user.id}>
           {user.name} - <a href={`mailto:${user.email}`}>{user.email}</a>
         </div>
