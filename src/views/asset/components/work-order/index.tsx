@@ -21,7 +21,7 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
       {/* TODO create component of this */}
       <div
         style={{
-          height: "300px",
+          maxHeight: "300px",
           overflowY: "scroll",
           padding: theme.paddingMD,
           overflowX: "hidden",

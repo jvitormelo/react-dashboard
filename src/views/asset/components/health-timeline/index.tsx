@@ -1,9 +1,9 @@
-import { AssetStatus } from "@/constants/asset-status";
+import { StatusIcon } from "@/components/icons/status-icon";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { HealthHistory } from "@/types/entities/asset";
 import { dateUtils } from "@/utils";
-import { CloseCircleFilled, CheckCircleFilled } from "@ant-design/icons";
-import { Card, Timeline, Typography } from "antd";
+import { Card, Timeline, TimelineItemProps, Typography } from "antd";
 
 interface Props {
   healthHistory: HealthHistory[];
@@ -11,16 +11,21 @@ interface Props {
 
 export const AssetHealthTimeline = ({ healthHistory }: Props) => {
   const { theme } = useTheme();
-  const items = healthHistory.map((history) => ({
+  const { assetStatusToColor } = useFeedbackColors();
+  const items: TimelineItemProps[] = healthHistory.map((history) => ({
     children: dateUtils.formatDate(history.timestamp),
-    // TODO refactor later
-    color: history.status === AssetStatus.InOperation ? "green" : "red",
-    dot:
-      history.status === AssetStatus.InOperation ? (
-        <CheckCircleFilled />
-      ) : (
-        <CloseCircleFilled />
-      ),
+    color: assetStatusToColor(history.status),
+    style: {
+      marginBlock: theme.marginXS,
+    },
+    dot: (
+      <StatusIcon
+        style={{
+          fontSize: 20,
+        }}
+        status={history.status}
+      />
+    ),
   }));
 
   return (

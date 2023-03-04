@@ -12,3 +12,19 @@
 a {
   text-decoration: underline;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

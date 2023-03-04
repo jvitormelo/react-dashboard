@@ -27,8 +27,13 @@ const getSpecificationName = (
   return `${value} rpm`;
 };
 
+const getSensorNames = (sensor: string[]) => {
+  return sensor.join(", ");
+};
+
 export const namesUtils = {
   getAssetStatusName,
   getAssetModelName,
   getSpecificationName,
+  getSensorNames,
 };

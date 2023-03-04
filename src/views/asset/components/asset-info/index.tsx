@@ -1,41 +1,73 @@
+import { StatisticsCard } from "@/components/cards/statistics-card";
+import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { Card, Image, Typography } from "antd";
+import { namesUtils } from "@/utils";
+import { Card, Image } from "antd";
 
 interface Props {
-  asset?: Asset;
+  asset: Asset;
 }
 
+// TODO - need to find a place to show the ID of the asset
 export const AssetInfo = ({ asset }: Props) => {
-  if (!asset) return <div>Loading...</div>;
+  const { theme } = useTheme();
 
-  const baseInfo = [
+  const items = [
     {
-      label: "Model",
-      value: asset.model,
+      title: "Name",
+      value: asset.name,
     },
     {
-      label: "Sensors",
-      value: asset.sensors.join(", "),
+      title: "Model",
+      value: namesUtils.getAssetModelName(asset.model),
+    },
+
+    {
+      title: "Sensors",
+      value: namesUtils.getSensorNames(asset.sensors),
+    },
+    {
+      title: "Max Temp",
+      value: namesUtils.getSpecificationName(
+        asset.specifications.maxTemp,
+        "maxTemp"
+      ),
+    },
+    {
+      title: "Power",
+      value: namesUtils.getSpecificationName(
+        asset.specifications.power,
+        "power"
+      ),
+    },
+    {
+      title: "RPM",
+      value: namesUtils.getSpecificationName(asset.specifications.rpm, "rpm"),
     },
   ];
 
   return (
-    <Card>
-      <Typography.Title>
-        #{asset.id} {asset.name}
-      </Typography.Title>
+    <div>
+      <Card
+        style={{
+          marginBottom: theme.marginSM,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Image height={500} src={asset.image} alt={asset.name} />
+      </Card>
 
-      <Image height={500} src={asset.image} alt={asset.name}></Image>
-
-      {baseInfo.map((info, index) => (
-        <div key={index}>
-          {info.label}: {info.value}
-        </div>
-      ))}
-
-      <div>Max Temp: {asset.specifications.maxTemp}</div>
-      <div>Power: {asset.specifications.power ?? "Unknown"}</div>
-      <div>RPM: {asset.specifications.rpm ?? "Unknown"}</div>
-    </Card>
+      <StatisticsCard
+        rowProps={{
+          style: {
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gap: theme.marginMD,
+          },
+        }}
+        statistics={items}
+      />
+    </div>
   );
 };

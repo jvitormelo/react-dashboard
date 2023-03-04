@@ -37,11 +37,22 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
 
         <EditIcon onClick={onEdit} />
       </div>
-      {asset.users.map((user) => (
-        <div key={user.id}>
-          {user.name} - <a href={`mailto:${user.email}`}>{user.email}</a>
-        </div>
-      ))}
+      <div
+        style={{
+          maxHeight: "240px",
+          overflowY: "scroll",
+          padding: theme.paddingMD,
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.marginSM,
+        }}
+      >
+        {asset.users.map((user) => (
+          <div key={user.id}>
+            {user.name} - {user.email}
+          </div>
+        ))}
+      </div>
     </Card>
   );
 };
