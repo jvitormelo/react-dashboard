@@ -3,7 +3,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Button, Divider, Steps } from "antd";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm } from "../asset-info";
-import { useCreateAssetFormStore } from "./store/create-asset-form-store";
+import { useCreateAssetFormStore } from "../../../../store/create-asset-form-store";
 
 const steps = [
   {
@@ -24,7 +24,6 @@ export const CreateAssetForm = () => {
     currentStep,
     showNextButton,
     showPrevButton,
-
     prevStep,
     nextStep,
     setAssetInfo,

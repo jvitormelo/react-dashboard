@@ -23,10 +23,11 @@ export const useModalStore = create<Store>((set) => ({
       },
     }),
   closeModal: () => {
-    set({
+    set((values) => ({
       modal: {
+        ...values.modal,
         open: false,
       },
-    });
+    }));
   },
 }));

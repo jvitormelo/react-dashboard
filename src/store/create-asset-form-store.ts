@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { AssetSchema } from "../../schema";
+import { AssetSchema } from "../components/forms/asset-form/schema";
 
 enum CreateAssetSteps {
   AssetInfo,
@@ -8,9 +8,9 @@ enum CreateAssetSteps {
 }
 
 interface State {
-  assetInfo: null | AssetSchema;
-  image: null | File;
-  users: null | number[];
+  assetInfo: AssetSchema | null;
+  image: File | null;
+  users: number[] | null;
   currentStep: CreateAssetSteps;
   showNextButton: () => boolean;
   showPrevButton: () => boolean;
