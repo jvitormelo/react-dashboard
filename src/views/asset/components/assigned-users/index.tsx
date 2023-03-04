@@ -18,7 +18,8 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
     openModal({
       title: "Edit Assigned Users",
       body: <AssetUsersTransfer asset={asset} />,
-      width: 600,
+      // TODO use size
+      width: 700,
     });
   };
 

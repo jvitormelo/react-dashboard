@@ -31,8 +31,7 @@ export const ItemsTransfer = ({ source, target, titles, setTarget }: Props) => {
       filterOption={filterOption}
       targetKeys={target}
       listStyle={{
-        width: 250,
-
+        width: 270,
         height: 300,
       }}
       render={(item) => (

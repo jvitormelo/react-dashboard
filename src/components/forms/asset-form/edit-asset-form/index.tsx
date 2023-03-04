@@ -1,9 +1,10 @@
 import { Asset } from "@/types/entities/asset";
+import { AssetUsersTransfer } from "@/views/asset/components/asset-assigned-users";
 import { Tabs } from "antd";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm, AssetInfoFormProps } from "../asset-info";
 interface Props {
-  defaultValues?: Partial<Asset>;
+  defaultValues: Asset;
   onSubmit: AssetInfoFormProps["onSubmitHandler"];
   saveImage: AssetImageForm["saveImage"];
 }
@@ -35,6 +36,11 @@ export const EditAssetForm = ({
               image={defaultValues?.image}
             />
           ),
+        },
+        {
+          label: "Assigned Users",
+          key: "assigned-users",
+          children: <AssetUsersTransfer asset={defaultValues} />,
         },
       ]}
     />

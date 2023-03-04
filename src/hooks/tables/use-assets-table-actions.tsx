@@ -49,6 +49,7 @@ export const useAssetsTable = () => {
 
     openModal({
       title: "Edit Asset",
+      width: "700px",
       body: (
         <EditAssetForm
           onSubmit={onSubmit}
