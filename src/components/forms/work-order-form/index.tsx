@@ -1,4 +1,4 @@
-import { ControlledSelect } from "@/components/controlled/controlled-select";
+import { ControlledTextArea } from "@/components/controlled/controlled-text-area";
 import { ControlledTextField } from "@/components/controlled/controlled-text-field";
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { BaseModalForm } from "../base-modal-form";
@@ -13,7 +13,7 @@ export const WorkOrderForm = ({ onSubmitHandler }: Props) => {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useFormResolver<WorkOrderSchema>(workOrderSchema);
+  } = useFormResolver<WorkOrderSchema>(workOrderSchema, {});
 
   const onSubmit = handleSubmit(onSubmitHandler);
 
@@ -26,15 +26,15 @@ export const WorkOrderForm = ({ onSubmitHandler }: Props) => {
     >
       <ControlledTextField label="Title" name="title" control={control} />
 
-      <ControlledTextField
+      <ControlledTextArea
         label="Description"
         name="description"
         control={control}
       />
 
-      <ControlledSelect
-        name="assignedUserIds"
-        label="Assigned To"
+      <ControlledTextArea
+        label="Checklist and Assigned Users"
+        name="content"
         control={control}
       />
     </BaseModalForm>
