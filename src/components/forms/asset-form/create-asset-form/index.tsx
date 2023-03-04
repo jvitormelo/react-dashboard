@@ -1,8 +1,9 @@
 import { BackArrowIcon } from "@/components/icons/back-icon";
+import { useTheme } from "@/hooks/use-theme";
 import { Button, Divider, Steps } from "antd";
-import { useState } from "react";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm } from "../asset-info";
+import { useCreateAssetFormStore } from "./store/create-asset-form-store";
 
 const steps = [
   {
@@ -16,43 +17,37 @@ const steps = [
   },
 ];
 
-enum CreateAssetSteps {
-  AssetInfo,
-  Image,
-  Users,
-}
-
-// TODO - Refactor to use Zustand to manage state
 export const CreateAssetForm = () => {
-  const [currentStep, setCurrentStep] = useState(CreateAssetSteps.AssetInfo);
+  const { theme } = useTheme();
 
-  const nextStep = () => {
-    setCurrentStep((prev) => prev + 1);
-  };
+  const {
+    currentStep,
+    showNextButton,
+    showPrevButton,
 
-  const prevStep = () => {
-    setCurrentStep((prev) => {
-      return prev - 1;
-    });
-  };
+    prevStep,
+    nextStep,
+    setAssetInfo,
+    setImage,
+  } = useCreateAssetFormStore();
 
   const components = [
     <AssetInfoForm
-      key={CreateAssetSteps.AssetInfo}
+      key={1}
       onSubmitHandler={async (data) => {
-        console.log(data);
+        setAssetInfo(data);
         nextStep();
       }}
     />,
     <AssetImageForm
-      key={CreateAssetSteps.Image}
+      key={2}
       saveImage={async (file) => {
-        console.log(file);
+        setImage(file);
         nextStep();
         return true;
       }}
     />,
-    <div key={CreateAssetSteps.Users}>lmao</div>,
+    <div key={3}>lmao</div>,
   ];
   return (
     <div>
@@ -60,17 +55,22 @@ export const CreateAssetForm = () => {
 
       <Divider />
 
-      <section>
-        {currentStep ? (
-          <Button
-            style={{
-              marginBottom: 24,
-            }}
-            onClick={prevStep}
-          >
+      <section
+        style={{
+          marginBottom: theme.marginMD,
+          display: "flex",
+        }}
+      >
+        {showPrevButton() && (
+          <Button onClick={prevStep}>
             <BackArrowIcon />
           </Button>
-        ) : null}
+        )}
+        {showNextButton() && (
+          <Button onClick={nextStep} style={{ marginLeft: "auto" }}>
+            Next
+          </Button>
+        )}
       </section>
 
       {components.map((component, index) => {
