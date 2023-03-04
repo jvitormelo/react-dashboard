@@ -1,5 +1,6 @@
 import { ImageUploader } from "@/components/upload/image-uploader";
 import { useTheme } from "@/hooks/use-theme";
+import { imageUtils } from "@/utils";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import { Button, Image, Space } from "antd";
 import { useState } from "react";
@@ -20,14 +21,14 @@ export const AssetImageForm = ({ image, saveImage }: AssetImageForm) => {
 
   const onUpload = (file: File) => {
     setUploadedFile(file);
-    setImageClone(URL.createObjectURL(file));
+    setImageClone(imageUtils.createObjectURL(file));
   };
 
   const saveImageHandler = async (fileValue: File) => {
     try {
       setLoading(true);
 
-      const url = URL.createObjectURL(fileValue);
+      const url = imageUtils.createObjectURL(fileValue);
 
       setImageClone(url);
 

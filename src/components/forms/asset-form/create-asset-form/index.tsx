@@ -4,6 +4,7 @@ import { Button, Divider, Steps } from "antd";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm } from "../asset-info";
 import { useCreateAssetFormStore } from "../../../../store/create-asset-form-store";
+import { NextArrowIcon } from "@/components/icons/next-icon";
 
 const steps = [
   {
@@ -67,7 +68,7 @@ export const CreateAssetForm = () => {
         )}
         {showNextButton() && (
           <Button onClick={nextStep} style={{ marginLeft: "auto" }}>
-            Next
+            <NextArrowIcon />
           </Button>
         )}
       </section>

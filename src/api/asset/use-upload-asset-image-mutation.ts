@@ -1,12 +1,12 @@
 import { queryClient } from "@/infra/query-client";
 import { Asset } from "@/types/entities/asset";
+import { imageUtils } from "@/utils";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const useUploadAssetImageMutation = () => {
   const uploadImage = async (assetId: number, file: File) => {
-    const url = URL.createObjectURL(file);
-
+    const url = imageUtils.createObjectURL(file);
     await wait(2000);
 
     queryClient.setQueryData<Asset[]>(["assets"], (assets) => {
