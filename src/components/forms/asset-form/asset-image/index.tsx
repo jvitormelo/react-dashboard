@@ -1,7 +1,7 @@
+import { CloseIcon } from "@/components/icons/close-icon";
 import { ImageUploader } from "@/components/upload/image-uploader";
 import { useTheme } from "@/hooks/use-theme";
 import { imageUtils } from "@/utils";
-import { CloseCircleOutlined } from "@ant-design/icons";
 import { Button, Image, Space } from "antd";
 import { useState } from "react";
 
@@ -68,11 +68,7 @@ export const AssetImageForm = ({
             onClick={cancelUpload}
             size="large"
           >
-            <CloseCircleOutlined
-              style={{
-                fontSize: 24,
-              }}
-            />
+            <CloseIcon />
           </Button>
           <Button
             loading={loading}

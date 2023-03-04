@@ -1,3 +1,5 @@
+import { WorkOrderForm } from "@/components/forms/work-order-form";
+import { CloseIcon } from "@/components/icons/close-icon";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
@@ -12,6 +14,7 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
 
   const { workOrderStatusToColor, workOrderPriorityToColor } =
     useFeedbackColors();
+
   return (
     <Card>
       <Typography.Title level={3} style={{ marginBottom: theme.marginMD }}>
@@ -70,6 +73,34 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
           </Collapse>
         ))}
       </div>
+      <Card
+        style={{
+          padding: theme.paddingMD,
+          marginTop: theme.marginMD,
+        }}
+      >
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography.Title level={4} style={{ marginBottom: theme.marginMD }}>
+            Create new Work Order
+          </Typography.Title>
+
+          <CloseIcon
+            onClick={() => {
+              return;
+            }}
+          />
+        </section>
+        <WorkOrderForm
+          onSubmitHandler={async () => {
+            return;
+          }}
+        />
+      </Card>
     </Card>
   );
 };
