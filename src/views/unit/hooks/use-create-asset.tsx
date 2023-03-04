@@ -4,7 +4,9 @@ import { CreateAssetForm } from "@/components/forms/asset-form/create-asset-form
 import { SubmitCreateAssetParams } from "@/components/forms/asset-form/create-asset-form/types";
 import { useModal } from "@/hooks/use-modal";
 import { toast } from "@/infra/toast";
+import { Routes } from "@/router/routes";
 import { useCreateAssetFormStore } from "@/store/create-asset-form-store";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   companyId: number;
@@ -18,6 +20,7 @@ export const useCreateAsset = ({ companyId, unitId }: Props) => {
   const clearCreateFormStore = useCreateAssetFormStore(
     (selector) => selector.clear
   );
+  const navigate = useNavigate();
 
   const submitForm = async (values: SubmitCreateAssetParams) => {
     try {
@@ -35,6 +38,8 @@ export const useCreateAsset = ({ companyId, unitId }: Props) => {
       toast.success("Asset created");
 
       closeModal();
+
+      navigate(Routes.asset(companyId, unitId, createdAsset.id));
     } catch (e) {
       toast.error("Error creating asset");
     }

@@ -39,6 +39,8 @@ export const useCreateAssetMutation = () => {
       queryClient.setQueryData<Asset[]>(["assets"], (oldData) => {
         return [...(oldData || []), assetWithRandomData];
       });
+
+      queryClient.setQueryData<Asset>(["asset", data.id], assetWithRandomData);
     },
   });
 };
