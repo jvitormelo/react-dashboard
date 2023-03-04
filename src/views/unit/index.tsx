@@ -7,18 +7,24 @@ import { useParamsId } from "@/hooks/use-params-id";
 import { Tabs } from "antd";
 import { AssetsTable } from "../../components/tables/assets-table";
 import { UnitHeader } from "./components/header";
+import { useCreateAsset } from "./hooks/use-create-asset";
 
 export const UnitView = () => {
-  const { unitId } = useParamsId();
+  const { unitId, companyId } = useParamsId();
 
   const { data: assets = [], isLoading: isAssetsLoading } =
     useGetAssetsByUnit(unitId);
 
   const { data: users, isLoading: isUsersLoading } = useGetUsersByUnit(unitId);
 
-  const { onCreate, ...assetTableProps } = useAssetsTable();
+  const assetTableProps = useAssetsTable();
 
   const userTableProps = useUserTableActions();
+
+  const { onCreateAssetClick } = useCreateAsset({
+    companyId,
+    unitId,
+  });
 
   const tabsItems = [
     {
@@ -30,7 +36,7 @@ export const UnitView = () => {
           loading={isAssetsLoading}
           headerProps={{
             buttonLabel: "Create Asset",
-            onButtonClick: onCreate,
+            onButtonClick: onCreateAssetClick,
           }}
           {...assetTableProps}
         />

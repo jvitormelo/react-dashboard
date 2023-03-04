@@ -4,10 +4,12 @@ import { imageUtils } from "@/utils";
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// TODO refactor
 export const useUploadAssetImageMutation = () => {
   const uploadImage = async (assetId: number, file: File) => {
     const url = imageUtils.createObjectURL(file);
-    await wait(2000);
+
+    await wait(1000);
 
     queryClient.setQueryData<Asset[]>(["assets"], (assets) => {
       return assets?.map((cachedAsset) =>

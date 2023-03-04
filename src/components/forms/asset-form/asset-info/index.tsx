@@ -12,10 +12,12 @@ import { AssetSchema, assetSchema } from "../schema";
 export interface AssetInfoFormProps {
   defaultValues?: Partial<AssetSchema>;
   onSubmitHandler: (values: AssetSchema) => Promise<void>;
+  buttonLabel?: string;
 }
 
 export const AssetInfoForm = ({
   defaultValues,
+  buttonLabel,
   onSubmitHandler,
 }: AssetInfoFormProps) => {
   const {
@@ -43,6 +45,7 @@ export const AssetInfoForm = ({
     <BaseModalForm
       onSubmit={onSubmit}
       buttonProps={{
+        label: buttonLabel,
         loading: isSubmitting,
       }}
     >

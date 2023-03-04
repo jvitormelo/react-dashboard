@@ -7,8 +7,8 @@ export const assetSchema = zod.object({
   sensors: zod.array(zod.string()).min(1),
   specifications: zod.object({
     maxTemp: zod.number(),
-    power: zod.number().optional().nullable(),
-    rpm: zod.number().optional().nullable(),
+    power: zod.number().optional(),
+    rpm: zod.number().optional(),
   }),
 });
 

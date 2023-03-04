@@ -24,7 +24,11 @@ export const ControlledNumberInput = <T extends object>({
         >
           <label htmlFor={name}>{label} </label>
           <div>
-            <InputNumber {...rest} {...field} />
+            <InputNumber
+              {...rest}
+              {...field}
+              onChange={(value) => field.onChange(value ?? undefined)}
+            />
           </div>
           <FormErrorText error={fieldState.error} />
         </div>

@@ -5,6 +5,7 @@ export const BaseLayout = () => {
   return (
     <>
       <Navigation />
+
       <main>
         <Outlet />
       </main>

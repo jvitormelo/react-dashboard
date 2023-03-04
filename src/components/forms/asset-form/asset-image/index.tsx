@@ -8,9 +8,14 @@ import { useState } from "react";
 export interface AssetImageForm {
   image?: string;
   saveImage: (file: File) => Promise<boolean>;
+  buttonLabel?: string;
 }
 
-export const AssetImageForm = ({ image, saveImage }: AssetImageForm) => {
+export const AssetImageForm = ({
+  image,
+  saveImage,
+  buttonLabel,
+}: AssetImageForm) => {
   const { theme } = useTheme();
 
   const [imageClone, setImageClone] = useState(image);
@@ -51,20 +56,31 @@ export const AssetImageForm = ({ image, saveImage }: AssetImageForm) => {
     if (uploadedFIle) {
       return (
         <Space
+          align="end"
           style={{
-            justifyContent: "center",
-            width: "100%",
+            display: "flex",
+            justifyContent: "flex-end",
           }}
-          align="center"
-          direction="vertical"
         >
+          <Button
+            danger
+            color={theme.colorError}
+            onClick={cancelUpload}
+            size="large"
+          >
+            <CloseCircleOutlined
+              style={{
+                fontSize: 24,
+              }}
+            />
+          </Button>
           <Button
             loading={loading}
             onClick={() => saveImageHandler(uploadedFIle)}
             type="primary"
             size="large"
           >
-            Save Image!
+            {buttonLabel || "Save Image"}
           </Button>
         </Space>
       );
@@ -82,24 +98,6 @@ export const AssetImageForm = ({ image, saveImage }: AssetImageForm) => {
         width: "100%",
       }}
     >
-      {uploadedFIle && (
-        <Button
-          danger
-          color={theme.colorError}
-          onClick={cancelUpload}
-          style={{
-            display: "flex",
-            marginLeft: "auto",
-          }}
-        >
-          <CloseCircleOutlined
-            style={{
-              fontSize: 20,
-            }}
-          />
-        </Button>
-      )}
-
       {imageClone && (
         <div
           style={{

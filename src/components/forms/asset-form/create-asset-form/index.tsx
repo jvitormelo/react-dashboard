@@ -1,10 +1,11 @@
 import { BackArrowIcon } from "@/components/icons/back-icon";
 import { useTheme } from "@/hooks/use-theme";
 import { Button, Divider, Steps } from "antd";
+import { useCreateAssetFormStore } from "../../../../store/create-asset-form-store";
 import { AssetImageForm } from "../asset-image";
 import { AssetInfoForm } from "../asset-info";
-import { useCreateAssetFormStore } from "../../../../store/create-asset-form-store";
-import { NextArrowIcon } from "@/components/icons/next-icon";
+import { AssetSchema } from "../schema";
+import { SubmitCreateAssetParams } from "./types";
 
 const steps = [
   {
@@ -13,41 +14,63 @@ const steps = [
   {
     title: "Image",
   },
-  {
-    title: "Users",
-  },
 ];
 
-export const CreateAssetForm = () => {
+interface Props {
+  submitForm: (params: SubmitCreateAssetParams) => Promise<void>;
+}
+
+export const CreateAssetForm = ({ submitForm }: Props) => {
   const { theme } = useTheme();
 
   const {
+    assetInfo,
     currentStep,
-    showNextButton,
     showPrevButton,
     prevStep,
     nextStep,
     setAssetInfo,
     setImage,
+    clear,
   } = useCreateAssetFormStore();
+
+  const assetInfoSubmit = async (data: AssetSchema) => {
+    setAssetInfo(data);
+    nextStep();
+  };
+
+  const assetImageSubmit = async (file: File) => {
+    setImage(file);
+
+    if (!assetInfo) return false;
+
+    await submitHandler(assetInfo, file);
+    return true;
+  };
+
+  const submitHandler = async (
+    assetInfo: SubmitCreateAssetParams["assetInfo"],
+    image: SubmitCreateAssetParams["image"]
+  ) => {
+    await submitForm({
+      assetInfo,
+      image,
+    });
+
+    clear();
+  };
 
   const components = [
     <AssetInfoForm
       key={1}
-      onSubmitHandler={async (data) => {
-        setAssetInfo(data);
-        nextStep();
-      }}
+      onSubmitHandler={assetInfoSubmit}
+      buttonLabel="Next"
     />,
     <AssetImageForm
       key={2}
-      saveImage={async (file) => {
-        setImage(file);
-        nextStep();
-        return true;
-      }}
+      buttonLabel="Create Asset"
+      saveImage={assetImageSubmit}
     />,
-    <div key={3}>lmao</div>,
   ];
   return (
     <div>
@@ -55,36 +78,27 @@ export const CreateAssetForm = () => {
 
       <Divider />
 
-      <section
-        style={{
-          marginBottom: theme.marginMD,
-          display: "flex",
-        }}
-      >
-        {showPrevButton() && (
-          <Button onClick={prevStep}>
-            <BackArrowIcon />
-          </Button>
-        )}
-        {showNextButton() && (
-          <Button onClick={nextStep} style={{ marginLeft: "auto" }}>
-            <NextArrowIcon />
-          </Button>
-        )}
-      </section>
+      {showPrevButton() && (
+        <Button
+          style={{
+            marginBottom: theme.marginMD,
+          }}
+          onClick={prevStep}
+        >
+          <BackArrowIcon />
+        </Button>
+      )}
 
-      {components.map((component, index) => {
-        return (
-          <div
-            key={index}
-            style={{
-              display: index === currentStep ? "block" : "none",
-            }}
-          >
-            {component}
-          </div>
-        );
-      })}
+      {components.map((component, index) => (
+        <div
+          key={index}
+          style={{
+            display: index === currentStep ? "block" : "none",
+          }}
+        >
+          {component}
+        </div>
+      ))}
     </div>
   );
 };

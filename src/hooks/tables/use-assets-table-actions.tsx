@@ -2,11 +2,9 @@ import { useDeleteAssetMutation } from "@/api/asset/use-delete-asset-mutation";
 import { setAssetCache } from "@/api/asset/use-get-asset";
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
-import { CreateAssetForm } from "@/components/forms/asset-form/create-asset-form";
 import { EditAssetForm } from "@/components/forms/asset-form/edit-asset-form";
 import { AssetSchema } from "@/components/forms/asset-form/schema";
 import { toast } from "@/infra/toast";
-import { useCreateAssetFormStore } from "@/store/create-asset-form-store";
 import { Asset } from "@/types/entities/asset";
 import { useModal } from "../use-modal";
 
@@ -15,9 +13,6 @@ export const useAssetsTable = () => {
   const { mutateAsync: updateAsset } = useUpdateAssetMutation();
   const { uploadImage } = useUploadAssetImageMutation();
   const { mutateAsync: deleteAsset } = useDeleteAssetMutation();
-  const clearCreateFormStore = useCreateAssetFormStore(
-    (selector) => selector.clear
-  );
 
   const onSelect = (asset: Asset) => {
     setAssetCache(asset);
@@ -74,19 +69,9 @@ export const useAssetsTable = () => {
     }
   };
 
-  const onCreate = () => {
-    openModal({
-      title: "Create Asset",
-      body: <CreateAssetForm />,
-      maskClosable: false,
-      afterClose: clearCreateFormStore,
-    });
-  };
-
   return {
     onSelect,
     onEdit,
     onDelete,
-    onCreate,
   };
 };
