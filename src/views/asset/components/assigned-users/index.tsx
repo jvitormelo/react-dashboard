@@ -5,7 +5,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { UserWithUnit } from "@/types/entities/user";
-import { Card, Typography } from "antd";
+import { Card, List, Typography } from "antd";
 
 interface Props {
   asset: Asset & { users: UserWithUnit[] };
@@ -39,7 +39,8 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
 
         <EditIcon onClick={onEdit} />
       </div>
-      <div
+
+      <List
         style={{
           maxHeight: "240px",
           overflowY: "scroll",
@@ -50,9 +51,11 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
         }}
       >
         {asset.users.map((user) => (
-          <UserLink key={user.id} {...user} />
+          <List.Item key={user.id}>
+            <UserLink {...user} />
+          </List.Item>
         ))}
-      </div>
+      </List>
     </Card>
   );
 };
