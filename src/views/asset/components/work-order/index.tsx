@@ -1,8 +1,14 @@
+import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
+import { useCreateWorkOrder } from "@/api/work-orders/use-create-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
+import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
 import { CloseIcon } from "@/components/icons/close-icon";
 import { UserLink } from "@/components/molecules/user-link";
+import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
+import { toast } from "@/infra/toast";
+import { Asset } from "@/types/entities/asset";
 import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 import { Card, Collapse, Divider, List, Tag, Typography } from "antd";
 
@@ -72,8 +78,29 @@ const WorkOrderCollapse = ({
   );
 };
 
-const CreateWorkOrder = () => {
+const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
+  const { data: users = [] } = useGetUsersByCompany(asset.companyId);
+
+  const { mutateAsync: createWorkOrder } = useCreateWorkOrder();
+
   const { theme } = useTheme();
+
+  const onSubmitHandler = async (data: WorkOrderSchema) => {
+    try {
+      await createWorkOrder({
+        checklist: data.checklist,
+        description: data.description,
+        priority: WorkOrderPriority.HIGH,
+        title: data.title,
+        assetId: asset.id,
+        assignedUserIds: data.assignedUserIds ?? [],
+      });
+      toast.success("Work order created");
+    } catch (err) {
+      toast.error("Failed to create work order");
+    }
+  };
+
   return (
     <Card
       style={{
@@ -97,21 +124,17 @@ const CreateWorkOrder = () => {
           }}
         />
       </section>
-      <WorkOrderForm
-        users={[]}
-        onSubmitHandler={async () => {
-          return;
-        }}
-      />
+      <WorkOrderForm users={users} onSubmitHandler={onSubmitHandler} />
     </Card>
   );
 };
 
 interface Props {
+  asset: Asset;
   workOrders: WorkOrdersWithUsers[];
 }
 
-export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
+export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
   const { theme } = useTheme();
 
   const hasWorkOrders = workOrders.length > 0;
@@ -140,7 +163,7 @@ export const WorkOrderInfo = ({ workOrders = [] }: Props) => {
         </div>
       )}
 
-      <CreateWorkOrder />
+      <CreateWorkOrderForAsset asset={asset} />
     </Card>
   );
 };

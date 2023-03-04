@@ -41,7 +41,10 @@ export const AssetView = () => {
             flexDirection: "column",
           }}
         >
-          <WorkOrderInfo workOrders={workOrdersWithUsers} />
+          <WorkOrderInfo
+            asset={assetWithUser}
+            workOrders={workOrdersWithUsers}
+          />
 
           <div
             style={{
