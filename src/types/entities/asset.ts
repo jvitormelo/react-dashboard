@@ -9,7 +9,7 @@ type Metrics = {
   totalUptime: number;
 };
 
-type Specifications = {
+export type Specifications = {
   maxTemp: number;
   power?: number;
   rpm?: number;

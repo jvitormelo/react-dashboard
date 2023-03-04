@@ -1,4 +1,5 @@
 import { WorkOrderStatus } from "@/constants/work-order-status";
+import { User } from "./user";
 
 type Checklist = {
   completed: boolean;

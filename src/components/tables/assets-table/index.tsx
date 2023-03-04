@@ -8,8 +8,8 @@ import { ColumnsType } from "antd/es/table";
 import { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { addBaseTableActions } from "../common/add-base-table-actions";
-import { DataTable } from "../common/data-table";
-import { AssetsTableProps } from "./types";
+import { BaseTableActions } from "../common/add-base-table-actions/types";
+import { BaseTableProps, DataTable } from "../common/data-table";
 
 type DataTableAsset = Asset & {
   totalUptime: number;
@@ -20,8 +20,12 @@ type DataTableAsset = Asset & {
   numberOfAssignedUsers: number;
 };
 
+export interface Props extends BaseTableProps, BaseTableActions<Asset> {
+  assets: Asset[] | undefined;
+}
+
 export const AssetsTable = memo(
-  ({ assets = [], onSelect, onDelete, onEdit, ...props }: AssetsTableProps) => {
+  ({ assets = [], onSelect, onDelete, onEdit, ...props }: Props) => {
     const columns: ColumnsType<DataTableAsset> = [
       {
         title: "Id",
