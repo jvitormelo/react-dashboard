@@ -1,4 +1,5 @@
 import { UserAvatar } from "@/components/atoms/user-avatar";
+import { UserPopOver } from "@/components/atoms/user-pop-over";
 import { EditIcon } from "@/components/icons/edit-icon";
 import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
 import { useModal } from "@/hooks/use-modal";
@@ -6,7 +7,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { UserWithUnit } from "@/types/entities/user";
-import { Card, Divider, Popover, Space, Typography } from "antd";
+import { Card, Typography } from "antd";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -17,39 +18,13 @@ const UserItem = ({ name, id, email, unit }: UserWithUnit) => {
   const { theme } = useTheme();
 
   return (
-    <Popover
-      placement="top"
-      content={
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <UserAvatar
-              style={{
-                marginRight: theme.marginSM,
-              }}
-              email={email}
-            />
-
-            <Space direction="vertical">
-              <Typography.Text>{name}</Typography.Text>
-              <Typography.Text>{email}</Typography.Text>
-            </Space>
-          </div>
-          <Divider />
-
-          <Typography.Text>Unit: {unit.name}</Typography.Text>
-        </div>
-      }
+    <UserPopOver
+      user={{
+        email,
+        id,
+        name,
+        unit,
+      }}
     >
       <Link
         style={{
@@ -60,7 +35,7 @@ const UserItem = ({ name, id, email, unit }: UserWithUnit) => {
         <UserAvatar email={email} style={{ marginRight: theme.marginXS }} />
         {name}
       </Link>
-    </Popover>
+    </UserPopOver>
   );
 };
 
