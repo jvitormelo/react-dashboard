@@ -16,7 +16,7 @@ export const UnitView = () => {
 
   const { data: users, isLoading: isUsersLoading } = useGetUsersByUnit(unitId);
 
-  const tableProps = useAssetsTable();
+  const { onCreate, ...assetTableProps } = useAssetsTable();
 
   const userTableProps = useUserTableActions();
 
@@ -28,7 +28,11 @@ export const UnitView = () => {
         <AssetsTable
           assets={assets}
           loading={isAssetsLoading}
-          {...tableProps}
+          headerProps={{
+            buttonLabel: "Create Asset",
+            onButtonClick: onCreate,
+          }}
+          {...assetTableProps}
         />
       ),
     },

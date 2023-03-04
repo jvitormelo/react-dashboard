@@ -2,16 +2,14 @@ import { useDeleteAssetMutation } from "@/api/asset/use-delete-asset-mutation";
 import { setAssetCache } from "@/api/asset/use-get-asset";
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
-import { AssetForm } from "@/components/forms/asset-form";
+import { CreateAssetForm } from "@/components/forms/asset-form/create-asset-form";
+import { EditAssetForm } from "@/components/forms/asset-form/edit-asset-form";
 import { AssetSchema } from "@/components/forms/asset-form/schema";
-import { AssetsTableProps } from "@/components/tables/assets-table/types";
 import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
 import { useModal } from "../use-modal";
 
-type Hook = () => Omit<AssetsTableProps, "loading" | "assets">;
-
-export const useAssetsTable: Hook = () => {
+export const useAssetsTable = () => {
   const { openModal } = useModal();
   const { mutateAsync: updateAsset } = useUpdateAssetMutation();
   const { uploadImage } = useUploadAssetImageMutation();
@@ -53,7 +51,7 @@ export const useAssetsTable: Hook = () => {
     openModal({
       title: "Edit Asset",
       body: (
-        <AssetForm
+        <EditAssetForm
           onSubmit={onSubmit}
           saveImage={saveImage}
           defaultValues={asset}
@@ -72,9 +70,17 @@ export const useAssetsTable: Hook = () => {
     }
   };
 
+  const onCreate = () => {
+    openModal({
+      title: "Create Asset",
+      body: <CreateAssetForm />,
+    });
+  };
+
   return {
     onSelect,
     onEdit,
     onDelete,
+    onCreate,
   };
 };

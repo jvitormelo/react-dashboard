@@ -1,6 +1,7 @@
 import { DeleteIconPopProps } from "@/components/icons/delete-icon-pop/types";
 
 export interface BaseTableActions<T> {
+  onCreate?: () => Promise<void> | void;
   onSelect?: (value: T) => void;
   onEdit?: (value: T) => Promise<void> | void;
   onDelete?: (value: T) => Promise<void>;
