@@ -1,7 +1,7 @@
 import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
 import { useGetUsersByUnit } from "@/api/user/use-get-users-by-unit";
 import { UsersTable } from "@/components/tables/users-table";
-import { useAssetsTable } from "@/hooks/tables/use-assets-table";
+import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
 import { useUserTableActions } from "@/hooks/tables/use-user-table-action";
 import { useParamsId } from "@/hooks/use-params-id";
 import { Tabs } from "antd";

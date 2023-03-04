@@ -16,6 +16,7 @@ export const useAssetsTable: Hook = () => {
     openModal({
       title: "Edit Asset",
       body: <AssetForm defaultValues={asset} />,
+      maskClosable: false,
     });
   };
 

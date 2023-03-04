@@ -9,7 +9,6 @@ interface Props {
 export const AssetForm = ({ defaultValues }: Props) => {
   return (
     <Tabs
-      destroyInactiveTabPane
       items={[
         {
           label: "Info",

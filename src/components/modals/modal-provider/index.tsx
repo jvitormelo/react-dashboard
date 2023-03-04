@@ -11,10 +11,6 @@ export const ModalProvider = () => {
         if (modal.onCancel) modal.onCancel(e);
         closeModal();
       }}
-      afterClose={() => {
-        if (modal.afterClose) modal.afterClose();
-        closeModal();
-      }}
       footer={modal.footer || null}
       destroyOnClose
     >

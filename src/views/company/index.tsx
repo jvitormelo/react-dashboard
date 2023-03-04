@@ -1,6 +1,6 @@
 import { AssetsTable } from "@/components/tables/assets-table";
 import { UsersTable } from "@/components/tables/users-table";
-import { useAssetsTable } from "@/hooks/tables/use-assets-table";
+import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
 import { useUnitsTableActions } from "@/hooks/tables/use-units-table-actions";
 import { useUserTableActions } from "@/hooks/tables/use-user-table-action";
 import { useParamsId } from "@/hooks/use-params-id";
