@@ -48,10 +48,7 @@ export const useCreateAssetFormStore = create<State>((set, get) => ({
     }));
   },
   showNextButton() {
-    return (
-      get().currentStep === CreateAssetSteps.AssetInfo &&
-      get().assetInfo !== null
-    );
+    return get().currentStep === CreateAssetSteps.Image && get().image !== null;
   },
   showPrevButton() {
     return get().currentStep !== CreateAssetSteps.AssetInfo;

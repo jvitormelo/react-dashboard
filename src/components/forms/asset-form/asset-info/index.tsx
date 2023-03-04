@@ -74,6 +74,7 @@ export const AssetInfoForm = ({
           label="Max Temp"
           control={control}
           name="specifications.maxTemp"
+          min={0}
           step={5}
         />
         <ControlledNumberInput
@@ -81,6 +82,7 @@ export const AssetInfoForm = ({
           label="RPM"
           control={control}
           step={100}
+          min={0}
           name="specifications.rpm"
         />
         <ControlledNumberInput
@@ -88,6 +90,7 @@ export const AssetInfoForm = ({
           control={control}
           step={0.5}
           addonAfter={<KwhIcon />}
+          min={0}
           name="specifications.power"
         />
       </div>
