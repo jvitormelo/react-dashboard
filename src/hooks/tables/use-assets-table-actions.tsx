@@ -1,6 +1,10 @@
 import { setAssetCache } from "@/api/asset/use-get-asset";
+import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
+import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
 import { AssetForm } from "@/components/forms/asset-form";
+import { AssetSchema } from "@/components/forms/asset-form/schema";
 import { AssetsTableProps } from "@/components/tables/assets-table/types";
+import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
 import { useModal } from "../use-modal";
 
@@ -8,14 +12,52 @@ type Hook = () => Omit<AssetsTableProps, "loading" | "assets">;
 
 export const useAssetsTable: Hook = () => {
   const { openModal } = useModal();
+
+  const { mutateAsync: updateAsset } = useUpdateAssetMutation();
+
+  const { uploadImage } = useUploadAssetImageMutation();
   const onSelect = (asset: Asset) => {
     setAssetCache(asset);
   };
 
   const onEdit = (asset: Asset) => {
+    const onSubmit = async (values: AssetSchema) => {
+      try {
+        await updateAsset({
+          ...asset,
+          ...values,
+          specifications: {
+            ...asset.specifications,
+            power: values.specifications.power ?? undefined,
+            rpm: values.specifications.rpm ?? undefined,
+          },
+        });
+        toast.success("Asset updated successfully");
+      } catch (e) {
+        toast.error("Asset updated successfully");
+      }
+    };
+
+    const saveImage = async (file: File) => {
+      try {
+        await uploadImage(asset.id, file);
+        toast.success("Image uploaded successfully");
+        return true;
+      } catch (e) {
+        toast.error("Image uploaded successfully");
+        return false;
+      }
+    };
+
     openModal({
       title: "Edit Asset",
-      body: <AssetForm defaultValues={asset} />,
+      body: (
+        <AssetForm
+          onSubmit={onSubmit}
+          saveImage={saveImage}
+          defaultValues={asset}
+        />
+      ),
       maskClosable: false,
     });
   };

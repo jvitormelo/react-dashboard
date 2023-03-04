@@ -1,24 +1,36 @@
 import { Asset } from "@/types/entities/asset";
 import { Tabs } from "antd";
 import { AssetImageForm } from "./asset-image";
-import { AssetInfoForm } from "./asset-info";
+import { AssetInfoForm, AssetInfoFormProps } from "./asset-info";
 interface Props {
   defaultValues?: Partial<Asset>;
+  onSubmit: AssetInfoFormProps["onSubmitHandler"];
+  saveImage: AssetImageForm["saveImage"];
 }
 
-export const AssetForm = ({ defaultValues }: Props) => {
+export const AssetForm = ({ defaultValues, onSubmit, saveImage }: Props) => {
   return (
     <Tabs
       items={[
         {
           label: "Info",
           key: "asset-info",
-          children: <AssetInfoForm defaultValues={defaultValues} />,
+          children: (
+            <AssetInfoForm
+              onSubmitHandler={onSubmit}
+              defaultValues={defaultValues}
+            />
+          ),
         },
         {
           label: "Image",
           key: "image",
-          children: <AssetImageForm image={defaultValues?.image} />,
+          children: (
+            <AssetImageForm
+              saveImage={saveImage}
+              image={defaultValues?.image}
+            />
+          ),
         },
       ]}
     />

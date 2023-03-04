@@ -9,11 +9,15 @@ import { useFormResolver } from "@/hooks/use-form-resolver";
 import { BaseModalForm } from "../../base-modal-form";
 import { AssetSchema, assetSchema } from "../schema";
 
-interface Props {
+export interface AssetInfoFormProps {
   defaultValues?: Partial<AssetSchema>;
+  onSubmitHandler: (values: AssetSchema) => Promise<void>;
 }
 
-export const AssetInfoForm = ({ defaultValues }: Props) => {
+export const AssetInfoForm = ({
+  defaultValues,
+  onSubmitHandler,
+}: AssetInfoFormProps) => {
   const {
     handleSubmit,
     control,
@@ -22,9 +26,7 @@ export const AssetInfoForm = ({ defaultValues }: Props) => {
     defaultValues,
   });
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
-  });
+  const onSubmit = handleSubmit(onSubmitHandler);
 
   const { data: assetModels, isLoading: isAssetModelsLoading } =
     useGetAllAssetModels();
@@ -72,16 +74,19 @@ export const AssetInfoForm = ({ defaultValues }: Props) => {
           label="Max Temp"
           control={control}
           name="specifications.maxTemp"
+          step={5}
         />
         <ControlledNumberInput
           addonAfter={<RPMIcon />}
           label="RPM"
           control={control}
+          step={100}
           name="specifications.rpm"
         />
         <ControlledNumberInput
           label="Power (kWh)"
           control={control}
+          step={0.5}
           addonAfter={<KwhIcon />}
           name="specifications.power"
         />
