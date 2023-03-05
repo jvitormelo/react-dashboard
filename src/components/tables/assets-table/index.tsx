@@ -1,4 +1,5 @@
 import { StatusTag } from "@/components/atoms/status-tag";
+import { assetStatusArray } from "@/constants/asset-status";
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
@@ -56,6 +57,7 @@ export const AssetsTable = memo(
         title: "Name",
         dataIndex: "name",
         key: "name",
+
         render: (name, asset) => (
           <Link
             onClick={() => onSelect && onSelect(asset)}
@@ -69,6 +71,8 @@ export const AssetsTable = memo(
         title: "Health Score",
         dataIndex: "healthscore",
         key: "healthscore",
+        defaultSortOrder: "descend",
+        sorter: (a, b) => a.healthscore - b.healthscore,
         render: (healthscore) => (
           <StatusTag status={healthscore} text={`${healthscore}%`} />
         ),
@@ -77,6 +81,15 @@ export const AssetsTable = memo(
         title: "Status",
         dataIndex: "status",
         key: "status",
+        filterMode: "menu",
+        filterSearch: true,
+        width: 150,
+        filters: assetStatusArray.map((item) => ({
+          text: nameUtils.getAssetStatusName(item),
+          value: item,
+        })),
+        onFilter: (value, record) => record.status === value,
+
         render: (status) => (
           <StatusTag
             status={status}
@@ -101,6 +114,7 @@ export const AssetsTable = memo(
         dataIndex: "totalUptime",
         key: "totalUptime",
         render: (uptime) => dateUtils.formatHoursDistance(uptime),
+        sorter: (a, b) => a.totalUptime - b.totalUptime,
       },
       {
         title: "RPM",
