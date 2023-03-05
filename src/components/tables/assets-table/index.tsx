@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { addBaseTableActions } from "../common/add-base-table-actions";
 import { BaseTableActions } from "../common/add-base-table-actions/types";
 import { BaseTableProps, DataTable } from "../common/data-table";
+import { useGetColumnSearchProps } from "../common/search";
 
 type DataTableAsset = Asset & {
   totalUptime: number;
@@ -27,6 +28,8 @@ export interface Props extends BaseTableProps, BaseTableActions<Asset> {
 
 export const AssetsTable = memo(
   ({ assets = [], onSelect, onDelete, onEdit, ...props }: Props) => {
+    const { getColumnSearchProps } = useGetColumnSearchProps<DataTableAsset>();
+
     const columns: ColumnsType<DataTableAsset> = [
       {
         title: "Id",
@@ -57,7 +60,6 @@ export const AssetsTable = memo(
         title: "Name",
         dataIndex: "name",
         key: "name",
-
         render: (name, asset) => (
           <Link
             onClick={() => onSelect && onSelect(asset)}
@@ -66,6 +68,7 @@ export const AssetsTable = memo(
             {name}
           </Link>
         ),
+        ...getColumnSearchProps("name"),
       },
       {
         title: "Health Score",
