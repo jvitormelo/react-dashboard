@@ -1,8 +1,10 @@
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useCreateWorkOrder } from "@/api/work-orders/use-create-work-order";
+import { useDeleteWorkOrderMutation } from "@/api/work-orders/use-delete-work-order-mutation";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
 import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
+import { EditIcon } from "@/components/icons/edit-icon";
 import { UserLink } from "@/components/molecules/user-link";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
@@ -12,69 +14,105 @@ import { WorkOrdersWithUsers } from "@/types/entities/workorders";
 import { Button, Card, Collapse, Divider, List, Tag, Typography } from "antd";
 import { useAssetViewStore } from "../../store/asset-view-store";
 
+const { Panel } = Collapse;
+
+// TODO separate this component into other files
+
+const WorkOrderCollapseHeader = ({
+  workOrder,
+}: {
+  workOrder: WorkOrdersWithUsers;
+}) => {
+  const { workOrderStatusToColor, workOrderPriorityToColor } =
+    useFeedbackColors();
+
+  return (
+    <div>
+      <span style={{ marginRight: "1rem" }}>{workOrder.title}</span>
+      <Tag color={workOrderPriorityToColor(workOrder.priority, "hex")}>
+        {workOrder.priority.toUpperCase()}
+      </Tag>
+      <Tag color={workOrderStatusToColor(workOrder.status, "name")}>
+        {workOrder.status}
+      </Tag>
+    </div>
+  );
+};
+
 const WorkOrderCollapse = ({
   workOrder,
 }: {
   workOrder: WorkOrdersWithUsers;
 }) => {
+  const { setEditingWorkOrder } = useAssetViewStore();
   const { theme } = useTheme();
-  const { workOrderStatusToColor, workOrderPriorityToColor } =
-    useFeedbackColors();
+
+  const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrderMutation();
+
+  const onDelete = async () => {
+    await deleteWorkOrder(workOrder.id);
+  };
+
+  const onEdit = () => {
+    setEditingWorkOrder(workOrder);
+  };
 
   return (
-    <Collapse key={workOrder.id}>
-      <Collapse.Panel
-        header={
-          <div>
-            <span style={{ marginRight: "1rem" }}>{workOrder.title}</span>
-            <Tag color={workOrderPriorityToColor(workOrder.priority, "hex")}>
-              {workOrder.priority.toUpperCase()}
-            </Tag>
-            <Tag color={workOrderStatusToColor(workOrder.status, "name")}>
-              {workOrder.status}
-            </Tag>
-          </div>
-        }
-        key="1"
-      >
-        <Typography.Paragraph style={{ marginBlock: 0 }}>
-          {workOrder.description}
-        </Typography.Paragraph>
+    <>
+      <Typography.Paragraph style={{ marginBlock: 0 }}>
+        {workOrder.description}
+      </Typography.Paragraph>
 
-        <Divider />
-        <section>
-          <h4 style={{ marginBottom: 0 }}>Checklist</h4>
-          <List
-            style={{
-              paddingLeft: theme.paddingMD,
-            }}
-          >
-            {workOrder.checklist.map((checklistItem, index) => (
-              <List.Item key={index}>
-                <span>
-                  {checklistItem.task} {checklistItem.completed ? "✔" : "❌"}
-                </span>
-              </List.Item>
-            ))}
-          </List>
-        </section>
-        <Divider />
-        <section>
-          <h4 style={{ marginBottom: 0 }}> Assigned to</h4>
-          <List
-            style={{
-              paddingLeft: theme.paddingMD,
-            }}
-          >
-            {workOrder.users.map((user) => (
-              <List.Item key={user.id}>
-                <UserLink {...user} />
-              </List.Item>
-            ))}
-          </List>
-        </section>
-      </Collapse.Panel>
-    </Collapse>
+      <Divider />
+      <section>
+        <h4 style={{ marginBottom: 0 }}>Checklist</h4>
+        <List
+          style={{
+            paddingLeft: theme.paddingMD,
+          }}
+        >
+          {workOrder.checklist.map((checklistItem, index) => (
+            <List.Item key={index}>
+              <span>
+                {checklistItem.task} {checklistItem.completed ? "✔" : "❌"}
+              </span>
+            </List.Item>
+          ))}
+        </List>
+      </section>
+      <Divider />
+      <section>
+        <h4 style={{ marginBottom: 0 }}> Assigned to</h4>
+        <List
+          style={{
+            paddingLeft: theme.paddingMD,
+          }}
+        >
+          {workOrder.users.map((user) => (
+            <List.Item key={user.id}>
+              <UserLink {...user} />
+            </List.Item>
+          ))}
+        </List>
+      </section>
+      <Divider />
+
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          gap: theme.marginSM,
+        }}
+      >
+        <EditIcon onClick={onEdit} />
+        <DeleteIconPop
+          description="Are you sure you want to delete this work order?"
+          title="Delete Work Order"
+          onConfirm={onDelete}
+          placement="left"
+        />
+      </section>
+    </>
   );
 };
 
@@ -182,9 +220,16 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
             flexDirection: "column",
           }}
         >
-          {workOrders.map((workOrder) => (
-            <WorkOrderCollapse workOrder={workOrder} key={workOrder.id} />
-          ))}
+          <Collapse>
+            {workOrders.map((workOrder) => (
+              <Panel
+                key={workOrder.id}
+                header={<WorkOrderCollapseHeader workOrder={workOrder} />}
+              >
+                <WorkOrderCollapse workOrder={workOrder} />
+              </Panel>
+            ))}
+          </Collapse>
         </div>
       )}
     </Card>
