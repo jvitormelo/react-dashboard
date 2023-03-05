@@ -1,7 +1,7 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { namesUtils } from "@/utils";
+import { nameUtils } from "@/utils";
 import { Card, Image } from "antd";
 
 interface Props {
@@ -19,30 +19,30 @@ export const AssetInfo = ({ asset }: Props) => {
     },
     {
       title: "Model",
-      value: namesUtils.getAssetModelName(asset.model),
+      value: nameUtils.getAssetModelName(asset.model),
     },
 
     {
       title: "Sensors",
-      value: namesUtils.getSensorNames(asset.sensors),
+      value: nameUtils.getSensorNames(asset.sensors),
     },
     {
       title: "Max Temp",
-      value: namesUtils.getSpecificationName(
+      value: nameUtils.getSpecificationName(
         asset.specifications.maxTemp,
         "maxTemp"
       ),
     },
     {
       title: "Power",
-      value: namesUtils.getSpecificationName(
+      value: nameUtils.getSpecificationName(
         asset.specifications.power,
         "power"
       ),
     },
     {
       title: "RPM",
-      value: namesUtils.getSpecificationName(asset.specifications.rpm, "rpm"),
+      value: nameUtils.getSpecificationName(asset.specifications.rpm, "rpm"),
     },
   ];
 

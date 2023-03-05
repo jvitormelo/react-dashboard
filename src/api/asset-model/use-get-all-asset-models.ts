@@ -1,4 +1,4 @@
-import { namesUtils } from "@/utils";
+import { nameUtils } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
 import { getAllAssets } from "../asset/get-assets";
 
@@ -11,7 +11,7 @@ export const useGetAllAssetModels = () => {
 
   const uniqueModelsArray = Array.from(uniqueModels).map((model) => ({
     value: model,
-    label: namesUtils.getAssetModelName(model),
+    label: nameUtils.getAssetModelName(model),
   }));
 
   return {

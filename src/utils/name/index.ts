@@ -39,7 +39,7 @@ const getWorkOrderPriorityName = (priority: WorkOrderPriority) => {
   return workOrdersPriorityNameMap[priority] ?? workOrdersPriorityNameMap.low;
 };
 
-export const namesUtils = {
+export const nameUtils = {
   getAssetStatusName,
   getAssetModelName,
   getSpecificationName,

@@ -2,7 +2,7 @@ import { StatusTag } from "@/components/atoms/status-tag";
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
-import { namesUtils } from "@/utils/names";
+import { nameUtils } from "@/utils/name";
 import { Image } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { memo, useMemo } from "react";
@@ -80,7 +80,7 @@ export const AssetsTable = memo(
         render: (status) => (
           <StatusTag
             status={status}
-            text={namesUtils.getAssetStatusName(status)}
+            text={nameUtils.getAssetStatusName(status)}
           />
         ),
       },
@@ -88,7 +88,7 @@ export const AssetsTable = memo(
         title: "Model",
         dataIndex: "model",
         key: "model",
-        render: (model) => namesUtils.getAssetModelName(model),
+        render: (model) => nameUtils.getAssetModelName(model),
       },
       {
         title: "Last Uptime At",
@@ -107,22 +107,21 @@ export const AssetsTable = memo(
         dataIndex: "rpm",
         key: "rpm",
         align: "center",
-        render: (rpm) => namesUtils.getSpecificationName(rpm, "rpm"),
+        render: (rpm) => nameUtils.getSpecificationName(rpm, "rpm"),
       },
       {
         title: "Power",
         dataIndex: "power",
         key: "power",
         align: "center",
-        render: (power) => namesUtils.getSpecificationName(power, "power"),
+        render: (power) => nameUtils.getSpecificationName(power, "power"),
       },
       {
         title: "Max Temp",
         dataIndex: "maxTemp",
         key: "maxTemp",
         align: "center",
-        render: (maxTemp) =>
-          namesUtils.getSpecificationName(maxTemp, "maxTemp"),
+        render: (maxTemp) => nameUtils.getSpecificationName(maxTemp, "maxTemp"),
       },
       {
         title: "Assigned users",

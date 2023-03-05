@@ -1,7 +1,7 @@
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { HealthHistory } from "@/types/entities/asset";
-import { chartUtils } from "@/utils/charts";
-import { namesUtils } from "@/utils/names";
+import { chartUtils } from "@/utils/chart";
+import { nameUtils } from "@/utils/name";
 import { memo } from "react";
 import { BaseChart, ChartOptions } from "../base-chart";
 import { BaseChartItem } from "../base-chart/types";
@@ -23,7 +23,7 @@ export const AssetHealthHistoryChart = memo(({ healthHistory }: Props) => {
     (value) => ({
       status: value.status,
       color: assetStatusToColor(value.status, "hex"),
-      name: namesUtils.getAssetStatusName(value.status),
+      name: nameUtils.getAssetStatusName(value.status),
       y: 1,
     }),
     (value) => (value.y += 1)

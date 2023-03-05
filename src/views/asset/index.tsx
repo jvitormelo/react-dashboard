@@ -8,17 +8,11 @@ import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
 
 export const AssetView = () => {
-  const {
-    assetWithUser,
-    workOrdersWithUsers = [],
-    isAssetLoading,
-    isWorkOrdersLoading,
-  } = useAssetView();
+  const { assetWithUser, workOrdersWithUsers = [], isLoading } = useAssetView();
 
   const { theme } = useTheme();
 
-  if (isAssetLoading || isWorkOrdersLoading || !assetWithUser.id)
-    return <AssetSkeleton />;
+  if (isLoading || !assetWithUser.id) return <AssetSkeleton />;
 
   return (
     <div>

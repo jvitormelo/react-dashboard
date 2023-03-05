@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export const useAssetView = () => {
   const { assetId, companyId, unitId } = useParamsId();
+
   const navigate = useNavigate();
 
   const { data: asset, isLoading: isAssetLoading } = useGetAsset(assetId, {
@@ -44,10 +45,11 @@ export const useAssetView = () => {
     users: assetUsers,
   } as AssetWithUsers;
 
+  const isLoading = isAssetLoading || isWorkOrdersLoading || isUsersLoadings;
+
   return {
     assetWithUser,
     workOrdersWithUsers,
-    isAssetLoading,
-    isWorkOrdersLoading: isWorkOrdersLoading || isUsersLoadings,
+    isLoading,
   };
 };

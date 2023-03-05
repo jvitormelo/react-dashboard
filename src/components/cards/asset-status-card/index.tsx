@@ -1,7 +1,7 @@
 import { StatusIcon } from "@/components/icons/status-icon";
 import { AssetStatus } from "@/constants/asset-status";
 import { useTheme } from "@/hooks/use-theme";
-import { namesUtils } from "@/utils";
+import { nameUtils } from "@/utils";
 import { Card, Typography } from "antd";
 import { SkeletonCard } from "../skeleton-card";
 
@@ -31,7 +31,7 @@ export const AssetStatusCard = ({ count, status, loading }: Props) => {
           marginBottom: theme.marginSM,
         }}
       >
-        {namesUtils.getAssetStatusName(status)}
+        {nameUtils.getAssetStatusName(status)}
       </Typography.Title>
       <div
         style={{

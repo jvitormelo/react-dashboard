@@ -11,7 +11,7 @@ import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { UserWithUnit } from "@/types/entities/user";
 import { WorkOrder } from "@/types/entities/work-order";
-import { namesUtils } from "@/utils";
+import { nameUtils } from "@/utils";
 import { stringUtils } from "@/utils/string";
 import { useState } from "react";
 import { BaseModalForm } from "../base-modal-form";
@@ -73,7 +73,7 @@ export const WorkOrderForm = ({
 
   const priorityOptions: RadioInputItem[] = workOrderPriorityArray.map(
     (priority) => ({
-      label: namesUtils.getWorkOrderPriorityName(priority),
+      label: nameUtils.getWorkOrderPriorityName(priority),
       value: priority,
       style: {
         color: workOrderPriorityToColor(priority, "hex"),

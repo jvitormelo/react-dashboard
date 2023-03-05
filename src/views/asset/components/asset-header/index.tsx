@@ -4,7 +4,7 @@ import { AssetHealthHistoryChart } from "@/components/charts/asset-health-histor
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { namesUtils } from "@/utils/names";
+import { nameUtils } from "@/utils/name";
 import { AssetMetricCard } from "./components/asset-metric-card";
 
 interface Props {
@@ -58,7 +58,7 @@ export const AssetHeader = ({ asset }: Props) => {
               color: assetStatusToColor(asset.status),
               fontWeight: "bold",
             },
-            value: namesUtils.getAssetStatusName(asset.status),
+            value: nameUtils.getAssetStatusName(asset.status),
           }}
         />
       </div>
