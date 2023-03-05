@@ -1,5 +1,7 @@
+import { useGetAllAssetModels } from "@/api/asset-model/use-get-all-asset-models";
 import { StatusTag } from "@/components/atoms/status-tag";
 import { assetStatusArray } from "@/constants/asset-status";
+import { useTheme } from "@/hooks";
 import { Routes } from "@/router/routes";
 import { Asset } from "@/types/entities/asset";
 import { dateUtils } from "@/utils/date";
@@ -16,9 +18,9 @@ import { useGetColumnSearchProps } from "../common/search";
 type DataTableAsset = Asset & {
   totalUptime: number;
   lastUptimeAt: Date;
-  rpm: number | null;
-  power: number | null;
-  maxTemp: number | null;
+  rpm: number;
+  power: number;
+  maxTemp: number;
   numberOfAssignedUsers: number;
 };
 
@@ -28,7 +30,9 @@ export interface Props extends BaseTableProps, BaseTableActions<Asset> {
 
 export const AssetsTable = memo(
   ({ assets = [], onSelect, onDelete, onEdit, ...props }: Props) => {
+    const { data: assetModels = [] } = useGetAllAssetModels();
     const { getColumnSearchProps } = useGetColumnSearchProps<DataTableAsset>();
+    const { theme } = useTheme();
 
     const columns: ColumnsType<DataTableAsset> = [
       {
@@ -46,14 +50,17 @@ export const AssetsTable = memo(
           >
             <span
               style={{
-                marginRight: 8,
+                marginRight: theme.marginSM,
+                color: theme.colorPrimary,
+                fontWeight: "bold",
               }}
             >
               {id}
             </span>
-            <Image src={asset.image} width={100} alt={asset.name} />
+            <Image src={asset.image} width={50} alt={asset.name} />
           </div>
         ),
+        sorter: (a, b) => a.id - b.id,
       },
 
       {
@@ -92,7 +99,6 @@ export const AssetsTable = memo(
           value: item,
         })),
         onFilter: (value, record) => record.status === value,
-
         render: (status) => (
           <StatusTag
             status={status}
@@ -105,6 +111,11 @@ export const AssetsTable = memo(
         dataIndex: "model",
         key: "model",
         render: (model) => nameUtils.getAssetModelName(model),
+        filters: assetModels.map((item) => ({
+          text: item.label,
+          value: item.value,
+        })),
+        onFilter: (value, record) => record.model === value,
       },
       {
         title: "Last Uptime At",
@@ -125,6 +136,7 @@ export const AssetsTable = memo(
         key: "rpm",
         align: "center",
         render: (rpm) => nameUtils.getSpecificationName(rpm, "rpm"),
+        sorter: (a, b) => a.rpm - b.rpm,
       },
       {
         title: "Power",
@@ -132,6 +144,7 @@ export const AssetsTable = memo(
         key: "power",
         align: "center",
         render: (power) => nameUtils.getSpecificationName(power, "power"),
+        sorter: (a, b) => a.power - b.power,
       },
       {
         title: "Max Temp",
@@ -139,12 +152,14 @@ export const AssetsTable = memo(
         key: "maxTemp",
         align: "center",
         render: (maxTemp) => nameUtils.getSpecificationName(maxTemp, "maxTemp"),
+        sorter: (a, b) => a.maxTemp - b.maxTemp,
       },
       {
         title: "Assigned users",
         dataIndex: "numberOfAssignedUsers",
         key: "numberOfAssignedUsers",
         align: "center",
+        sorter: (a, b) => a.numberOfAssignedUsers - b.numberOfAssignedUsers,
       },
       addBaseTableActions({
         onDelete,
@@ -159,11 +174,11 @@ export const AssetsTable = memo(
       () =>
         assets.map((asset) => ({
           ...asset,
-          maxTemp: asset.specifications?.maxTemp ?? null,
-          power: asset.specifications?.power ?? null,
-          rpm: asset.specifications?.rpm ?? null,
-          totalUptime: asset.metrics?.totalUptime ?? 0,
-          lastUptimeAt: new Date(asset.metrics?.lastUptimeAt),
+          maxTemp: asset.specifications.maxTemp,
+          power: asset.specifications?.power ?? -1,
+          rpm: asset.specifications?.rpm ?? -1,
+          totalUptime: asset.metrics.totalUptime ?? 0,
+          lastUptimeAt: new Date(asset.metrics.lastUptimeAt),
           numberOfAssignedUsers: asset.assignedUserIds.length,
         })),
       [assets]

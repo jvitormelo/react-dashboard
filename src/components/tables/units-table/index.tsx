@@ -54,23 +54,28 @@ export const UnitsTable = memo(
         title: "Number of assets",
         dataIndex: "numberOfAssets",
         key: "numberOfAssets",
+        sorter: (a, b) => a.numberOfAssets - b.numberOfAssets,
       },
       {
         title: "Average health score",
         dataIndex: "averageHealthScore",
         key: "averageHealthScore",
         render: (text) => <StatusTag status={text} text={`${text}%`} />,
+        //  TODO > think Maybe create a sort utils to handle all the sort?
+        sorter: (a, b) => a.averageHealthScore - b.averageHealthScore,
       },
       {
         title: "Average uptime",
         dataIndex: "averageUptime",
         key: "averageUptime",
         render: (text) => dateUtils.formatHoursDistance(text as number),
+        sorter: (a, b) => a.averageUptime - b.averageUptime,
       },
       {
         title: "Number of Users",
         dataIndex: "numberOfUsers",
         key: "numberOfUsers",
+        sorter: (a, b) => a.numberOfUsers - b.numberOfUsers,
       },
       addBaseTableActions<IUnitTable>({
         onDelete,

@@ -24,6 +24,8 @@ const getSpecificationName = (
 ) => {
   if (typeof value !== "number") return "N/A";
 
+  if (value === -1) return "N/A";
+
   if (type === "maxTemp") return `${value} °C`;
 
   if (type === "power") return `${value} kWh`;

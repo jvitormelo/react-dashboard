@@ -9,7 +9,7 @@ import { toast } from "@/utils/feedback";
 import { useModal } from "../use-modal";
 
 export const useAssetsTable = () => {
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   const { mutateAsync: updateAsset } = useUpdateAssetMutation();
   const { uploadImage } = useUploadAssetImageMutation();
   const { mutateAsync: deleteAsset } = useDeleteAssetMutation();
@@ -31,6 +31,7 @@ export const useAssetsTable = () => {
           },
         });
         toast.success("Asset updated successfully");
+        closeModal();
       } catch (e) {
         toast.error("Asset updated successfully");
       }
@@ -40,6 +41,7 @@ export const useAssetsTable = () => {
       try {
         await uploadImage(asset.id, file);
         toast.success("Image uploaded successfully");
+        closeModal();
         return true;
       } catch (e) {
         toast.error("Image uploaded successfully");
