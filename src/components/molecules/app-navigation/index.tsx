@@ -22,8 +22,8 @@ export const AppNavigation = () => {
 
   const items = [
     companyId && {
-      name: "Companies",
-      href: "/companies",
+      name: "Home",
+      href: "/",
     },
     companyId &&
       company && {
