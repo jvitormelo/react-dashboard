@@ -1,15 +1,13 @@
-import { useDeleteWorkOrderMutation } from "@/api/work-orders/use-delete-work-order-mutation";
-import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
+import { useUpdateWorkOrderChecklistItem } from "@/api/work-orders/use-update-work-order-checklist-item";
 import { EditIcon } from "@/components/icons/button-icons/edit-icon";
+import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
 import { UserLink } from "@/components/molecules/user-link";
 import { useFeedbackColors, useTheme } from "@/hooks";
 import {
   WorkOrderChecklist,
   WorkOrderWithUsers,
 } from "@/types/entities/work-order";
-import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
 import { Divider, List, Spin, Tag, Typography } from "antd";
-import { useUpdateWorkOrderChecklistItem } from "@/api/work-orders/use-update-work-order-checklist-item";
 
 interface Props {
   workOrder: WorkOrderWithUsers;
@@ -73,20 +71,20 @@ const CheckListItem = ({
   );
 };
 
-const WorkOrderCollapseContent = ({ workOrder }: Props) => {
+type ContentProps = Props & {
+  onDelete?: (workOrder: WorkOrderWithUsers) => void;
+  onEdit?: (workOrder: WorkOrderWithUsers) => void;
+};
+
+const WorkOrderCollapseContent = ({
+  workOrder,
+  onDelete,
+  onEdit,
+}: ContentProps) => {
   // TODO receive as prop
-  const { editWorkOrder: setEditingWorkOrder } = useAssetViewStore();
   const { theme } = useTheme();
 
-  const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrderMutation();
-
-  const onDelete = async () => {
-    await deleteWorkOrder(workOrder.id);
-  };
-
-  const onEdit = () => {
-    setEditingWorkOrder(workOrder);
-  };
+  const showAction = !!(onDelete || onEdit);
 
   return (
     <>
@@ -126,23 +124,40 @@ const WorkOrderCollapseContent = ({ workOrder }: Props) => {
           ))}
         </List>
       </section>
-      <Divider />
 
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          gap: theme.marginSM,
-        }}
-      >
-        <EditIcon onClick={onEdit} />
-        <DeleteIconPop
-          description="Are you sure you want to delete this work order?"
-          title="Delete Work Order"
-          onConfirm={onDelete}
-          placement="left"
-        />
-      </section>
+      {showAction && (
+        <>
+          <Divider />
+
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: theme.marginSM,
+            }}
+          >
+            {onEdit && (
+              <EditIcon
+                onClick={() => {
+                  onEdit(workOrder);
+                }}
+              />
+            )}
+            {onDelete && (
+              <DeleteIconPop
+                description="Are you sure you want to delete this work order?"
+                title="Delete Work Order"
+                onConfirm={async () => {
+                  if (onDelete) {
+                    onDelete(workOrder);
+                  }
+                }}
+                placement="left"
+              />
+            )}
+          </section>
+        </>
+      )}
     </>
   );
 };

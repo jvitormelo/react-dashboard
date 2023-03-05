@@ -3,9 +3,10 @@ import { Asset } from "@/types/entities/asset";
 import { WorkOrderWithUsers } from "@/types/entities/work-order";
 import { Button, Card, Collapse, Typography } from "antd";
 import { useAssetViewStore } from "../../store/asset-view-store";
-import { WorkOrderCollapse } from "../../../../components/molecules/work-order-collapse";
+import { WorkOrderCollapse } from "@/components/molecules/work-order-collapse";
 import { CreateWorkOrderForAsset } from "./components/create";
 import { EditWorkOrderCollapse } from "./components/edit";
+import { useDeleteWorkOrderMutation } from "@/api/work-orders/use-delete-work-order-mutation";
 
 const { Panel } = Collapse;
 
@@ -21,6 +22,18 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
   const { theme } = useTheme();
 
   const hasWorkOrders = workOrders.length > 0;
+
+  const { editWorkOrder: setEditingWorkOrder } = useAssetViewStore();
+
+  const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrderMutation();
+
+  const onDelete = async (workOrder: WorkOrderWithUsers) => {
+    await deleteWorkOrder(workOrder.id);
+  };
+
+  const onEdit = (workOrder: WorkOrderWithUsers) => {
+    setEditingWorkOrder(workOrder);
+  };
 
   const getCurrentCollapse = (workOrder: WorkOrderWithUsers) => {
     if (editingWorkOrder?.id === workOrder.id) {
@@ -42,7 +55,13 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
 
     return {
       header: <WorkOrderCollapse.Header workOrder={workOrder} />,
-      content: <WorkOrderCollapse.Content workOrder={workOrder} />,
+      content: (
+        <WorkOrderCollapse.Content
+          onDelete={onDelete}
+          onEdit={onEdit}
+          workOrder={workOrder}
+        />
+      ),
     };
   };
 
