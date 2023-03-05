@@ -1,20 +1,15 @@
-import { Control, Controller, Path } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { TextField } from "../../atoms/text-field";
+import { ControlledInput } from "../types";
 
 type TextFieldProps = React.ComponentProps<typeof TextField>;
-
-interface Props<T extends object> extends TextFieldProps {
-  label: string;
-  name: Path<T>;
-  control: Control<T>;
-}
 
 export const ControlledTextField = <T extends object>({
   name,
   control,
   label,
   ...props
-}: Props<T>) => {
+}: ControlledInput<T, TextFieldProps>) => {
   return (
     <Controller
       name={name}

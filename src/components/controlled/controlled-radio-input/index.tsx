@@ -1,25 +1,24 @@
 import { FormErrorText } from "@/components/atoms/form-error-text";
-import { Select, SelectProps } from "antd";
+import { Radio, RadioProps } from "antd";
 import { Controller } from "react-hook-form";
 import { ControlledInput } from "../types";
 
-export const ControlledSelect = <T extends object>({
+export const ControlledRadioInput = <T extends object>({
   control,
   label,
   name,
-  ...rest
-}: ControlledInput<T, SelectProps>) => {
+}: ControlledInput<T, RadioProps>) => {
   return (
     <Controller
+      control={control}
+      name={name}
       render={({ field, fieldState }) => (
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <label htmlFor={name}>{label} </label>
-          <Select {...rest} {...field} />
+        <div>
+          <label>{label}</label>
+          <Radio.Group {...field} />
           <FormErrorText error={fieldState.error} />
         </div>
       )}
-      control={control}
-      name={name}
     />
   );
 };

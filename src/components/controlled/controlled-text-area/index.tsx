@@ -1,22 +1,16 @@
 import { FormErrorText } from "@/components/atoms/form-error-text";
 import { Input } from "antd";
-import { Control, Controller, Path } from "react-hook-form";
+import { TextAreaProps } from "antd/es/input";
+import { Controller } from "react-hook-form";
+import { ControlledInput } from "../types";
 const { TextArea } = Input;
-
-type TextAreaProps = React.ComponentProps<typeof TextArea>;
-
-interface Props<T extends object> extends TextAreaProps {
-  label: string;
-  name: Path<T>;
-  control: Control<T>;
-}
 
 export const ControlledTextArea = <T extends object>({
   name,
   control,
   label,
   ...props
-}: Props<T>) => {
+}: ControlledInput<T, TextAreaProps>) => {
   return (
     <Controller
       name={name}
