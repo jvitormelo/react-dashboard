@@ -1,10 +1,10 @@
 import { useGetAssetsByUnit } from "@/api/asset/use-get-assets-by-unit";
 import { useGetUsersByUnit } from "@/api/user/use-get-users-by-unit";
+import { PersistentTabs } from "@/components/molecules/persistent-tabs";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
 import { useUserTableActions } from "@/hooks/tables/use-user-table-actions";
 import { useParamsId } from "@/hooks/use-params-id";
-import { Tabs } from "antd";
 import { AssetsTable } from "../../components/tables/assets-table";
 import { UnitHeader } from "./components/header";
 import { useCreateAsset } from "./hooks/use-create-asset";
@@ -59,7 +59,7 @@ export const UnitView = () => {
     <div style={{ display: "flex", flexDirection: "column" }}>
       <UnitHeader assets={assets} loading={isAssetsLoading} />
 
-      <Tabs type="card" items={tabsItems} />
+      <PersistentTabs tabStoreKey="unit-users" type="card" items={tabsItems} />
     </div>
   );
 };
