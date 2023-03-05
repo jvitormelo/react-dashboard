@@ -20,6 +20,7 @@ export const EditIcon = forwardRef<HTMLButtonElement, Props>(
           alignItems: "center",
         }}
         ref={ref}
+        data-cy="edit-icon"
         onClick={onClick}
       >
         <EditFilled

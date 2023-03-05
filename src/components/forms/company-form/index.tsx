@@ -30,6 +30,7 @@ export const CompanyForm = ({
       <ControlledTextField<CompanyFormSchema>
         label="Name"
         name="name"
+        placeholder="Company Name"
         control={control}
       />
     </BaseModalForm>

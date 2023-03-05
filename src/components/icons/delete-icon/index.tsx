@@ -7,6 +7,7 @@ export const DeleteIcon = (props: ComponentProps<typeof DeleteFilled>) => {
   return (
     <DeleteFilled
       {...props}
+      data-cy="delete-icon"
       style={{
         ...props.style,
         color: theme.colorError,

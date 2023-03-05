@@ -41,7 +41,7 @@ export const CompaniesView = () => {
         <CompanyTree />
         <CompanyTable
           headerProps={{
-            buttonLabel: "New company",
+            buttonLabel: "New Company",
             onButtonClick: openCreateModal,
             title: "Companies",
           }}

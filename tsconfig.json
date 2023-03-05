@@ -16,10 +16,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "types": ["cypress", "node"],
     "paths": {
       "@/*": ["src/*"]
     }
   },
-  "include": ["src"],
+
+  "include": ["**/*.ts", "src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

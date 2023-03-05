@@ -67,7 +67,7 @@ export const useUnitsTableActions = (companyId: number) => {
     onSelect: onUnitSelect,
     headerProps: {
       onButtonClick: openCreateUnitModal,
-      buttonLabel: "New unit",
+      buttonLabel: "New Unit",
     },
   };
 };
