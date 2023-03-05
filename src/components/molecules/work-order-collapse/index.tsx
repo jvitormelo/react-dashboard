@@ -81,7 +81,6 @@ const WorkOrderCollapseContent = ({
   onDelete,
   onEdit,
 }: ContentProps) => {
-  // TODO receive as prop
   const { theme } = useTheme();
 
   const showAction = !!(onDelete || onEdit);
@@ -119,7 +118,7 @@ const WorkOrderCollapseContent = ({
         >
           {workOrder.users.map((user) => (
             <List.Item key={user.id}>
-              <UserLink {...user} />
+              <UserLink user={user} />
             </List.Item>
           ))}
         </List>

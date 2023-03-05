@@ -4,6 +4,7 @@ import { memo } from "react";
 import { BaseTableProps, DataTable } from "../common/data-table";
 import { addBaseTableActions } from "../common/add-base-table-actions";
 import { BaseTableActions } from "../common/add-base-table-actions/types";
+import { UserLink } from "@/components/molecules/user-link";
 
 interface Props extends BaseTableProps, BaseTableActions<User> {
   users: User[] | undefined;
@@ -21,7 +22,9 @@ export const UsersTable = memo(
         title: "Name",
         dataIndex: "name",
         key: "name",
+        render: (_, user) => <UserLink user={user} />,
       },
+
       {
         title: "Email",
         dataIndex: "email",

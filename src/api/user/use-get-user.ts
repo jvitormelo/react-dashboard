@@ -3,6 +3,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { httpClient } from "@/infra/http-client";
 import { User, UserWithRelation } from "@/types/entities";
 import { useGetUnit } from "../unit/use-get-unit";
+import { userCacheActions } from "./user-cache-actions";
 
 const getUserById = (userId: number): Promise<User> => {
   return httpClient.get(`users/${userId}`);
@@ -31,9 +32,13 @@ export function useGetUser(
 ): UseQueryResult<User, unknown>;
 
 export function useGetUser(userId: number, options?: Options) {
-  const response = useQuery(["user", userId], () => getUserById(userId), {
-    enabled: !!userId,
-  });
+  const response = useQuery(
+    userCacheActions.userKey(userId),
+    () => getUserById(userId),
+    {
+      enabled: !!userId,
+    }
+  );
 
   const companyId = response.data?.companyId;
 

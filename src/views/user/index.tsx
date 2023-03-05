@@ -64,7 +64,7 @@ export const UserView = () => {
           {userWorkOrders?.map((workOrder) => (
             <Collapse.Panel
               header={<WorkOrderCollapse.Header workOrder={workOrder} />}
-              key={workOrder.id}
+              key={`${workOrder.id}-${workOrder.assetId}`}
             >
               <WorkOrderCollapse.Content workOrder={workOrder} />
             </Collapse.Panel>

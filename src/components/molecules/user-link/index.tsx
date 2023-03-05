@@ -1,31 +1,34 @@
+import { userCacheActions } from "@/api/user/user-cache-actions";
 import { UserAvatar } from "@/components/atoms/user-avatar";
 import { UserPopOver } from "@/components/molecules/user-pop-over";
 import { useTheme } from "@/hooks/use-theme";
 import { Routes } from "@/router/routes";
-import { ComponentProps } from "react";
+import { User } from "@/types/entities";
 import { Link } from "react-router-dom";
 
-type Props = ComponentProps<typeof UserPopOver>["user"] & { id: number };
+type Props = {
+  user: User;
+};
 
-export const UserLink = ({ name, id, email, unit }: Props) => {
+export const UserLink = ({ user }: Props) => {
   const { theme } = useTheme();
 
   return (
-    <UserPopOver
-      user={{
-        email,
-        name,
-        unit,
-      }}
-    >
+    <UserPopOver user={user}>
       <Link
         style={{
           width: "fit-content",
         }}
-        to={Routes.user(id)}
+        onClick={() => {
+          userCacheActions.setUser(user);
+        }}
+        to={Routes.user(user.id)}
       >
-        <UserAvatar email={email} style={{ marginRight: theme.marginXS }} />
-        {name}
+        <UserAvatar
+          email={user.email}
+          style={{ marginRight: theme.marginXS }}
+        />
+        {user.name}
       </Link>
     </UserPopOver>
   );

@@ -1,7 +1,6 @@
 import { httpClient } from "@/infra/http-client";
-import { queryClient } from "@/infra/query-client";
-import { User } from "@/types/entities/user";
 import { useMutation } from "@tanstack/react-query";
+import { userCacheActions } from "./user-cache-actions";
 
 const deleteUser = (id: number) => {
   return httpClient.delete(`/users/${id}`);
@@ -9,12 +8,6 @@ const deleteUser = (id: number) => {
 
 export const useDeleteUserMutation = () => {
   return useMutation(deleteUser, {
-    onSuccess: (_, id) => {
-      queryClient.setQueryData(["users"], (oldData?: User[]) => {
-        return oldData?.filter((user) => user.id !== id);
-      });
-
-      queryClient.setQueryData(["user", id], undefined);
-    },
+    onSuccess: (_, id) => userCacheActions.deleteUser(id),
   });
 };

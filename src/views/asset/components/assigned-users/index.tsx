@@ -52,7 +52,7 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
       >
         {asset.users.map((user) => (
           <List.Item key={user.id}>
-            <UserLink {...user} />
+            <UserLink user={user} />
           </List.Item>
         ))}
       </List>
