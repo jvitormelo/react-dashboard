@@ -2,24 +2,28 @@ import { useDeleteWorkOrderMutation } from "@/api/work-orders/use-delete-work-or
 import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
 import { EditIcon } from "@/components/icons/button-icons/edit-icon";
 import { UserLink } from "@/components/molecules/user-link";
-import { useFeedbackColors } from "@/hooks/use-feedback-colors";
-import { useTheme } from "@/hooks/use-theme";
-import { WorkOrdersWithUsers } from "@/types/entities/work-order";
-
+import { useFeedbackColors, useTheme } from "@/hooks";
+import {
+  WorkOrderChecklist,
+  WorkOrdersWithUsers,
+} from "@/types/entities/work-order";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
-import { Divider, List, Tag, Typography } from "antd";
+import { Divider, List, Spin, Tag, Typography } from "antd";
+import { useUpdateWorkOrderChecklistItem } from "@/api/work-orders/use-update-work-order-checklist-item";
 
-const WorkOrderCollapseHeader = ({
-  workOrder,
-}: {
+interface Props {
   workOrder: WorkOrdersWithUsers;
-}) => {
+}
+
+const WorkOrderCollapseHeader = ({ workOrder }: Props) => {
   const { workOrderStatusToColor, workOrderPriorityToColor } =
     useFeedbackColors();
 
+  const { theme } = useTheme();
+
   return (
     <div>
-      <span style={{ marginRight: "1rem" }}>{workOrder.title}</span>
+      <span style={{ marginRight: theme.marginMD }}>{workOrder.title}</span>
       <Tag color={workOrderPriorityToColor(workOrder.priority, "hex")}>
         {workOrder.priority.toUpperCase()}
       </Tag>
@@ -30,11 +34,46 @@ const WorkOrderCollapseHeader = ({
   );
 };
 
-const WorkOrderCollapseContent = ({
+const CheckListItem = ({
+  checklistItem,
   workOrder,
 }: {
   workOrder: WorkOrdersWithUsers;
+
+  checklistItem: WorkOrderChecklist;
 }) => {
+  const { theme } = useTheme();
+
+  const { updateCheckListItem, isLoading } = useUpdateWorkOrderChecklistItem();
+  return (
+    <List.Item>
+      <Typography.Text
+        disabled={isLoading}
+        onClick={() =>
+          updateCheckListItem({
+            completed: !checklistItem.completed,
+            task: checklistItem.task,
+            workOrder: workOrder,
+          })
+        }
+        style={{
+          color: checklistItem.completed
+            ? theme.colorSuccess
+            : theme.colorError,
+
+          cursor: "pointer",
+        }}
+      >
+        {checklistItem.task} {checklistItem.completed ? "✔" : "❌"}
+        {isLoading && (
+          <Spin style={{ marginLeft: theme.marginSM }} size="small" />
+        )}
+      </Typography.Text>
+    </List.Item>
+  );
+};
+
+const WorkOrderCollapseContent = ({ workOrder }: Props) => {
   const { editWorkOrder: setEditingWorkOrder } = useAssetViewStore();
   const { theme } = useTheme();
 
@@ -63,11 +102,11 @@ const WorkOrderCollapseContent = ({
           }}
         >
           {workOrder.checklist.map((checklistItem, index) => (
-            <List.Item key={index}>
-              <span>
-                {checklistItem.task} {checklistItem.completed ? "✔" : "❌"}
-              </span>
-            </List.Item>
+            <CheckListItem
+              checklistItem={checklistItem}
+              key={index}
+              workOrder={workOrder}
+            />
           ))}
         </List>
       </section>

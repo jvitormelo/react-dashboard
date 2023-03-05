@@ -4,7 +4,7 @@ import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
 import { EditAssetForm } from "@/components/forms/asset-form/edit-asset-form";
 import { AssetSchema } from "@/components/forms/asset-form/schema";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Asset } from "@/types/entities/asset";
 import { useModal } from "../use-modal";
 

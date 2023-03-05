@@ -1,9 +1,9 @@
-import { toast } from "@/infra/toast";
+import { showMessage } from "@/utils/feedback";
 import { WorkOrder } from "@/types/entities";
 import { useUpdateWorkOrder } from "./use-update-work-order";
 
-export const useCompleteWorkOrderTask = () => {
-  const { mutate: updateWorkOrder, isLoading } = useUpdateWorkOrder();
+export const useUpdateWorkOrderChecklistItem = () => {
+  const { mutateAsync: updateWorkOrder, isLoading } = useUpdateWorkOrder();
 
   const updateCheckListItem = async ({
     completed,
@@ -27,9 +27,11 @@ export const useCompleteWorkOrderTask = () => {
 
       await updateWorkOrder(toUpdatedWorkOrder);
 
-      toast.success(`${task} marked as ${completed ? "completed" : "pending"}`);
+      showMessage.success(
+        `${task} marked as ${completed ? "completed" : "pending"}`
+      );
     } catch (e) {
-      toast.error("Could not update task");
+      showMessage.error("Could not update task");
     }
   };
 

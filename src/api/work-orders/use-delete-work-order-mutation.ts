@@ -1,4 +1,4 @@
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { httpClient } from "@/infra/http-client";
 import { queryClient } from "@/infra/query-client";
 import { WorkOrder } from "@/types/entities/work-order";

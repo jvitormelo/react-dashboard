@@ -2,7 +2,7 @@ import { useDeleteUserMutation } from "@/api/user/use-delete-user-mutation";
 import { useUpdateUserMutation } from "@/api/user/use-update-user-mutation";
 import { UserForm } from "@/components/forms/user-form";
 import { UserSchema } from "@/components/forms/user-form/schema";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { User } from "@/types/entities/user";
 import { useModal } from "../use-modal";
 

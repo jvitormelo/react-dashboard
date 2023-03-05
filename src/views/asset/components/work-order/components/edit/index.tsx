@@ -3,7 +3,7 @@ import { useUpdateWorkOrder } from "@/api/work-orders/use-update-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIcon } from "@/components/icons/delete-icon";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Asset } from "@/types/entities/asset";
 import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";

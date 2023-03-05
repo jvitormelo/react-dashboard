@@ -3,7 +3,7 @@ import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-
 import { CreateAssetForm } from "@/components/forms/asset-form/create-asset-form";
 import { SubmitCreateAssetParams } from "@/components/forms/asset-form/create-asset-form/types";
 import { useModal } from "@/hooks/use-modal";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Routes } from "@/router/routes";
 import { useCreateAssetFormStore } from "@/store/create-asset-form-store";
 import { useNavigate } from "react-router-dom";

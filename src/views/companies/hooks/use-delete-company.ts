@@ -1,5 +1,5 @@
 import { useDeleteCompanyMutation } from "@/api/company/use-delete-company";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Company } from "@/types/entities/company";
 
 export const useDeleteCompany = () => {

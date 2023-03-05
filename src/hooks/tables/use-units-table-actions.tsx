@@ -2,7 +2,7 @@ import { useCreateUnitMutation } from "@/api/unit/use-create-unit-mutation";
 import { useDeleteUnitMutation } from "@/api/unit/use-delete-unit-mutation";
 import { setUnitCache } from "@/api/unit/use-get-unit";
 import { useUpdateUnitMutation } from "@/api/unit/use-update-unit-mutation";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Unit } from "@/types/entities/unit";
 import { UnitForm } from "@/components/forms/unit-form";
 import { UnitSchema } from "@/components/forms/unit-form/schema";

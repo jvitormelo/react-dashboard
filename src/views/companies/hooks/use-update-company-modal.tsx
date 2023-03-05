@@ -1,6 +1,6 @@
 import { useUpdateCompanyMutation } from "@/api/company/use-update-company";
 import { useModal } from "@/hooks/use-modal";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Company } from "@/types/entities/company";
 import { CompanyForm } from "../../../components/forms/company-form";
 import { CompanyFormSchema } from "../../../components/forms/company-form/schema";

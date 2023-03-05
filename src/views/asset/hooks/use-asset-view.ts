@@ -2,7 +2,7 @@ import { useGetAsset } from "@/api/asset/use-get-asset";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useGetWorkOrdersByAsset } from "@/api/work-orders/use-get-work-orders-by-asset";
 import { useParamsId } from "@/hooks/use-params-id";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Routes } from "@/router/routes";
 import { AssetWithUsers } from "@/types/entities/asset";
 import { UserWithUnit } from "@/types/entities/user";

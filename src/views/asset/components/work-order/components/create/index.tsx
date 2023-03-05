@@ -4,7 +4,7 @@ import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
 import { useTheme } from "@/hooks/use-theme";
-import { toast } from "@/infra/toast";
+import { toast } from "@/utils/feedback";
 import { Asset } from "@/types/entities/asset";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
 import { Card, Typography } from "antd";
