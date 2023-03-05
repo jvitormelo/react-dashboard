@@ -35,7 +35,7 @@ const WorkOrderCollapseContent = ({
 }: {
   workOrder: WorkOrdersWithUsers;
 }) => {
-  const { setEditingWorkOrder } = useAssetViewStore();
+  const { editWorkOrder: setEditingWorkOrder } = useAssetViewStore();
   const { theme } = useTheme();
 
   const { mutateAsync: deleteWorkOrder } = useDeleteWorkOrderMutation();

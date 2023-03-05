@@ -1,6 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
-import { DeleteFilled } from "@ant-design/icons";
 import { Button, Popconfirm } from "antd";
+import { DeleteIcon } from "../delete-icon";
 import { DeleteIconPopProps } from "./types";
 
 export const DeleteIconPop = ({
@@ -19,21 +19,14 @@ export const DeleteIconPop = ({
       onConfirm={onConfirm}
       okText="Yes"
       cancelText="No"
-      icon={
-        // TODO - create delete icon
-        <DeleteFilled
-          style={{
-            color: theme.colorError,
-          }}
-        />
-      }
+      icon={<DeleteIcon />}
     >
       <Button
         style={{
           color: theme.colorError,
         }}
       >
-        <DeleteFilled size={30} />
+        <DeleteIcon />
       </Button>
     </Popconfirm>
   );

@@ -3,20 +3,18 @@ import { create } from "zustand";
 
 interface Store {
   isCreatingWorkOrder: boolean;
+  editingWorkOrder: WorkOrder | null;
   openCreateWorkOrderForm: () => void;
   closeCreateWorkOrderForm: () => void;
-  activeWorkOrder: WorkOrder | null;
-  setActiveWorkOrder: (workOrder: WorkOrder | null) => void;
-  editingWorkOrder: WorkOrder | null;
-  setEditingWorkOrder: (workOrder: WorkOrder | null) => void;
+  editWorkOrder: (workOrder: WorkOrder | null) => void;
+  stopEditingWorkOrder: () => void;
 }
 
 export const useAssetViewStore = create<Store>((set) => ({
   isCreatingWorkOrder: false,
   openCreateWorkOrderForm: () => set({ isCreatingWorkOrder: true }),
   closeCreateWorkOrderForm: () => set({ isCreatingWorkOrder: false }),
-  activeWorkOrder: null,
-  setActiveWorkOrder: (workOrder) => set({ activeWorkOrder: workOrder }),
   editingWorkOrder: null,
-  setEditingWorkOrder: (workOrder) => set({ editingWorkOrder: workOrder }),
+  editWorkOrder: (workOrder) => set({ editingWorkOrder: workOrder }),
+  stopEditingWorkOrder: () => set({ editingWorkOrder: null }),
 }));

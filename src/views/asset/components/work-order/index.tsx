@@ -5,7 +5,7 @@ import { Button, Card, Collapse, Typography } from "antd";
 import { useAssetViewStore } from "../../store/asset-view-store";
 import { WorkOrderCollapse } from "./components/collapse";
 import { CreateWorkOrderForAsset } from "./components/create";
-import { EditWorkOrderForAsset } from "./components/edit";
+import { EditWorkOrderCollapse } from "./components/edit";
 
 const { Panel } = Collapse;
 
@@ -21,6 +21,30 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
   const { theme } = useTheme();
 
   const hasWorkOrders = workOrders.length > 0;
+
+  const getCurrentCollapse = (workOrder: WorkOrdersWithUsers) => {
+    if (editingWorkOrder?.id === workOrder.id) {
+      return {
+        header: (
+          <EditWorkOrderCollapse.Header
+            workOrder={editingWorkOrder}
+            asset={asset}
+          />
+        ),
+        content: (
+          <EditWorkOrderCollapse.Content
+            workOrder={editingWorkOrder}
+            asset={asset}
+          />
+        ),
+      };
+    }
+
+    return {
+      header: <WorkOrderCollapse.Header workOrder={workOrder} />,
+      content: <WorkOrderCollapse.Content workOrder={workOrder} />,
+    };
+  };
 
   return (
     <Card
@@ -65,18 +89,15 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
           }}
         >
           <Collapse>
-            {workOrders.map((workOrder) => (
-              <Panel
-                key={workOrder.id}
-                header={<WorkOrderCollapse.Header workOrder={workOrder} />}
-              >
-                {editingWorkOrder?.id === workOrder.id ? (
-                  <EditWorkOrderForAsset workOrder={workOrder} asset={asset} />
-                ) : (
-                  <WorkOrderCollapse.Content workOrder={workOrder} />
-                )}
-              </Panel>
-            ))}
+            {workOrders.map((workOrder) => {
+              const { content, header } = getCurrentCollapse(workOrder);
+
+              return (
+                <Panel key={workOrder.id} header={header}>
+                  {content}
+                </Panel>
+              );
+            })}
           </Collapse>
         </div>
       )}

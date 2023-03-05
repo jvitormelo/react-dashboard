@@ -9,8 +9,13 @@ import { Asset } from "@/types/entities/asset";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
 import { Card, Typography } from "antd";
 
-export const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
+interface Props {
+  asset: Asset;
+}
+
+export const CreateWorkOrderForAsset = ({ asset }: Props) => {
   const { closeCreateWorkOrderForm } = useAssetViewStore();
+
   const { data: users = [] } = useGetUsersByCompany(asset.companyId);
 
   const { mutateAsync: createWorkOrder } = useCreateWorkOrder();
