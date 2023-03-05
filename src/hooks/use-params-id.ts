@@ -9,11 +9,12 @@ const formatParam = (param?: string) => {
 };
 
 export const useParamsId = () => {
-  const { unitId, assetId, companyId } = useParams();
+  const { unitId, assetId, companyId, userId } = useParams();
 
   return {
     unitId: formatParam(unitId),
     assetId: formatParam(assetId),
     companyId: formatParam(companyId),
+    userId: formatParam(userId),
   };
 };

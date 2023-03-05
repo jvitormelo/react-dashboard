@@ -4,21 +4,23 @@ import { useGetAllUnits } from "@/api/unit/use-get-all-units";
 import { useGetAllUsers } from "@/api/user/use-get-all-users";
 import { useGetAllWorkOrders } from "@/api/work-orders/use-get-all-work-orders";
 import { AssetLink } from "@/components/molecules/asset-link";
-import { UserLink } from "@/components/molecules/user-link";
+import { Routes } from "@/router/routes";
 import {
   DatabaseOutlined,
   HomeOutlined,
   SettingFilled,
   ToolFilled,
+  UserOutlined,
 } from "@ant-design/icons";
 import { DataNode } from "antd/es/tree";
 import { useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 // Icons for each entity in the tree
 const companyIcon = <HomeOutlined />;
 const unitIcon = <DatabaseOutlined />;
 const assetIcon = <SettingFilled />;
-// const userIcon = <UserOutlined />;
+const userIcon = <UserOutlined />;
 const workOrderIcon = <ToolFilled />;
 
 export const useCompanyTree = () => {
@@ -53,13 +55,8 @@ export const useCompanyTree = () => {
 
   const users = usersData.map((user) => ({
     ...user,
-    name: (
-      <UserLink
-        {...user}
-        unit={units.find((unit) => unit.id === user.unitId)}
-      />
-    ),
-    icon: null,
+    name: <Link to={Routes.user(user.id)}>{user.name}</Link>,
+    icon: userIcon,
   }));
 
   const workOrders = workOrdersData.map((workOrder) => ({

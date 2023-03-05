@@ -1,5 +1,6 @@
 import { AssetView } from "@/views/asset";
 import { UnitView } from "@/views/unit";
+import { UserView } from "@/views/user";
 import { createBrowserRouter } from "react-router-dom";
 import { BaseLayout } from "../layouts/base-layout";
 import { CompaniesView } from "../views/companies";
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
     path: "/",
     element: <BaseLayout />,
     children: [
+      {
+        path: "users/:userId",
+        element: <UserView />,
+      },
       {
         path: "companies",
         element: <CompaniesView />,

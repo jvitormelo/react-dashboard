@@ -1,3 +1,4 @@
+import { Company } from "./company";
 import { Unit } from "./unit";
 
 export interface User {
@@ -10,4 +11,8 @@ export interface User {
 
 export type UserWithUnit = User & {
   unit: Unit;
+};
+
+export type UserWithRelation = UserWithUnit & {
+  company: Company;
 };
