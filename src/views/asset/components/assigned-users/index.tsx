@@ -34,7 +34,7 @@ export const AssetAssignedUsers = ({ asset }: Props) => {
         }}
       >
         <Typography.Title style={{ marginBottom: theme.marginMD }} level={3}>
-          Assigned Users
+          Assigned Users ({asset.users.length})
         </Typography.Title>
 
         <EditIcon onClick={onEdit} />

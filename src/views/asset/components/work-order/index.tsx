@@ -63,7 +63,7 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
           level={3}
           style={{ marginBottom: hasWorkOrders ? theme.marginMD : 0 }}
         >
-          Work Orders
+          Work Orders ({workOrders.length})
         </Typography.Title>
 
         {!isCreatingWorkOrder && (

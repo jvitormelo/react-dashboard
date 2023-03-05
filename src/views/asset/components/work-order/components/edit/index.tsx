@@ -3,6 +3,7 @@ import { useUpdateWorkOrder } from "@/api/work-orders/use-update-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIcon } from "@/components/icons/delete-icon";
+import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";
 import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
@@ -45,24 +46,30 @@ export const EditWorkOrderContent = ({ asset, workOrder }: Props) => {
   const { mutateAsync: updateWorkOrder } = useUpdateWorkOrder();
 
   const onSubmit = async (values: SubmitWorkOrderSchema) => {
-    const checklist: WorkOrderChecklist[] = values.checklist.map(
-      (checklistItem) => {
-        const foundChecklistItem = workOrder.checklist.find(
-          (item) => item.task === checklistItem.task
-        );
+    try {
+      const checklist: WorkOrderChecklist[] = values.checklist.map(
+        (checklistItem) => {
+          const foundChecklistItem = workOrder.checklist.find(
+            (item) => item.task === checklistItem.task
+          );
 
-        if (foundChecklistItem) return foundChecklistItem;
+          if (foundChecklistItem) return foundChecklistItem;
 
-        return checklistItem;
-      }
-    );
+          return checklistItem;
+        }
+      );
 
-    await updateWorkOrder({
-      ...workOrder,
-      ...values,
-      checklist,
-    });
-    stopEditingWorkOrder();
+      await updateWorkOrder({
+        ...workOrder,
+        ...values,
+        checklist,
+      });
+
+      toast.success("Work order updated successfully");
+      stopEditingWorkOrder();
+    } catch (e) {
+      toast.error("Failed to update work order");
+    }
   };
 
   return (
