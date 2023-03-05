@@ -1,3 +1,7 @@
+import {
+  WorkOrderPriority,
+  workOrdersPriorityNameMap,
+} from "@/constants/work-order-priority";
 import { AssetModels, assetModelsNameMap } from "@/constants/asset-models";
 import { assetsStatusNameMapper, AssetStatus } from "@/constants/asset-status";
 import { Specifications } from "@/types/entities/asset";
@@ -31,9 +35,14 @@ const getSensorNames = (sensor: string[]) => {
   return sensor.join(", ");
 };
 
+const getWorkOrderPriorityName = (priority: WorkOrderPriority) => {
+  return workOrdersPriorityNameMap[priority] ?? workOrdersPriorityNameMap.low;
+};
+
 export const namesUtils = {
   getAssetStatusName,
   getAssetModelName,
   getSpecificationName,
   getSensorNames,
+  getWorkOrderPriorityName,
 };

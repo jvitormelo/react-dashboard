@@ -1,9 +1,16 @@
 import { UserPopOver } from "@/components/atoms/user-pop-over";
+import {
+  ControlledRadioInput,
+  RadioInputItem,
+} from "@/components/controlled/controlled-radio-input";
 import { ControlledSelect } from "@/components/controlled/controlled-select";
 import { ControlledTextArea } from "@/components/controlled/controlled-text-area";
 import { ControlledTextField } from "@/components/controlled/controlled-text-field";
+import { workOrderPriorityArray } from "@/constants/work-order-priority";
+import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { UserWithUnit } from "@/types/entities/user";
+import { namesUtils } from "@/utils";
 import { stringUtils } from "@/utils/string";
 import { useState } from "react";
 import { BaseModalForm } from "../base-modal-form";
@@ -20,6 +27,7 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
     handleSubmit,
     formState: { isSubmitting },
   } = useFormResolver<WorkOrderSchema>(workOrderSchema, {});
+  const { workOrderPriorityToColor } = useFeedbackColors();
 
   const onSubmit = handleSubmit(onSubmitHandler);
 
@@ -46,6 +54,17 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
   const onSearch = (value: string) => {
     setSearchValue(stringUtils.normalize(value));
   };
+
+  const priorityOptions: RadioInputItem[] = workOrderPriorityArray.map(
+    (priority) => ({
+      label: namesUtils.getWorkOrderPriorityName(priority),
+      value: priority,
+      style: {
+        fontWeight: "bold",
+        color: workOrderPriorityToColor(priority, "hex"),
+      },
+    })
+  );
 
   return (
     <BaseModalForm
@@ -87,6 +106,15 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
         onSearch={onSearch}
         filterOption={false}
         options={options}
+      />
+
+      <ControlledRadioInput
+        control={control}
+        name="priority"
+        options={priorityOptions}
+        label="Priority"
+        optionType="button"
+        buttonStyle="solid"
       />
     </BaseModalForm>
   );
