@@ -1,7 +1,7 @@
 import { WorkOrderStatus } from "@/constants/work-order-status";
 import { useMutation } from "@tanstack/react-query";
 import { httpClient } from "@/infra/http-client";
-import { WorkOrder, WorkOrderChecklist } from "@/types/entities/workorders";
+import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { queryClient } from "@/infra/query-client";
 
 type createWorkOrder = Omit<WorkOrder, "id" | "status" | "checklist"> & {

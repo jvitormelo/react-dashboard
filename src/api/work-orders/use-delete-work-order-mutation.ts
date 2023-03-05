@@ -1,7 +1,7 @@
 import { toast } from "@/infra/toast";
 import { httpClient } from "@/infra/http-client";
 import { queryClient } from "@/infra/query-client";
-import { WorkOrder } from "@/types/entities/workorders";
+import { WorkOrder } from "@/types/entities/work-order";
 import { useMutation } from "@tanstack/react-query";
 
 const deleteWorkOrder = async (id: number) => {

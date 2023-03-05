@@ -20,14 +20,21 @@ import "./styles.scss";
 interface Props {
   onSubmitHandler: (data: WorkOrderSchema) => Promise<void>;
   users: UserWithUnit[];
+  defaultValues?: WorkOrderSchema;
 }
 
-export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
+export const WorkOrderForm = ({
+  onSubmitHandler,
+  users = [],
+  defaultValues,
+}: Props) => {
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useFormResolver<WorkOrderSchema>(workOrderSchema, {});
+  } = useFormResolver<WorkOrderSchema>(workOrderSchema, {
+    defaultValues,
+  });
   const { workOrderPriorityToColor } = useFeedbackColors();
 
   const onSubmit = handleSubmit(onSubmitHandler);

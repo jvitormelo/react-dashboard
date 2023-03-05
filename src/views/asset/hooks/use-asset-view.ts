@@ -6,7 +6,7 @@ import { toast } from "@/infra/toast";
 import { Routes } from "@/router/routes";
 import { AssetWithUsers } from "@/types/entities/asset";
 import { UserWithUnit } from "@/types/entities/user";
-import { WorkOrdersWithUsers } from "@/types/entities/workorders";
+import { WorkOrdersWithUsers } from "@/types/entities/work-order";
 import { useNavigate } from "react-router-dom";
 
 export const useAssetView = () => {
