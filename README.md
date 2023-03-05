@@ -2,12 +2,9 @@
 
 ## WIP:
 
-- Add Work Order Priority
-- Edit Work Order
-- Complete Work Order task
 - User page
-- Tree view
 - Add Sort and Filter to all Tables
-- Tablet + Mobile
 - Tests
+- Tree view > Some question > add Link to All entities? Show the popover or no?
+- Tablet + Mobile
 - Fix all Todos

@@ -10,7 +10,6 @@ import {
   HomeOutlined,
   SettingFilled,
   ToolFilled,
-  UserOutlined,
 } from "@ant-design/icons";
 import { DataNode } from "antd/es/tree";
 import { useCallback, useMemo } from "react";
@@ -19,7 +18,7 @@ import { useCallback, useMemo } from "react";
 const companyIcon = <HomeOutlined />;
 const unitIcon = <DatabaseOutlined />;
 const assetIcon = <SettingFilled />;
-const userIcon = <UserOutlined />;
+// const userIcon = <UserOutlined />;
 const workOrderIcon = <ToolFilled />;
 
 export const useCompanyTree = () => {
@@ -60,7 +59,7 @@ export const useCompanyTree = () => {
         unit={units.find((unit) => unit.id === user.unitId)}
       />
     ),
-    icon: userIcon,
+    icon: null,
   }));
 
   const workOrders = workOrdersData.map((workOrder) => ({
