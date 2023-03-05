@@ -49,7 +49,7 @@ export const useCompanyTree = () => {
   const assets = assetsData.map((asset) => ({
     ...asset,
     icon: assetIcon,
-    name: <AssetLink asset={asset}></AssetLink>,
+    name: <AssetLink asset={asset} />,
   }));
 
   const users = usersData.map((user) => ({
@@ -153,5 +153,8 @@ export const useCompanyTree = () => {
   return {
     isLoading,
     tree,
+    defaultExpandedKeys: companies.map(
+      (_, companyIndex) => `0-${companyIndex}`
+    ),
   };
 };

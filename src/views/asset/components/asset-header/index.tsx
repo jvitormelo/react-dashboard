@@ -39,18 +39,37 @@ export const AssetHeader = ({ asset }: Props) => {
           height: "100%",
         }}
       >
-        <StatisticsCard
-          statistics={{
-            title: "Health Score",
-            value: asset.healthscore,
-            precision: 2,
-            suffix: "%",
-            valueStyle: {
-              color: healthScoreToColor(asset.healthscore),
-              fontWeight: "bold",
-            },
+        <div
+          style={{
+            display: "grid",
+            gap: theme.marginMD,
+            gridTemplateColumns: "1fr 3fr",
           }}
-        />
+        >
+          <StatisticsCard
+            statistics={{
+              title: "Id",
+              value: asset.id,
+              valueStyle: {
+                color: theme.colorPrimary,
+                fontWeight: "bold",
+              },
+            }}
+          />
+
+          <StatisticsCard
+            statistics={{
+              title: "Health Score",
+              value: asset.healthscore,
+              precision: 2,
+              suffix: "%",
+              valueStyle: {
+                color: healthScoreToColor(asset.healthscore),
+                fontWeight: "bold",
+              },
+            }}
+          />
+        </div>
         <StatisticsCard
           statistics={{
             title: "Status",
