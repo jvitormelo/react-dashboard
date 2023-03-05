@@ -1,7 +1,7 @@
 import { httpClient } from "@/infra/http-client";
-import { queryClient } from "@/infra/query-client";
 import { User } from "@/types/entities/user";
 import { useMutation } from "@tanstack/react-query";
+import { userCacheActions } from "./actions";
 
 type UpdateUser = User;
 
@@ -10,14 +10,6 @@ const updateUser = async (user: UpdateUser): Promise<User> =>
 
 export const useUpdateUserMutation = () => {
   return useMutation(updateUser, {
-    onSuccess: (data) => {
-      queryClient.setQueryData<User>(["user", data.id], data);
-
-      queryClient.setQueryData<User[]>(
-        ["users"],
-        (oldData) =>
-          oldData?.map((user) => (user.id === data.id ? data : user)) ?? []
-      );
-    },
+    onSuccess: (data) => userCacheActions.setUser(data),
   });
 };

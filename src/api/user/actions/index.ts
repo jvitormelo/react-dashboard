@@ -1,4 +1,4 @@
-import { arrayUtils } from "./../../utils/array/index";
+import { arrayUtils } from "@/utils/array/index";
 import { queryClient } from "@/infra/query-client";
 import { User } from "@/types/entities";
 
@@ -18,6 +18,10 @@ const setUser = (user: User) => {
   });
 };
 
+const selectUser = (user: User) => {
+  queryClient.setQueryData(userKey(user.id), user);
+};
+
 const deleteUser = (id: number) => {
   queryClient.removeQueries(userKey(id), {
     exact: true,
@@ -35,6 +39,7 @@ const deleteUser = (id: number) => {
 export const userCacheActions = {
   setUser,
   deleteUser,
+  selectUser,
   usersKey,
   userKey,
 };

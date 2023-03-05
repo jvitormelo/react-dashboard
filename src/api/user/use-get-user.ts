@@ -3,7 +3,7 @@ import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { httpClient } from "@/infra/http-client";
 import { User, UserWithRelation } from "@/types/entities";
 import { useGetUnit } from "../unit/use-get-unit";
-import { userCacheActions } from "./user-cache-actions";
+import { userCacheActions } from "./actions";
 
 const getUserById = (userId: number): Promise<User> => {
   return httpClient.get(`users/${userId}`);

@@ -1,6 +1,6 @@
 import { httpClient } from "@/infra/http-client";
 import { useMutation } from "@tanstack/react-query";
-import { userCacheActions } from "./user-cache-actions";
+import { userCacheActions } from "./actions";
 
 const deleteUser = (id: number) => {
   return httpClient.delete(`/users/${id}`);

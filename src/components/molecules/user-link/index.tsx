@@ -1,4 +1,4 @@
-import { userCacheActions } from "@/api/user/user-cache-actions";
+import { userCacheActions } from "@/api/user/actions";
 import { UserAvatar } from "@/components/atoms/user-avatar";
 import { UserPopOver } from "@/components/molecules/user-pop-over";
 import { useTheme } from "@/hooks/use-theme";
@@ -20,7 +20,7 @@ export const UserLink = ({ user }: Props) => {
           width: "fit-content",
         }}
         onClick={() => {
-          userCacheActions.setUser(user);
+          userCacheActions.selectUser(user);
         }}
         to={Routes.user(user.id)}
       >

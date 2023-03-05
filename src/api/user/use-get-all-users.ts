@@ -1,7 +1,7 @@
 import { httpClient } from "@/infra/http-client";
 import { User } from "@/types/entities";
 import { useQuery, UseQueryOptions } from "@tanstack/react-query";
-import { userCacheActions } from "./user-cache-actions";
+import { userCacheActions } from "./actions";
 
 const getAllUsers = async (): Promise<User[]> => httpClient.get("/users");
 
