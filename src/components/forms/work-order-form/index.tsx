@@ -1,20 +1,20 @@
 import {
+  ControlledSelect,
+  ControlledTextArea,
+  ControlledTextField,
+} from "@/components/controlled";
+
+import {
   ControlledRadioInput,
   RadioInputItem,
 } from "@/components/controlled/controlled-radio-input";
-import { ControlledSelect } from "@/components/controlled/controlled-select";
-import { ControlledTextArea } from "@/components/controlled/controlled-text-area";
-import { ControlledTextField } from "@/components/controlled/controlled-text-field";
+
 import { DeleteIcon } from "@/components/icons/delete-icon";
 import { UserPopOver } from "@/components/molecules/user-pop-over";
 import { workOrderPriorityArray } from "@/constants/work-order-priority";
-import { useFeedbackColors } from "@/hooks/use-feedback-colors";
-import { useFormResolver } from "@/hooks/use-form-resolver";
-import { useTheme } from "@/hooks/use-theme";
-import { UserWithUnit } from "@/types/entities/user";
-import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
-import { nameUtils } from "@/utils";
-import { stringUtils } from "@/utils/string";
+import { useFeedbackColors, useFormResolver, useTheme } from "@/hooks";
+import { WorkOrder, WorkOrderChecklist, UserWithUnit } from "@/types/entities";
+import { nameUtils, stringUtils } from "@/utils";
 import { Button, Card } from "antd";
 import { useState } from "react";
 import { Control, useFieldArray } from "react-hook-form";
@@ -33,6 +33,8 @@ interface Props extends BaseModalFormProps<SubmitWorkOrderSchema, WorkOrder> {
   users: UserWithUnit[];
 }
 
+const createId = (value: string) => value.replaceAll(" ", "-");
+
 export const formatCheckList = (checklistString: string) => {
   const checklistItems = checklistString.split("\n").filter(Boolean);
 
@@ -49,8 +51,6 @@ export const WorkOrderForm = ({
   users = [],
   defaultValues,
 }: Props) => {
-  const { theme } = useTheme();
-
   const isEdit = !!defaultValues;
 
   const {
@@ -111,11 +111,6 @@ export const WorkOrderForm = ({
     })
   );
 
-  const { fields, append, remove } = useFieldArray({
-    control: control as Control<EditWorkOrderSchema>,
-    name: "checklist",
-  });
-
   return (
     <BaseModalForm
       onSubmit={onSubmit}
@@ -140,56 +135,7 @@ export const WorkOrderForm = ({
       />
 
       {isEdit ? (
-        <Card
-          bodyStyle={{
-            display: "flex",
-            flexDirection: "column",
-            gap: theme.marginSM,
-          }}
-        >
-          {fields.map((_, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-              }}
-            >
-              <ControlledTextArea
-                label=""
-                rows={2}
-                name={`checklist.${index}.task`}
-                control={control}
-                style={{
-                  flex: 1,
-                }}
-              />
-              {fields.length > 1 && (
-                <DeleteIcon
-                  style={{
-                    marginInline: theme.marginSM,
-                  }}
-                  onClick={() => {
-                    console.log("remove", index);
-                    remove(index);
-                  }}
-                />
-              )}
-            </div>
-          ))}
-
-          <Button
-            type="link"
-            style={{
-              marginTop: theme.marginSM,
-              marginInline: "auto",
-              display: "flex",
-            }}
-            onClick={() => append({ task: "", completed: false })}
-          >
-            New Checklist Item
-          </Button>
-        </Card>
+        <EditCheckList control={control as Control<EditWorkOrderSchema>} />
       ) : (
         <ControlledTextArea
           label="Checklist"
@@ -222,5 +168,71 @@ export const WorkOrderForm = ({
         buttonStyle="solid"
       />
     </BaseModalForm>
+  );
+};
+
+const EditCheckList = ({
+  control,
+}: {
+  control: Control<EditWorkOrderSchema>;
+}) => {
+  const { theme } = useTheme();
+  const { fields, append, remove } = useFieldArray({
+    control: control as Control<EditWorkOrderSchema>,
+    name: "checklist",
+  });
+
+  const showDelete = fields.length > 1;
+
+  return (
+    <Card
+      bodyStyle={{
+        display: "flex",
+        flexDirection: "column",
+        gap: theme.marginSM,
+      }}
+    >
+      {fields.map((item, index) => (
+        <div
+          key={createId(item.task)}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
+          <ControlledTextArea
+            label=""
+            rows={2}
+            name={`checklist.${index}.task`}
+            control={control}
+            style={{
+              flex: 1,
+            }}
+          />
+          {showDelete && (
+            <DeleteIcon
+              style={{
+                marginInline: theme.marginSM,
+              }}
+              onClick={() => {
+                remove(index);
+              }}
+            />
+          )}
+        </div>
+      ))}
+
+      <Button
+        type="link"
+        style={{
+          marginTop: theme.marginSM,
+          marginInline: "auto",
+          display: "flex",
+        }}
+        onClick={() => append({ task: "", completed: false })}
+      >
+        New Checklist Item
+      </Button>
+    </Card>
   );
 };
