@@ -1,11 +1,11 @@
-import { setAssetCache } from "@/api/asset/set-asset-cache";
+import { assetCacheActions } from "@/api/asset/actions";
 import { useDeleteAssetMutation } from "@/api/asset/use-delete-asset-mutation";
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useUploadAssetImageMutation } from "@/api/asset/use-upload-asset-image-mutation";
 import { EditAssetForm } from "@/components/forms/asset-form/edit-asset-form";
 import { AssetSchema } from "@/components/forms/asset-form/schema";
-import { toast } from "@/utils/feedback";
 import { Asset } from "@/types/entities/asset";
+import { toast } from "@/utils/feedback";
 import { useModal } from "../use-modal";
 
 export const useAssetsTable = () => {
@@ -15,7 +15,7 @@ export const useAssetsTable = () => {
   const { mutateAsync: deleteAsset } = useDeleteAssetMutation();
 
   const onSelect = (asset: Asset) => {
-    setAssetCache(asset);
+    assetCacheActions.selectAsset(asset);
   };
 
   const onEdit = (asset: Asset) => {

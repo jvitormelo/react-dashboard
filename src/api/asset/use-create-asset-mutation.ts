@@ -1,9 +1,8 @@
 import { AssetStatus } from "@/constants/asset-status";
 import { httpClient } from "@/infra/http-client";
-import { queryClient } from "@/infra/query-client";
 import { Asset } from "@/types/entities/asset";
 import { useMutation } from "@tanstack/react-query";
-import { setAssetCache } from "./set-asset-cache";
+import { assetCacheActions } from "./actions";
 
 type CreateAsset = Omit<
   Asset,
@@ -37,11 +36,7 @@ export const useCreateAssetMutation = () => {
         status: AssetStatus.InOperation,
       };
 
-      queryClient.setQueryData<Asset[]>(["assets"], (oldData) => {
-        return [...(oldData || []), assetWithRandomData];
-      });
-
-      setAssetCache(assetWithRandomData);
+      assetCacheActions.addOrUpdateAsset(assetWithRandomData);
     },
   });
 };

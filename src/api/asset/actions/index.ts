@@ -1,45 +1,34 @@
-import { queryClient } from "@/infra/query-client";
+import { queryClientHelpers } from "@/infra/query-client";
 import { Asset } from "@/types/entities";
-import { arrayUtils } from "@/utils/array";
 
-const assetsKey = ["assets"];
+const arrayKey = ["assets"];
 
-const assetKey = (id: number) => ["asset", id];
+const itemKey = (id: number) => ["asset", id];
 
-const selectAsset = (assets: Asset) => {
-  queryClient.setQueryData(assetKey(assets.id), assets);
+const selectAsset = (asset: Asset) => {
+  queryClientHelpers.select(itemKey(asset.id), asset);
 };
 
-const setAsset = (asset: Asset) => {
-  queryClient.setQueryData(assetKey(asset.id), asset);
-
-  queryClient.setQueryData<Asset[]>(assetsKey, (assets) => {
-    return arrayUtils.updateOrCreate<Asset>({
-      array: assets,
-      item: asset,
-      key: "id",
-    });
+const addOrUpdateAsset = (asset: Asset) => {
+  queryClientHelpers.addOrUpdate<Asset>({
+    arrayKey: arrayKey,
+    item: asset,
+    itemKey: itemKey(asset.id),
   });
 };
 
 const deleteAsset = (id: number) => {
-  queryClient.invalidateQueries(assetKey(id), {
-    exact: true,
-  });
-
-  queryClient.setQueryData<Asset[]>(assetsKey, (assets) => {
-    return arrayUtils.remove<Asset>({
-      array: assets,
-      item: { id } as Asset,
-      key: "id",
-    });
+  queryClientHelpers.removeFromCache<Asset>({
+    id,
+    arrayKey,
+    itemKey: itemKey(id),
   });
 };
 
 export const assetCacheActions = {
-  setAsset,
+  addOrUpdateAsset: addOrUpdateAsset,
   deleteAsset,
-  assetsKey,
-  assetKey,
+  assetsKey: arrayKey,
+  assetKey: itemKey,
   selectAsset,
 };

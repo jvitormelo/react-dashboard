@@ -1,4 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
+import { arrayUtils } from "@/utils/array";
+import { QueryClient, QueryKey } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,3 +15,52 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+type BaseItem = { id: number | string };
+
+interface MultipleKeys {
+  itemKey: QueryKey;
+  arrayKey: QueryKey;
+}
+
+type RemoveFromCache = MultipleKeys & { id: number | string };
+
+type AddOrUpdate<T> = MultipleKeys & { item: T };
+
+export const queryClientHelpers = {
+  select: <T extends BaseItem>(key: QueryKey, item: T) => {
+    queryClient.setQueryData(key, item);
+  },
+  removeFromCache: <T extends BaseItem>({
+    arrayKey,
+    itemKey,
+    id,
+  }: RemoveFromCache) => {
+    queryClient.removeQueries(itemKey, {
+      exact: true,
+    });
+
+    queryClient.setQueryData<T[]>(arrayKey, (assets) => {
+      return arrayUtils.remove<T>({
+        array: assets,
+        item: { id } as T,
+        key: "id",
+      });
+    });
+  },
+  addOrUpdate: <T extends BaseItem>({
+    arrayKey,
+    item,
+    itemKey,
+  }: AddOrUpdate<T>) => {
+    queryClient.setQueryData(itemKey, item);
+
+    queryClient.setQueryData<T[]>(arrayKey, (oldData) => {
+      return arrayUtils.updateOrCreate<T>({
+        array: oldData,
+        item,
+        key: "id",
+      });
+    });
+  },
+};
