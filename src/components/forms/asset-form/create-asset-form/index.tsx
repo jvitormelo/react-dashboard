@@ -61,7 +61,7 @@ export const CreateAssetForm = ({ submitForm }: Props) => {
     />,
     <AssetImageForm
       key={2}
-      buttonLabel="Create Asset"
+      buttonLabel="New Asset"
       saveImage={assetImageSubmit}
     />,
   ];

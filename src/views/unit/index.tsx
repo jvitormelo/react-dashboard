@@ -41,7 +41,7 @@ export const UnitView = () => {
           assets={assets}
           loading={isAssetsLoading}
           headerProps={{
-            buttonLabel: "Create Asset",
+            buttonLabel: "New Asset",
             onButtonClick: onCreateAssetClick,
           }}
           {...assetTableProps}
