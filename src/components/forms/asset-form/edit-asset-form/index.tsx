@@ -1,4 +1,4 @@
-import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
+import { AssetUsersTransfer } from "@/components/molecules/asset-users-transfer";
 import { Asset } from "@/types/entities/asset";
 import { Tabs } from "antd";
 import { AssetImageForm } from "../asset-image";

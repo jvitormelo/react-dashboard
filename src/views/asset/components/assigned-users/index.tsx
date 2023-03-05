@@ -1,6 +1,6 @@
 import { EditIcon } from "@/components/icons/button-icons/edit-icon";
 import { UserLink } from "@/components/molecules/user-link";
-import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
+import { AssetUsersTransfer } from "@/components/molecules/asset-users-transfer";
 import { useModal } from "@/hooks/use-modal";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";

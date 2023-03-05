@@ -2,7 +2,7 @@ import { AssetsTable } from "@/components/tables/assets-table";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
 import { useUnitsTableActions } from "@/hooks/tables/use-units-table-actions";
-import { useUserTableActions } from "@/hooks/tables/use-user-table-action";
+import { useUserTableActions } from "@/hooks/tables/use-user-table-actions";
 import { useParamsId } from "@/hooks/use-params-id";
 import { Tabs } from "antd";
 import { UnitsTable } from "../../components/tables/units-table";
