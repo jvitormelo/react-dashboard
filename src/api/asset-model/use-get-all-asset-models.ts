@@ -1,9 +1,8 @@
 import { nameUtils } from "@/utils";
-import { useQuery } from "@tanstack/react-query";
-import { getAllAssets } from "../asset/get-assets";
+import { useGetAllAssets } from "../asset/use-get-all-assets";
 
 export const useGetAllAssetModels = () => {
-  const response = useQuery(["assets"], getAllAssets);
+  const response = useGetAllAssets();
 
   const allModels = response.data?.map((asset) => asset.model) || [];
 

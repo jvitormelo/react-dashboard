@@ -4,6 +4,7 @@ import { useGetAllUsers } from "./use-get-all-users";
 
 export const useGetUsersByCompany = (companyId: number) => {
   const { data: units = [] } = useGetUnitsByCompany(companyId);
+
   const response = useGetAllUsers({
     enabled: !!companyId,
   });

@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllAssets } from "./get-assets";
+import { httpClient } from "@/infra/http-client";
+import { Asset } from "@/types/entities";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
-export const useGetAllAssets = () => {
-  return useQuery(["assets"], getAllAssets);
+const getAllAssets = async (): Promise<Asset[]> => httpClient.get("/assets");
+
+type Options = UseQueryOptions<Asset[]>;
+
+export const useGetAllAssets = (options?: Options) => {
+  return useQuery<Asset[]>(["assets"], getAllAssets, options);
 };

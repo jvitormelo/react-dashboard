@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllAssets } from "../asset/get-assets";
+import { useGetAllAssets } from "./../asset/use-get-all-assets";
 
 export const useGetAllSensors = () => {
-  const response = useQuery(["assets"], getAllAssets);
+  const response = useGetAllAssets();
 
   const data = response.data?.map((asset) => asset.sensors) || [];
 
