@@ -1,6 +1,7 @@
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
+import { useUpdateWorkOrder } from "@/api/work-orders/use-update-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
-import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
+import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIcon } from "@/components/icons/delete-icon";
 import { Asset } from "@/types/entities/asset";
 import { WorkOrder } from "@/types/entities/work-order";
@@ -39,9 +40,16 @@ const EditWorkOrderHeader = ({ workOrder }: Props) => {
 export const EditWorkOrderContent = ({ asset, workOrder }: Props) => {
   const { data: users = [] } = useGetUsersByCompany(asset.companyId);
 
-  const onSubmit = async (values: WorkOrderSchema) => {
-    console.log(values);
-    return undefined;
+  const { stopEditingWorkOrder } = useAssetViewStore();
+
+  const { mutateAsync: updateWorkOrder } = useUpdateWorkOrder();
+
+  const onSubmit = async (values: SubmitWorkOrderSchema) => {
+    await updateWorkOrder({
+      ...workOrder,
+      ...values,
+    });
+    stopEditingWorkOrder();
   };
 
   return (

@@ -41,10 +41,7 @@ export const useUserTableActions = () => {
       toast.success("User deleted successfully");
     } catch (error) {
       toast.error("Error deleting user");
-      console.log(error);
     }
-
-    console.log(user);
   };
 
   return {

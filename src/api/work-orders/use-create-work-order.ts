@@ -1,28 +1,16 @@
 import { WorkOrderStatus } from "@/constants/work-order-status";
-import { useMutation } from "@tanstack/react-query";
 import { httpClient } from "@/infra/http-client";
-import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { queryClient } from "@/infra/query-client";
+import { WorkOrder } from "@/types/entities/work-order";
+import { useMutation } from "@tanstack/react-query";
 
-type createWorkOrder = Omit<WorkOrder, "id" | "status" | "checklist"> & {
-  checklist: string;
-};
+type CreateWorkOrder = Omit<WorkOrder, "id" | "status">;
 
 const createWorkOrder = async (
-  workOrder: createWorkOrder
+  workOrder: CreateWorkOrder
 ): Promise<WorkOrder> => {
-  const checklistContent = workOrder.checklist;
-
-  const checklistItems = checklistContent.split("\n").filter(Boolean);
-
-  const checklist: WorkOrderChecklist[] = checklistItems.map((item) => ({
-    completed: false,
-    task: item,
-  }));
-
   return httpClient.post("/workorders", {
     ...workOrder,
-    checklist,
     status: WorkOrderStatus.IN_PROGRESS,
   });
 };

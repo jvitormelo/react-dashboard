@@ -10,7 +10,7 @@ import { workOrderPriorityArray } from "@/constants/work-order-priority";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useFormResolver } from "@/hooks/use-form-resolver";
 import { UserWithUnit } from "@/types/entities/user";
-import { WorkOrder } from "@/types/entities/work-order";
+import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { nameUtils } from "@/utils";
 import { stringUtils } from "@/utils/string";
 import { useState } from "react";
@@ -18,15 +18,26 @@ import { BaseModalForm } from "../base-modal-form";
 import { BaseModalFormProps } from "../types";
 import { WorkOrderSchema, workOrderSchema } from "./schema";
 import "./styles.scss";
+import { SubmitWorkOrderSchema } from "./types";
 
 const formatToChecklistForm = (checklist: WorkOrder["checklist"]) => {
   return checklist.map((checklistItem) => checklistItem.task).join("\n\n");
 };
-interface Props
-  extends Omit<BaseModalFormProps<WorkOrderSchema>, "defaultValues"> {
+
+interface Props extends BaseModalFormProps<SubmitWorkOrderSchema, WorkOrder> {
   users: UserWithUnit[];
-  defaultValues?: WorkOrder;
 }
+
+export const formatCheckList = (checklistString: string) => {
+  const checklistItems = checklistString.split("\n").filter(Boolean);
+
+  const checklist: WorkOrderChecklist[] = checklistItems.map((item) => ({
+    completed: false,
+    task: item,
+  }));
+
+  return checklist;
+};
 
 export const WorkOrderForm = ({
   onSubmitHandler,
@@ -45,7 +56,14 @@ export const WorkOrderForm = ({
   });
   const { workOrderPriorityToColor } = useFeedbackColors();
 
-  const onSubmit = handleSubmit(onSubmitHandler);
+  const onSubmit = handleSubmit(async (values) => {
+    const checklist = formatCheckList(values.checklist);
+
+    await onSubmitHandler({
+      ...values,
+      checklist,
+    });
+  });
 
   const [searchValue, setSearchValue] = useState("");
 
