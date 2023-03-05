@@ -3,6 +3,7 @@ import { useGetUsersByUnit } from "@/api/user/use-get-users-by-unit";
 import { PersistentTabs } from "@/components/molecules/persistent-tabs";
 import { UsersTable } from "@/components/tables/users-table";
 import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
+import { useCreateUserModal } from "@/hooks/tables/use-create-user";
 import { useUserTableActions } from "@/hooks/tables/use-user-table-actions";
 import { useParamsId } from "@/hooks/use-params-id";
 import { AssetsTable } from "../../components/tables/assets-table";
@@ -20,6 +21,11 @@ export const UnitView = () => {
   const assetTableProps = useAssetsTable();
 
   const userTableProps = useUserTableActions();
+
+  const { openCreateUserModal } = useCreateUserModal({
+    companyId,
+    unitId,
+  });
 
   const { onCreateAssetClick } = useCreateAsset({
     companyId,
@@ -50,6 +56,10 @@ export const UnitView = () => {
           users={users}
           loading={isUsersLoading}
           {...userTableProps}
+          headerProps={{
+            buttonLabel: "Create User",
+            onButtonClick: openCreateUserModal,
+          }}
         />
       ),
     },

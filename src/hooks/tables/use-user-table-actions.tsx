@@ -11,10 +11,6 @@ export const useUserTableActions = () => {
   const { mutateAsync: deleteUser } = useDeleteUserMutation();
   const { mutateAsync: updateUser } = useUpdateUserMutation();
 
-  const onSelect = (user: User) => {
-    console.log(user);
-  };
-
   const onEdit = (user: User) => {
     const onSubmitHandler = async (values: UserSchema) => {
       try {
@@ -45,7 +41,6 @@ export const useUserTableActions = () => {
   };
 
   return {
-    onSelect,
     onEdit,
     onDelete,
   };

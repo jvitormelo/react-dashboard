@@ -4,6 +4,7 @@ import { BaseModalForm } from "../base-modal-form";
 import { BaseModalFormProps } from "../types";
 import { UserSchema, userSchema } from "./schema";
 
+// TODO - need to validate email on change and in submit
 export const UserForm = ({
   onSubmitHandler,
   defaultValues,
