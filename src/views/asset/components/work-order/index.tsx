@@ -4,7 +4,6 @@ import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
 import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
 import { UserLink } from "@/components/molecules/user-link";
-import { WorkOrderPriority } from "@/constants/work-order-priority";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/infra/toast";
@@ -90,13 +89,9 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
   const onSubmitHandler = async (data: WorkOrderSchema) => {
     try {
       await createWorkOrder({
-        checklist: data.checklist,
-        description: data.description,
-        // TODO: Add input for priority
-        priority: WorkOrderPriority.HIGH,
-        title: data.title,
-        assetId: asset.id,
+        ...data,
         assignedUserIds: data.assignedUserIds ?? [],
+        assetId: asset.id,
       });
       toast.success("Work order created");
       closeCreateWorkOrderForm();
@@ -109,7 +104,6 @@ const CreateWorkOrderForAsset = ({ asset }: { asset: Asset }) => {
     <Card
       style={{
         padding: theme.paddingMD,
-
         marginTop: theme.marginMD,
       }}
     >
@@ -173,10 +167,13 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
         )}
       </section>
 
+      {/* // TODO - add transition  */}
+      {isCreatingWorkOrder && <CreateWorkOrderForAsset asset={asset} />}
+
       {hasWorkOrders && (
         <div
           style={{
-            maxHeight: "300px",
+            maxHeight: "550px",
             overflowY: "scroll",
             padding: theme.paddingMD,
             overflowX: "hidden",
@@ -190,9 +187,6 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
           ))}
         </div>
       )}
-
-      {/* // TODO - add transition  */}
-      {isCreatingWorkOrder && <CreateWorkOrderForAsset asset={asset} />}
     </Card>
   );
 };
