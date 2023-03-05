@@ -9,7 +9,12 @@ export const CompanyTree = () => {
 
   return (
     <Card>
-      <Tree showLine showIcon treeData={tree} />
+      <Tree
+        defaultExpandedKeys={["0-0", "0-1"]}
+        showLine
+        showIcon
+        treeData={tree}
+      />
     </Card>
   );
 };

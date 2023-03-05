@@ -1,8 +1,8 @@
 import { useTheme } from "@/hooks/use-theme";
 import { UserWithUnit } from "@/types/entities/user";
 import { PartialBy } from "@/types/helpers";
-import { Divider, Popover, Space, Typography } from "antd";
-import { UserAvatar } from "../../atoms/user-avatar";
+import { Divider, Image, Popover, Space, Typography } from "antd";
+import { generateAvatarUrl } from "../../atoms/user-avatar";
 
 type Item = PartialBy<UserWithUnit, "unit">;
 
@@ -37,14 +37,20 @@ export const UserPopOver = ({ user, children }: Props) => {
               alignItems: "center",
             }}
           >
-            <UserAvatar
+            <Image
+              height={40}
               style={{
-                marginRight: theme.marginSM,
+                borderRadius: "50%",
               }}
-              email={email}
+              src={generateAvatarUrl(email)}
             />
 
-            <Space direction="vertical">
+            <Space
+              direction="vertical"
+              style={{
+                marginLeft: theme.marginXS,
+              }}
+            >
               <Typography.Text>{name}</Typography.Text>
               <a href={`mailto:${email}`}>{email}</a>
             </Space>

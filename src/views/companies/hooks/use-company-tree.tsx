@@ -3,13 +3,14 @@ import { useGetAllCompanies } from "@/api/company/use-get-all-companies";
 import { useGetAllUnits } from "@/api/unit/use-get-all-units";
 import { useGetAllUsers } from "@/api/user/use-get-all-users";
 import { useGetAllWorkOrders } from "@/api/work-orders/use-get-all-work-orders";
+import { AssetLink } from "@/components/molecules/asset-link";
 import { UserLink } from "@/components/molecules/user-link";
 import {
   DatabaseOutlined,
   HomeOutlined,
   SettingFilled,
   ToolFilled,
-  // UserOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { DataNode } from "antd/es/tree";
 import { useCallback, useMemo } from "react";
@@ -18,7 +19,7 @@ import { useCallback, useMemo } from "react";
 const companyIcon = <HomeOutlined />;
 const unitIcon = <DatabaseOutlined />;
 const assetIcon = <SettingFilled />;
-// const userIcon = <UserOutlined />;
+const userIcon = <UserOutlined />;
 const workOrderIcon = <ToolFilled />;
 
 export const useCompanyTree = () => {
@@ -48,6 +49,7 @@ export const useCompanyTree = () => {
   const assets = assetsData.map((asset) => ({
     ...asset,
     icon: assetIcon,
+    name: <AssetLink asset={asset}></AssetLink>,
   }));
 
   const users = usersData.map((user) => ({
@@ -58,7 +60,7 @@ export const useCompanyTree = () => {
         unit={units.find((unit) => unit.id === user.unitId)}
       />
     ),
-    icon: null,
+    icon: userIcon,
   }));
 
   const workOrders = workOrdersData.map((workOrder) => ({
@@ -137,7 +139,7 @@ export const useCompanyTree = () => {
                 })),
             ],
           })),
-      })),
+      })) as DataNode[],
     [companies, units, filterAssetsByUnit, users, filterWorkOrdersByAsset]
   );
 

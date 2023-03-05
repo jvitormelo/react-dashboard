@@ -2,7 +2,9 @@ import { CustomStatistic } from "@/components/atoms/custom-statistic";
 import { Card, Col, Row } from "antd";
 import { ComponentProps, memo } from "react";
 
-type CustomStatisticProps = ComponentProps<typeof CustomStatistic>;
+type CustomStatisticProps = ComponentProps<typeof CustomStatistic> & {
+  colProps?: ComponentProps<typeof Col>;
+};
 
 interface Props {
   rowProps?: ComponentProps<typeof Row>;
@@ -18,7 +20,7 @@ export const StatisticsCard = memo(
       <Card>
         <Row {...rowProps}>
           {items.map((statistic, index) => (
-            <Col {...colProps} key={index}>
+            <Col {...colProps} {...statistic.colProps} key={index}>
               <CustomStatistic {...statistic} />
             </Col>
           ))}
