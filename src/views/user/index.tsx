@@ -1,4 +1,5 @@
 import { UserAvatar } from "@/components/atoms/user-avatar";
+import { SkeletonCard } from "@/components/cards/skeleton-card";
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { useParamsId, useTheme } from "@/hooks";
 import { Card, Collapse } from "antd";
@@ -12,16 +13,22 @@ export const UserView = () => {
 
   const { theme } = useTheme();
 
-  if (isLoading || !user) return <div>loading</div>;
+  const containerStyle = {
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gridGap: theme.marginMD,
+  };
+
+  if (isLoading || !user)
+    return (
+      <div style={containerStyle}>
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+    );
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
-        gridGap: theme.marginMD,
-      }}
-    >
+    <div style={containerStyle}>
       <StatisticsCard
         header={
           <div
