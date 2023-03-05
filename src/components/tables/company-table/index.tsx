@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { addBaseTableActions } from "../common/add-base-table-actions";
 import { BaseTableActions } from "../common/add-base-table-actions/types";
 import { BaseTableProps, DataTable } from "../common/data-table";
+import { useGetColumnSearchProps } from "../common/search";
 
 interface Props extends BaseTableProps, BaseTableActions<Company> {
   companies?: Company[];
@@ -18,6 +19,7 @@ export const CompanyTable = ({
   onEdit,
   ...baseProps
 }: Props) => {
+  const { getColumnSearchProps } = useGetColumnSearchProps<Company>();
   const columns: ColumnsType<Company> = [
     {
       title: "Id",
@@ -36,6 +38,7 @@ export const CompanyTable = ({
           {text}
         </Link>
       ),
+      ...getColumnSearchProps("name"),
     },
     addBaseTableActions({
       onDelete,

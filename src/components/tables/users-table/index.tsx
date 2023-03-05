@@ -5,6 +5,7 @@ import { BaseTableProps, DataTable } from "../common/data-table";
 import { addBaseTableActions } from "../common/add-base-table-actions";
 import { BaseTableActions } from "../common/add-base-table-actions/types";
 import { UserLink } from "@/components/molecules/user-link";
+import { useGetColumnSearchProps } from "../common/search";
 
 interface Props extends BaseTableProps, BaseTableActions<User> {
   users: User[] | undefined;
@@ -12,6 +13,8 @@ interface Props extends BaseTableProps, BaseTableActions<User> {
 
 export const UsersTable = memo(
   ({ users = [], onDelete, onEdit, deleteOptions, ...rest }: Props) => {
+    const { getColumnSearchProps } = useGetColumnSearchProps<User>();
+
     const columns: ColumnsType<User> = [
       {
         title: "Id",
@@ -23,12 +26,14 @@ export const UsersTable = memo(
         dataIndex: "name",
         key: "name",
         render: (_, user) => <UserLink user={user} />,
+        ...getColumnSearchProps("name"),
       },
 
       {
         title: "Email",
         dataIndex: "email",
         key: "email",
+        ...getColumnSearchProps("email"),
       },
       addBaseTableActions<User>({
         onDelete,
