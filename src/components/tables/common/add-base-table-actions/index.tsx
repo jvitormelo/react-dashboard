@@ -1,5 +1,5 @@
-import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
-import { EditIcon } from "@/components/icons/edit-icon";
+import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
+import { EditIcon } from "@/components/icons/button-icons/edit-icon";
 import { Space } from "antd";
 import { BaseTableActions } from "./types";
 

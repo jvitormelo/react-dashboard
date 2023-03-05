@@ -1,7 +1,7 @@
 import { useUpdateAssetMutation } from "@/api/asset/use-update-asset-mutation";
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { UserAvatar } from "@/components/atoms/user-avatar";
-import { UserPopOver } from "@/components/atoms/user-pop-over";
+import { UserPopOver } from "@/components/molecules/user-pop-over";
 import { BaseModalForm } from "@/components/forms/base-modal-form";
 import {
   ItemsTransfer,

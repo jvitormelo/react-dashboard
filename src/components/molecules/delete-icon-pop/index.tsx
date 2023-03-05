@@ -1,6 +1,6 @@
 import { useTheme } from "@/hooks/use-theme";
 import { Button, Popconfirm } from "antd";
-import { DeleteIcon } from "../delete-icon";
+import { DeleteIcon } from "../../icons/delete-icon";
 import { DeleteIconPopProps } from "./types";
 
 export const DeleteIconPop = ({

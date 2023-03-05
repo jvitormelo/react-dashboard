@@ -1,6 +1,6 @@
 import { useDeleteWorkOrderMutation } from "@/api/work-orders/use-delete-work-order-mutation";
-import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
-import { EditIcon } from "@/components/icons/edit-icon";
+import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
+import { EditIcon } from "@/components/icons/button-icons/edit-icon";
 import { UserLink } from "@/components/molecules/user-link";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { useTheme } from "@/hooks/use-theme";

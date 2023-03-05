@@ -2,7 +2,7 @@ import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useCreateWorkOrder } from "@/api/work-orders/use-create-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
-import { DeleteIconPop } from "@/components/icons/delete-icon-pop";
+import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
 import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/infra/toast";
 import { Asset } from "@/types/entities/asset";

@@ -1,4 +1,4 @@
-import { DeleteIconPopProps } from "@/components/icons/delete-icon-pop/types";
+import { DeleteIconPopProps } from "@/components/molecules/delete-icon-pop/types";
 
 export interface BaseTableActions<T> {
   onCreate?: () => Promise<void> | void;

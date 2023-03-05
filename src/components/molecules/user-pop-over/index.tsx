@@ -2,7 +2,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { UserWithUnit } from "@/types/entities/user";
 import { PartialBy } from "@/types/helpers";
 import { Divider, Popover, Space, Typography } from "antd";
-import { UserAvatar } from "../user-avatar";
+import { UserAvatar } from "../../atoms/user-avatar";
 
 type Item = PartialBy<UserWithUnit, "unit">;
 

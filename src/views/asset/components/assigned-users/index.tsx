@@ -1,4 +1,4 @@
-import { EditIcon } from "@/components/icons/edit-icon";
+import { EditIcon } from "@/components/icons/button-icons/edit-icon";
 import { UserLink } from "@/components/molecules/user-link";
 import { AssetUsersTransfer } from "@/components/transfer/asset-users-transfer";
 import { useModal } from "@/hooks/use-modal";

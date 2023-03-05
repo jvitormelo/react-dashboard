@@ -12,7 +12,7 @@ type Item = {
   href: string;
 };
 
-export const Navigation = () => {
+export const AppNavigation = () => {
   const { companyId, assetId, unitId } = useParamsId();
 
   const { data: company } = useGetCompany(companyId);

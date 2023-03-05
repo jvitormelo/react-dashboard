@@ -1,10 +1,10 @@
-import { Navigation } from "@/components/navigation";
+import { AppNavigation } from "@/components/molecules/app-navigation";
 import { Outlet } from "react-router-dom";
 
 export const BaseLayout = () => {
   return (
     <>
-      <Navigation />
+      <AppNavigation />
 
       <main>
         <Outlet />

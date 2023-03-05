@@ -1,4 +1,4 @@
-import { CloseIcon } from "@/components/icons/close-icon";
+import { CloseIcon } from "@/components/icons/button-icons/close-icon";
 import { ImageUploader } from "@/components/upload/image-uploader";
 import { imageUtils } from "@/utils";
 import { Button, Image, Space } from "antd";

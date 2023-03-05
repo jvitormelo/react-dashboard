@@ -1,4 +1,4 @@
-import { UserPopOver } from "@/components/atoms/user-pop-over";
+import { UserPopOver } from "@/components/molecules/user-pop-over";
 import {
   ControlledRadioInput,
   RadioInputItem,
