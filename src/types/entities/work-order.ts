@@ -18,6 +18,6 @@ export type WorkOrder = {
   status: WorkOrderStatus;
 };
 
-export type WorkOrdersWithUsers = WorkOrder & {
+export type WorkOrderWithUsers = WorkOrder & {
   users: UserWithUnit[];
 };

@@ -5,14 +5,14 @@ import { UserLink } from "@/components/molecules/user-link";
 import { useFeedbackColors, useTheme } from "@/hooks";
 import {
   WorkOrderChecklist,
-  WorkOrdersWithUsers,
+  WorkOrderWithUsers,
 } from "@/types/entities/work-order";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
 import { Divider, List, Spin, Tag, Typography } from "antd";
 import { useUpdateWorkOrderChecklistItem } from "@/api/work-orders/use-update-work-order-checklist-item";
 
 interface Props {
-  workOrder: WorkOrdersWithUsers;
+  workOrder: WorkOrderWithUsers;
 }
 
 const WorkOrderCollapseHeader = ({ workOrder }: Props) => {
@@ -38,7 +38,7 @@ const CheckListItem = ({
   checklistItem,
   workOrder,
 }: {
-  workOrder: WorkOrdersWithUsers;
+  workOrder: WorkOrderWithUsers;
 
   checklistItem: WorkOrderChecklist;
 }) => {
@@ -74,6 +74,7 @@ const CheckListItem = ({
 };
 
 const WorkOrderCollapseContent = ({ workOrder }: Props) => {
+  // TODO receive as prop
   const { editWorkOrder: setEditingWorkOrder } = useAssetViewStore();
   const { theme } = useTheme();
 

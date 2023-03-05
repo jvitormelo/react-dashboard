@@ -1,6 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "./get-all-users";
+import { httpClient } from "@/infra/http-client";
+import { User } from "@/types/entities";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 
-export const useGetAllUsers = () => {
-  return useQuery(["users"], getAllUsers);
+const getAllUsers = async (): Promise<User[]> => httpClient.get("/users");
+
+type Options = UseQueryOptions<User[]>;
+
+export const useGetAllUsers = (options?: Options) => {
+  return useQuery<User[]>(["users"], getAllUsers, {
+    ...options,
+  });
 };

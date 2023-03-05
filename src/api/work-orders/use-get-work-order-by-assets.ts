@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getWorkOrders } from "./get-work-orders";
+import { useGetAllWorkOrders } from "./use-get-all-work-orders";
 
 export const useGetWorkOrdersByAssets = (assetsId: number[]) => {
-  const response = useQuery(["workorders"], getWorkOrders, {
+  const response = useGetAllWorkOrders({
     enabled: !!assetsId.length,
   });
 

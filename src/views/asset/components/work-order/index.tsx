@@ -1,9 +1,9 @@
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
-import { WorkOrdersWithUsers } from "@/types/entities/work-order";
+import { WorkOrderWithUsers } from "@/types/entities/work-order";
 import { Button, Card, Collapse, Typography } from "antd";
 import { useAssetViewStore } from "../../store/asset-view-store";
-import { WorkOrderCollapse } from "./components/collapse";
+import { WorkOrderCollapse } from "../../../../components/molecules/work-order-collapse";
 import { CreateWorkOrderForAsset } from "./components/create";
 import { EditWorkOrderCollapse } from "./components/edit";
 
@@ -11,7 +11,7 @@ const { Panel } = Collapse;
 
 interface Props {
   asset: Asset;
-  workOrders: WorkOrdersWithUsers[];
+  workOrders: WorkOrderWithUsers[];
 }
 
 export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
@@ -22,7 +22,7 @@ export const WorkOrderInfo = ({ workOrders = [], asset }: Props) => {
 
   const hasWorkOrders = workOrders.length > 0;
 
-  const getCurrentCollapse = (workOrder: WorkOrdersWithUsers) => {
+  const getCurrentCollapse = (workOrder: WorkOrderWithUsers) => {
     if (editingWorkOrder?.id === workOrder.id) {
       return {
         header: (

@@ -1,11 +1,10 @@
 import { useGetUnitsByCompany } from "@/api/unit/use-get-units-by-company";
 import { UserWithUnit } from "@/types/entities/user";
-import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "./get-all-users";
+import { useGetAllUsers } from "./use-get-all-users";
 
 export const useGetUsersByCompany = (companyId: number) => {
   const { data: units = [] } = useGetUnitsByCompany(companyId);
-  const response = useQuery(["users"], getAllUsers, {
+  const response = useGetAllUsers({
     enabled: !!companyId,
   });
 

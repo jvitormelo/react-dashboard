@@ -1,13 +1,14 @@
 import { UserAvatar } from "@/components/atoms/user-avatar";
 import { StatisticsCard } from "@/components/cards/statistics-card";
 import { useParamsId, useTheme } from "@/hooks";
-import { Card } from "antd";
+import { Card, Collapse } from "antd";
+import { WorkOrderCollapse } from "../../components/molecules/work-order-collapse";
 import { useUserViewData } from "./hooks/use-user-view-data";
 
 export const UserView = () => {
   const { userId } = useParamsId();
 
-  const { user, isLoading } = useUserViewData(userId);
+  const { user, isLoading, userWorkOrders } = useUserViewData(userId);
 
   const { theme } = useTheme();
 
@@ -58,7 +59,18 @@ export const UserView = () => {
           },
         ]}
       />
-      <Card></Card>
+      <Card>
+        <Collapse>
+          {userWorkOrders?.map((workOrder) => (
+            <Collapse.Panel
+              header={<WorkOrderCollapse.Header workOrder={workOrder} />}
+              key={workOrder.id}
+            >
+              <WorkOrderCollapse.Content workOrder={workOrder} />
+            </Collapse.Panel>
+          ))}
+        </Collapse>
+      </Card>
     </div>
   );
 };

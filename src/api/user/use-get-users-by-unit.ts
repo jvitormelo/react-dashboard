@@ -1,8 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "./get-all-users";
+import { useGetAllUsers } from "./use-get-all-users";
 
 export const useGetUsersByUnit = (unitId: number) => {
-  const response = useQuery(["users"], getAllUsers, {
+  const response = useGetAllUsers({
     enabled: !!unitId,
   });
 
