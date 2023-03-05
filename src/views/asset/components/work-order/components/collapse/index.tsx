@@ -48,8 +48,8 @@ const CheckListItem = ({
   return (
     <List.Item>
       <Typography.Text
-        disabled={isLoading}
         onClick={() =>
+          !isLoading &&
           updateCheckListItem({
             completed: !checklistItem.completed,
             task: checklistItem.task,
