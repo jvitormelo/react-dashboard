@@ -16,7 +16,13 @@ export const ControlledTextArea = <T extends object>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+          }}
+        >
           <label htmlFor={name}>{label}</label>
           <TextArea
             {...props}

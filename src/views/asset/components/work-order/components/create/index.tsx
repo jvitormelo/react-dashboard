@@ -1,7 +1,7 @@
 import { useGetUsersByCompany } from "@/api/user/use-get-users-by-company";
 import { useCreateWorkOrder } from "@/api/work-orders/use-create-work-order";
 import { WorkOrderForm } from "@/components/forms/work-order-form";
-import { WorkOrderSchema } from "@/components/forms/work-order-form/schema";
+import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIconPop } from "@/components/molecules/delete-icon-pop";
 import { useTheme } from "@/hooks/use-theme";
 import { toast } from "@/infra/toast";
@@ -22,7 +22,7 @@ export const CreateWorkOrderForAsset = ({ asset }: Props) => {
 
   const { theme } = useTheme();
 
-  const onSubmitHandler = async (data: WorkOrderSchema) => {
+  const onSubmitHandler = async (data: SubmitWorkOrderSchema) => {
     try {
       await createWorkOrder({
         ...data,

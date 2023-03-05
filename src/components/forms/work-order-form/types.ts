@@ -1,6 +1,6 @@
 import { WorkOrderChecklist } from "@/types/entities/work-order";
-import { WorkOrderSchema } from "./schema";
+import { CreateWorkOrderSchema } from "./schema";
 
-export type SubmitWorkOrderSchema = Omit<WorkOrderSchema, "checklist"> & {
+export type SubmitWorkOrderSchema = Omit<CreateWorkOrderSchema, "checklist"> & {
   checklist: WorkOrderChecklist[];
 };

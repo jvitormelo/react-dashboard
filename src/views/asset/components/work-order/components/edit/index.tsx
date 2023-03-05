@@ -4,7 +4,7 @@ import { WorkOrderForm } from "@/components/forms/work-order-form";
 import { SubmitWorkOrderSchema } from "@/components/forms/work-order-form/types";
 import { DeleteIcon } from "@/components/icons/delete-icon";
 import { Asset } from "@/types/entities/asset";
-import { WorkOrder } from "@/types/entities/work-order";
+import { WorkOrder, WorkOrderChecklist } from "@/types/entities/work-order";
 import { useAssetViewStore } from "@/views/asset/store/asset-view-store";
 
 interface Props {
@@ -45,9 +45,22 @@ export const EditWorkOrderContent = ({ asset, workOrder }: Props) => {
   const { mutateAsync: updateWorkOrder } = useUpdateWorkOrder();
 
   const onSubmit = async (values: SubmitWorkOrderSchema) => {
+    const checklist: WorkOrderChecklist[] = values.checklist.map(
+      (checklistItem) => {
+        const foundChecklistItem = workOrder.checklist.find(
+          (item) => item.task === checklistItem.task
+        );
+
+        if (foundChecklistItem) return foundChecklistItem;
+
+        return checklistItem;
+      }
+    );
+
     await updateWorkOrder({
       ...workOrder,
       ...values,
+      checklist,
     });
     stopEditingWorkOrder();
   };
