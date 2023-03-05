@@ -12,6 +12,7 @@ const updateAsset = async (asset: UpdateAsset): Promise<Asset> => {
 export const useUpdateAssetMutation = () => {
   return useMutation(updateAsset, {
     onSuccess: (data) => {
+      // TODO - create merge fn in the cache manager
       queryClient.setQueryData<Asset[]>(["assets"], (assets) => {
         return assets?.map((cachedAsset) =>
           cachedAsset.id === data.id

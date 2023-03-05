@@ -15,7 +15,7 @@ const createUnit = async (unit: CreateUnitMutation): Promise<Unit> => {
 export const useCreateUnitMutation = () => {
   return useMutation(createUnit, {
     onSuccess: (data) => {
-      unitCacheActions.addOrUpdateUnit(data);
+      unitCacheActions.addUnit(data);
     },
   });
 };

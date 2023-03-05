@@ -17,8 +17,16 @@ const deleteCompany = (id: number) => {
   });
 };
 
-const addOrUpdateCompany = (company: Company) => {
-  queryClientHelpers.addOrUpdate<Company>({
+const addCompany = (company: Company) => {
+  queryClientHelpers.add<Company>({
+    arrayKey: companyArrayKey,
+    item: company,
+    itemKey: companyKey(company.id),
+  });
+};
+
+const updateCompany = (company: Company) => {
+  queryClientHelpers.update<Company>({
     arrayKey: companyArrayKey,
     item: company,
     itemKey: companyKey(company.id),
@@ -28,5 +36,6 @@ const addOrUpdateCompany = (company: Company) => {
 export const companyCacheActions = {
   selectCompany,
   deleteCompany,
-  addOrUpdateCompany,
+  updateCompany,
+  addCompany,
 };

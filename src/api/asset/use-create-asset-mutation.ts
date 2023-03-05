@@ -36,7 +36,7 @@ export const useCreateAssetMutation = () => {
         status: AssetStatus.InOperation,
       };
 
-      assetCacheActions.addOrUpdateAsset(assetWithRandomData);
+      assetCacheActions.addAsset(assetWithRandomData);
     },
   });
 };

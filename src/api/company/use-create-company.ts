@@ -10,7 +10,7 @@ const createCompany = async (company: CompanyFormSchema): Promise<Company> =>
 export const useCreateCompanyMutation = () => {
   return useMutation(createCompany, {
     onSuccess(data) {
-      companyCacheActions.addOrUpdateCompany(data);
+      companyCacheActions.addCompany(data);
     },
   });
 };

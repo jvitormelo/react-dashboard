@@ -5,8 +5,16 @@ const unitItemKey = (id: number | string) => ["unit", id];
 
 const unitArrayKey = ["units"];
 
-const addOrUpdateUnit = (unit: Unit) => {
-  queryClientHelpers.addOrUpdate<Unit>({
+const addUnit = (unit: Unit) => {
+  queryClientHelpers.add<Unit>({
+    arrayKey: unitArrayKey,
+    item: unit,
+    itemKey: unitItemKey(unit.id),
+  });
+};
+
+const updateUnit = (unit: Unit) => {
+  queryClientHelpers.update<Unit>({
     arrayKey: unitArrayKey,
     item: unit,
     itemKey: unitItemKey(unit.id),
@@ -26,7 +34,8 @@ const deleteUnit = (id: number) => {
 };
 
 export const unitCacheActions = {
-  addOrUpdateUnit,
+  addUnit,
+  updateUnit,
   selectUnit,
   deleteUnit,
 };

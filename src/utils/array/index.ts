@@ -4,11 +4,7 @@ interface Params<T> {
   key: keyof T;
 }
 
-const updateOrCreate = <T>({
-  item,
-  key,
-  array,
-}: Params<T>): undefined | T[] => {
+const update = <T>({ item, key, array }: Params<T>): undefined | T[] => {
   if (!array) return array;
 
   const index = array.findIndex((i) => i[key] === item[key]);
@@ -17,11 +13,9 @@ const updateOrCreate = <T>({
 
   if (index >= 0) {
     copy[index] = item;
-    return copy;
-  } else {
-    copy.push(item);
-    return copy;
   }
+
+  return copy;
 };
 
 const remove = <T>({ array, item, key }: Params<T>): undefined | T[] => {
@@ -39,6 +33,6 @@ const remove = <T>({ array, item, key }: Params<T>): undefined | T[] => {
 };
 
 export const arrayUtils = {
-  updateOrCreate,
+  update,
   remove,
 };

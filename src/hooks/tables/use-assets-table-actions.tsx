@@ -22,10 +22,19 @@ export const useAssetsTable = () => {
     const onSubmit = async (values: AssetSchema) => {
       try {
         await updateAsset({
-          ...asset,
-          ...values,
+          assignedUserIds: asset.assignedUserIds,
+          companyId: asset.companyId,
+          healthHistory: asset.healthHistory,
+          healthscore: asset.healthscore,
+          status: asset.status,
+          id: asset.id,
+          metrics: asset.metrics,
+          unitId: asset.unitId,
+          model: values.model,
+          name: values.name,
+          sensors: values.sensors,
           specifications: {
-            ...asset.specifications,
+            maxTemp: values.specifications.maxTemp ?? undefined,
             power: values.specifications.power ?? undefined,
             rpm: values.specifications.rpm ?? undefined,
           },

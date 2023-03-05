@@ -10,7 +10,7 @@ export const useUploadAssetImageMutation = () => {
     const url = imageUtils.createObjectURL(file);
 
     await wait(1000);
-
+    // TODO - create merge fn in the cache manager
     queryClient.setQueryData<Asset[]>(["assets"], (assets) => {
       return assets?.map((cachedAsset) =>
         cachedAsset.id === assetId

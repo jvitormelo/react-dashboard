@@ -9,7 +9,7 @@ const updateCompany = (company: Company): Promise<Company> =>
 export const useUpdateCompanyMutation = () => {
   return useMutation(updateCompany, {
     onSuccess(data) {
-      companyCacheActions.addOrUpdateCompany(data);
+      companyCacheActions.updateCompany(data);
     },
   });
 };

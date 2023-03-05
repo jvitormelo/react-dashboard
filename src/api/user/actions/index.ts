@@ -5,14 +5,21 @@ const usersKey = ["users"];
 
 const userKey = (id: number) => ["user", id];
 
-const setUser = (user: User) => {
-  queryClientHelpers.addOrUpdate<User>({
+const addUser = (user: User) => {
+  queryClientHelpers.add<User>({
     arrayKey: usersKey,
     item: user,
     itemKey: userKey(user.id),
   });
 };
 
+const updateUser = (user: User) => {
+  queryClientHelpers.update<User>({
+    arrayKey: usersKey,
+    item: user,
+    itemKey: userKey(user.id),
+  });
+};
 const selectUser = (user: User) => {
   queryClientHelpers.select(userKey(user.id), user);
 };
@@ -26,9 +33,10 @@ const deleteUser = (id: number) => {
 };
 
 export const userCacheActions = {
-  setUser,
+  addUser,
   deleteUser,
   selectUser,
+  updateUser,
   usersKey,
   userKey,
 };

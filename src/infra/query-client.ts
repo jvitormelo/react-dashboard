@@ -31,6 +31,7 @@ export const queryClientHelpers = {
   select: <T extends BaseItem>(key: QueryKey, item: T) => {
     queryClient.setQueryData(key, item);
   },
+
   removeFromCache: <T extends BaseItem>({
     arrayKey,
     itemKey,
@@ -48,15 +49,22 @@ export const queryClientHelpers = {
       });
     });
   },
-  addOrUpdate: <T extends BaseItem>({
-    arrayKey,
-    item,
-    itemKey,
-  }: AddOrUpdate<T>) => {
+
+  add: <T extends BaseItem>({ arrayKey, item, itemKey }: AddOrUpdate<T>) => {
     queryClient.setQueryData(itemKey, item);
 
     queryClient.setQueryData<T[]>(arrayKey, (oldData) => {
-      return arrayUtils.updateOrCreate<T>({
+      if (!oldData) return oldData;
+
+      return [...oldData, item];
+    });
+  },
+
+  update: <T extends BaseItem>({ arrayKey, item, itemKey }: AddOrUpdate<T>) => {
+    queryClient.setQueryData(itemKey, item);
+
+    queryClient.setQueryData<T[]>(arrayKey, (oldData) => {
+      return arrayUtils.update<T>({
         array: oldData,
         item,
         key: "id",

@@ -9,8 +9,16 @@ const selectAsset = (asset: Asset) => {
   queryClientHelpers.select(itemKey(asset.id), asset);
 };
 
-const addOrUpdateAsset = (asset: Asset) => {
-  queryClientHelpers.addOrUpdate<Asset>({
+const addAsset = (asset: Asset) => {
+  queryClientHelpers.add<Asset>({
+    arrayKey: arrayKey,
+    item: asset,
+    itemKey: itemKey(asset.id),
+  });
+};
+
+const updateAsset = (asset: Asset) => {
+  queryClientHelpers.update<Asset>({
     arrayKey: arrayKey,
     item: asset,
     itemKey: itemKey(asset.id),
@@ -25,8 +33,10 @@ const deleteAsset = (id: number) => {
   });
 };
 
+// TODO - create interface for all cache actions
 export const assetCacheActions = {
-  addOrUpdateAsset: addOrUpdateAsset,
+  addAsset,
+  updateAsset,
   deleteAsset,
   assetsKey: arrayKey,
   assetKey: itemKey,

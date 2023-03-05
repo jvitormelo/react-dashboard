@@ -10,6 +10,6 @@ const updateUser = async (user: UpdateUser): Promise<User> =>
 
 export const useUpdateUserMutation = () => {
   return useMutation(updateUser, {
-    onSuccess: (data) => userCacheActions.setUser(data),
+    onSuccess: (data) => userCacheActions.updateUser(data),
   });
 };

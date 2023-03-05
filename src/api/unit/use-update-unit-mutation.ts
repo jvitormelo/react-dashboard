@@ -10,7 +10,7 @@ const updateUnit = (unit: Unit): Promise<Unit> => {
 export const useUpdateUnitMutation = () => {
   return useMutation(updateUnit, {
     onSuccess: (data) => {
-      unitCacheActions.addOrUpdateUnit(data);
+      unitCacheActions.updateUnit(data);
     },
   });
 };

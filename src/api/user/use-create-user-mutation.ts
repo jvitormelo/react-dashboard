@@ -11,7 +11,7 @@ const createUser = async (user: Omit<User, "id">): Promise<User> => {
 export const useCreateUserMutation = () => {
   return useMutation(createUser, {
     onSuccess: (user) => {
-      userCacheActions.setUser(user);
+      userCacheActions.addUser(user);
       toast.success("User created successfully");
     },
     onError: () => {
