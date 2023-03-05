@@ -15,6 +15,7 @@ import { stringUtils } from "@/utils/string";
 import { useState } from "react";
 import { BaseModalForm } from "../base-modal-form";
 import { WorkOrderSchema, workOrderSchema } from "./schema";
+import "./styles.scss";
 
 interface Props {
   onSubmitHandler: (data: WorkOrderSchema) => Promise<void>;
@@ -60,8 +61,8 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
       label: namesUtils.getWorkOrderPriorityName(priority),
       value: priority,
       style: {
-        fontWeight: "bold",
         color: workOrderPriorityToColor(priority, "hex"),
+        fontWeight: "bold",
       },
     })
   );
@@ -114,6 +115,8 @@ export const WorkOrderForm = ({ onSubmitHandler, users = [] }: Props) => {
         options={priorityOptions}
         label="Priority"
         optionType="button"
+        rootClassName="radioInput"
+        className="radioInput"
         buttonStyle="solid"
       />
     </BaseModalForm>
