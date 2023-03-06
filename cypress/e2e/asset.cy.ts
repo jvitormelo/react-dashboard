@@ -11,15 +11,32 @@ describe("Asset spec", () => {
     cy.get("button[type='submit']").should("not.be.disabled").click();
 
     // click in the Model select and select the first option
-    cy.get("input[role='combobox']").first().click();
+    cy.get("input[role='combobox']")
+      .first()
+      .click()
+      .type("{enter}", { force: true });
 
-    cy.type("{enter}");
+    cy.get("input[role='combobox']")
+      .last()
+      .click()
+      .type("{enter}", { force: true })
+      .type("{esc}", { force: true });
 
-    cy.get("div[role");
+    cy.get("input[name='specifications.maxTemp']").type("50");
 
-    cy.contains("Asset created successfully", { timeout: 5000 }).should(
-      "be.visible"
+    cy.get('button[type="submit"]').should("not.be.disabled").click();
+
+    cy.get("input[type=file]").selectFile(
+      {
+        contents: "cypress/fixtures/asset.jpeg",
+        mimeType: "image/jpeg",
+      },
+      { force: true }
     );
+
+    cy.contains("button", "Create Asset").click();
+
+    cy.contains("Asset created", { timeout: 5000 }).should("be.visible");
 
     cy.contains("a", assetName).should("be.visible");
   });
