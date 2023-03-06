@@ -10,6 +10,13 @@ describe("Asset spec", () => {
 
     cy.get("button[type='submit']").should("not.be.disabled").click();
 
+    // click in the Model select and select the first option
+    cy.get("input[role='combobox']").first().click();
+
+    cy.type("{enter}");
+
+    cy.get("div[role");
+
     cy.contains("Asset created successfully", { timeout: 5000 }).should(
       "be.visible"
     );
