@@ -1,10 +1,27 @@
-# Front-end Challenge
+# React Dashboard
+
+## Stack
+
+- React
+- Typescript
+- Ant Design
+- React Query
+- Zustand
+- React Hook Form
+- Zod
+- React Router
+- Highcharts
+- Vite
+- Cypress
 
 ## WIP:
 
-- User page > 50% need show all assets of the user
-- Create user
+- User page (need show all assets of the user)
 - Tests
-- Tree view > Some question > add Link to All entities? Show the popover or no?
-- Tablet + Mobile
+- Tree (improve the tree navigation)
 - Fix all Todos
+- A lot of refactors
+
+## Future
+
+- Add more tests (unit and components)
