@@ -5,6 +5,7 @@ import { useParamsId, useTheme } from "@/hooks";
 import { Card, Collapse } from "antd";
 import { WorkOrderCollapse } from "../../components/molecules/work-order-collapse";
 import { useUserViewData } from "./hooks/use-user-view-data";
+import styles from "./styles.module.scss";
 
 export const UserView = () => {
   const { userId } = useParamsId();
@@ -14,21 +15,19 @@ export const UserView = () => {
   const { theme } = useTheme();
 
   const containerStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
     gridGap: theme.marginMD,
   };
 
   if (isLoading || !user)
     return (
-      <div style={containerStyle}>
+      <div className={styles.container} style={containerStyle}>
         <SkeletonCard />
         <SkeletonCard />
       </div>
     );
 
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle} className={styles.container}>
       <StatisticsCard
         header={
           <div

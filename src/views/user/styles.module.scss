@@ -1,0 +1,10 @@
+@import "/src/styles/variables";
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include max-width(lg) {
+    grid-template-columns: 1fr;
+  }
+}
