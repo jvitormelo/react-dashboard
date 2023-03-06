@@ -5,6 +5,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { useGetCompanyResources } from "@/views/company/hooks/use-get-company-resources";
 import { CompanyInfoCard } from "../company-info-card";
+import styles from "./styles.module.scss";
 
 interface Props {
   companyId: number;
@@ -25,10 +26,9 @@ export const CompanyViewHeader = ({
 
   return (
     <header
+      className={styles.container}
       style={{
-        display: "grid",
         gap: theme.marginMD,
-        gridTemplateColumns: "1fr 1fr 1fr",
         marginBottom: theme.marginMD,
       }}
     >

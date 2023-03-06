@@ -37,7 +37,14 @@ export const DataTable = <T extends BaseItem>({
   return (
     <Card>
       {header}
-      <Table loading={loading} dataSource={items} columns={columns} />
+      <Table
+        style={{
+          overflow: "scroll",
+        }}
+        loading={loading}
+        dataSource={items}
+        columns={columns}
+      />
     </Card>
   );
 };

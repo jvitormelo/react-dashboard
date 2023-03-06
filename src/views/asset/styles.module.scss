@@ -1,0 +1,19 @@
+@import "/src/styles/variables";
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  @include max-width(lg) {
+    grid-template-columns: 1fr;
+  }
+
+  .assignedUsers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    @include max-width(lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

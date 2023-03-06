@@ -6,6 +6,7 @@ import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { nameUtils } from "@/utils/name";
 import { AssetMetricCard } from "./components/asset-metric-card";
+import styles from "./styles.module.scss";
 
 interface Props {
   asset: Asset | undefined;
@@ -16,8 +17,6 @@ export const AssetHeader = ({ asset }: Props) => {
   const { assetStatusToColor, healthScoreToColor } = useFeedbackColors();
 
   const headerStyle = {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
     gap: theme.marginMD,
   };
 
@@ -31,7 +30,7 @@ export const AssetHeader = ({ asset }: Props) => {
     );
 
   return (
-    <header style={headerStyle}>
+    <header style={headerStyle} className={styles.header}>
       <div
         style={{
           display: "grid",

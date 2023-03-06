@@ -8,6 +8,8 @@ import { useCreateCompanyModal } from "./hooks/use-create-company-modal";
 import { useDeleteCompany } from "./hooks/use-delete-company";
 import { useUpdateCompanyModal } from "./hooks/use-update-company-modal";
 
+import styles from "./styles.module.scss";
+
 export const CompaniesView = () => {
   const { data: companies, isLoading } = useGetAllCompanies();
 
@@ -30,28 +32,25 @@ export const CompaniesView = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 3fr",
-          gap: theme.marginMD,
+    <div
+      className={styles.container}
+      style={{
+        gap: theme.marginMD,
+      }}
+    >
+      <CompanyTree />
+      <CompanyTable
+        headerProps={{
+          buttonLabel: "New Company",
+          onButtonClick: openCreateModal,
+          title: "Companies",
         }}
-      >
-        <CompanyTree />
-        <CompanyTable
-          headerProps={{
-            buttonLabel: "New Company",
-            onButtonClick: openCreateModal,
-            title: "Companies",
-          }}
-          onSelect={selectCompany}
-          onDelete={deleteCompanyHandler}
-          onEdit={editCompany}
-          companies={companies}
-          loading={isLoading}
-        />
-      </div>
-    </>
+        onSelect={selectCompany}
+        onDelete={deleteCompanyHandler}
+        onEdit={editCompany}
+        companies={companies}
+        loading={isLoading}
+      />
+    </div>
   );
 };

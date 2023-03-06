@@ -3,6 +3,7 @@ import { AssetStatus, assetStatusArray } from "@/constants/asset-status";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { memo } from "react";
+import styles from "./styles.module.scss";
 
 interface Props {
   assets: Asset[];
@@ -18,11 +19,9 @@ export const UnitHeader = memo(({ assets, loading }: Props) => {
 
   return (
     <header
+      className={styles.header}
       style={{
-        display: "flex",
-        flexWrap: "nowrap",
         gap: theme.marginMD,
-        margin: "0 auto",
         marginBottom: theme.marginXL,
       }}
     >

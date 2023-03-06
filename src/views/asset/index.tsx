@@ -6,6 +6,7 @@ import { AssetAssignedUsers } from "./components/assigned-users";
 import { AssetHealthTimeline } from "./components/health-timeline";
 import { WorkOrderInfo } from "./components/work-order";
 import { useAssetView } from "./hooks/use-asset-view";
+import styles from "./styles.module.scss";
 
 export const AssetView = () => {
   const { assetWithUser, workOrdersWithUsers = [], isLoading } = useAssetView();
@@ -19,9 +20,8 @@ export const AssetView = () => {
       <AssetHeader asset={assetWithUser} />
 
       <div
+        className={styles.content}
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
           gap: theme.marginMD,
           marginTop: theme.marginMD,
         }}
@@ -41,9 +41,8 @@ export const AssetView = () => {
           />
 
           <div
+            className={styles.assignedUsers}
             style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
               gap: theme.marginMD,
             }}
           >
