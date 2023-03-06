@@ -81,7 +81,6 @@ export const AssetsTable = memo(
         title: "Health Score",
         dataIndex: "healthscore",
         key: "healthscore",
-        defaultSortOrder: "descend",
         sorter: (a, b) => a.healthscore - b.healthscore,
         render: (healthscore) => (
           <StatusTag status={healthscore} text={`${healthscore}%`} />
