@@ -1,7 +1,7 @@
 import { AssetStatus } from "@/constants/asset-status";
 import { useFeedbackColors } from "@/hooks/use-feedback-colors";
 import { Asset } from "@/types/entities/asset";
-import { chartUtils } from "@/utils/chart";
+import { arrayUtils } from "@/utils/array";
 import { nameUtils } from "@/utils/name";
 
 interface Props {
@@ -19,11 +19,10 @@ type FormattedAsset = {
   color: string;
 };
 
-// TODO - create tests
 export const useAssetsStatusChart: Hook = ({ assets }) => {
   const { assetStatusToColor } = useFeedbackColors();
 
-  const formattedAssets = chartUtils.groupData<Asset, FormattedAsset>(
+  const formattedAssets = arrayUtils.groupData<Asset, FormattedAsset>(
     assets,
     (formattedAsset, asset) => formattedAsset.status === asset.status,
     (asset) => ({

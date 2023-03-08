@@ -1,4 +1,6 @@
 import { StatisticsCard } from "@/components/cards/statistics-card";
+import { EditIcon } from "@/components/icons";
+import { useAssetsTable } from "@/hooks/tables/use-assets-table-actions";
 import { useTheme } from "@/hooks/use-theme";
 import { Asset } from "@/types/entities/asset";
 import { nameUtils } from "@/utils";
@@ -8,9 +10,10 @@ interface Props {
   asset: Asset;
 }
 
-// TODO - need to find a place to show the ID of the asset
 export const AssetInfo = ({ asset }: Props) => {
   const { theme } = useTheme();
+
+  const { onEdit: editAsset } = useAssetsTable();
 
   const items = [
     {
@@ -55,6 +58,15 @@ export const AssetInfo = ({ asset }: Props) => {
           justifyContent: "center",
         }}
       >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: theme.marginSM,
+          }}
+        >
+          <EditIcon onClick={() => editAsset(asset)} />
+        </div>
         <Image height={500} src={asset.image} alt={asset.name} />
       </Card>
 

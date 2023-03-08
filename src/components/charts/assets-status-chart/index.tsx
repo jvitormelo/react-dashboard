@@ -1,7 +1,7 @@
 import { Asset } from "@/types/entities/asset";
 import { memo } from "react";
 import { BaseChart, ChartOptions } from "../base-chart";
-import { useAssetsStatusChart } from "./hooks/useAssetsStatusChart";
+import { useAssetsStatusChart } from "./hooks/use-assets-status-chart";
 
 interface Props {
   assets?: Asset[];
